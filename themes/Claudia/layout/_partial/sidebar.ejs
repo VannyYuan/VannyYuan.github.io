@@ -37,6 +37,7 @@
     }
     /*Site box end*/
 
+
     .category-list-item,
     .archive-list-item {
         display: flex;
@@ -172,6 +173,7 @@
         <div class="has-text-centered">
             <strong>Tags</strong>
         </div>
+        阅读数量:<span id="<%= url_for(post.path) %>" class="leancloud_visitors" data-flag-title="<%- post.title %>"></span>次
         <div class="content-inner is-flex flex-wrap justify-space-between">
             <% site.tags.map(function(tag){ %>
                 <a class="tags-item" href="<%= tag.path %>" title="<%= tag.name %>" rel="<%= tag.length %>">
