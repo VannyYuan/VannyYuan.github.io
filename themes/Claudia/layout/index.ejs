@@ -1,6 +1,6 @@
 <style>
     .post-hover:hover {
-        box-shadow: inset 0 0 100px #000;
+        box-shadow: inset 0 0 100px rgb(255, 161, 85);
         transition: box-shadow .2s;
     }
 
@@ -26,11 +26,11 @@
     }
 
     .primary-container .post-hover {
-        background: black;
+        background: rgb(248, 218, 218);
     }
 
     .content-bg-mask {
-        background: rgba(0,0,0,.4);
+        background: rgba(202, 78, 78, 0.4);
     }
 
 </style>
@@ -81,7 +81,6 @@
                                             <%- truncate(strip_html(post.content), {length: 180, omission: '..'}) %>
                                         </p>
                                         <p><%= post.date.format(config.date_format) %></p>
-                                        <button class="button is-small">Read More</button>
                                     </div>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
     width: 100%;
     top:0;
     z-index: 2;
-    border-top: 2px solid black;
+    border-top: 2px solid rgb(248, 218, 218);
     border-bottom: 1px solid #f1f1f1;
     background-color:#fff;
 }
@@ -99,7 +99,7 @@
 
 .nav-item .logo {
     position: relative;
-    background-image: -webkit-linear-gradient(left, red, orange);
+    background-image: -webkit-linear-gradient(left, rgb(75, 195, 243), rgb(167, 0, 158));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -112,15 +112,22 @@
     top:0;
     left: 0;
 
-    background: black;
+    background: rgb(248, 218, 218, 0.4);
 
     z-index: -1;
 
     border-radius: 4px;
 }
 
+.nav-item .bloglogo {
+    position: relative;
+    background-image: -webkit-linear-gradient(left, rgb(236, 215, 145), rgb(246, 179, 179));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .nav-right .nav-item {
     text-transform: uppercase;
-    color: black;
+    color: rgb(246, 179, 179);
 }
 

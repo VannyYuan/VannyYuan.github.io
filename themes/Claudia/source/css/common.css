@@ -93,11 +93,11 @@
 
 /*content start*/
 .sub-title {
-    color: darkgray;
+    color: rgb(167, 0, 158);
 }
 
 .text-shadow {
-    text-shadow: 0 1px 20px black;
+    text-shadow: 0 1px 20px rgb(0, 0, 0, 0.4);
 }
 /*position end*/
 
@@ -143,10 +143,10 @@
 
 /*通用样式*/
 .is-post-tag {
-    background: rgba(0,0,0,0);
+    background: rgb(248, 228, 112);
     border-radius: 3px;
-    border: 1px solid orangered;
-    color: orangered;
+    /* border: 1px solid rgb(255, 125, 3); */
+    color: green;
 }
 
 .is-invisible {

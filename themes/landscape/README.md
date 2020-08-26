@@ -36,7 +36,7 @@ rss: /atom.xml
 
 # Content
 excerpt_link: Read More
-fancybox: true
+fancybox: false
 
 # Sidebar
 sidebar: right
