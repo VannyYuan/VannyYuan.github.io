@@ -45,7 +45,7 @@
                 <img class="post-avatar" src="<%- theme.user_avatar %>">
                 <span style="padding:0 10px;"> <span class="sub-title">By</span> <%- theme.user_name%></span>
                 <span class="post-date sub-title">at: <%= post.date.format(config.date_format) %></span>
-                <span style="padding:0 10px;"><span class="sub-title"> 阅读数量:<span id="<%= url_for(post.path) %>" class="leancloud_visitors" data-flag-title="<%- post.title %>"></span>次</span></span>
+                <!-- <span style="padding:0 10px;"><span class="sub-title"> 阅读数量:<span id="<%= url_for(post.path) %>" class="leancloud_visitors" data-flag-title="<%- post.title %>"></span>次</span></span> -->
             </div>
             <% if(post.tags){%>
                 <div>

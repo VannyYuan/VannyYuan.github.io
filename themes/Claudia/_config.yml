@@ -60,7 +60,7 @@ favicon: /favicon.png
 block_highlight: highlight_rainbow
 
 leancloud_visitors:
-  enable: true
+  enable: false
   app_id: s8UCwVaNgp0q4o04iCahdffr-gzGzoHsz
   app_key: rFknIVPenYekxY7a0CgFSn8G
 
