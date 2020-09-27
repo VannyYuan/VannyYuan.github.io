@@ -43,7 +43,7 @@ fun_features: # 一些好玩的功能
 
 dark_mode:   # 主题暗色模式，开启后菜单中会出现切换按钮，用户浏览器会存储切换选项，并且会遵循 prefers-color-scheme 自动切换
   enable: true
-  default: auto  # 默认的模式：auto | light | dark，选择 auto 时优先遵循 prefers-color-scheme，其次按用户本地时间 18 点到次日 6 点之间进入暗色模式，**注意：当用户手动切换后则不再按照默认模式**
+  default: dark  # 默认的模式：auto | light | dark，选择 auto 时优先遵循 prefers-color-scheme，其次按用户本地时间 18 点到次日 6 点之间进入暗色模式，**注意：当用户手动切换后则不再按照默认模式**
 
 color:  # 主题颜色配置，不一定能每一处都生效，可能会被局部样式覆盖，这种情况建议用自定义 css 解决。配色可以在这获得启发： https://www.webdesignrankings.com/resources/lolcolors/
   body_bg_color: "#eee"             # body 背景色
@@ -372,8 +372,8 @@ about:  # 关于页需要手动创建，具体请见：https://hexo.fluid-dev.co
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle:  # 打字机内容
   avatar: /img/avatar.png # 头像
-  name: myname
-  introduce: '一句简短的介绍' # 支持 HTML
+  name: Vanny Yuan
+  introduce: '嘀嗒' # 支持 HTML
   icons: # 更多图标可从 https://hexo.fluid-dev.com/docs/icon/ 查找，class 代表图标的 css class
     - { class: 'iconfont icon-github-fill', link: 'https://github.com', tip: 'GitHub' }
     - { class: 'iconfont icon-douban-fill', link: 'https://douban.com', tip: '豆瓣' }
