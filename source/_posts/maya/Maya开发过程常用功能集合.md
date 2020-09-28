@@ -87,7 +87,9 @@ cmds.objectType('sceneConfigurationScriptNode')
 ```
 
 ### 💎 <font color=FireBrick>使用PySide2创建Maya置顶的窗口</font>
-&emsp;&emsp;Maya2016版本以上就用PySide2了。该内容参考来源 [智伤帝 - Python Qt 开发教程 扩展说明](https://blog.l0v0.com/%2Fposts%2F2e0af969.html)。
+&emsp;&emsp;Maya2016版本以上会自带PySide2，我们可以使用PySide2在Maya中创建窗口。
+
+&emsp;&emsp;M该内容参考来源 [智伤帝 - Python Qt 开发教程 扩展说明](https://blog.l0v0.com/%2Fposts%2F2e0af969.html)。
 ```python
 import maya.OpenMayaUI as omui
 try:
@@ -105,17 +107,24 @@ def mayaToQT(name):
     if ptr is not None:
         return wrapInstance(long(ptr), QWidget)
 
+# ! 检查窗口多开
 global XG_WIN
 if 'XG_WIN' in globals():
     if cmds.window(XG_WIN, q=1, ex=1):
         cmds.evalDeferred("cmds.deleteUI(\"" + XG_WIN + "\")")
 
+# ! 获取 Qt 窗口控件
 tool_ui = p_xgmArchiveExportBatchUI(False)
+# ! 创建 Maya 窗口
 XG_WIN = cmds.window(title=tool_ui.windowTitle())
+# ! 显示 Maya 窗口
 cmds.showWindow(XG_WIN)
+# ! Maya 窗口转换为 Qt 对象
 ptr = mayaToQT(XG_WIN)
+# ! Maya 窗口添加 Qt 布局
 ptr.setLayout(QVBoxLayout())
 ptr.layout().setContentsMargins(0, 0, 0, 0)
+# ! 把 Qt 窗口控件添加到 Maya 窗口布局中
 ptr.layout().addWidget(tool_ui)
 ptr.setFixedSize(QSize(tool_ui.width(), tool_ui.height()))
 ```
