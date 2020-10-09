@@ -4,7 +4,6 @@ tags: [MAYA,SUM]
 category: Maya
 ---
 
-#### 
 &emsp;&emsp;由于我的工作需要在Maya上进行开发，所以想总结一下自己常用的功能，以免下次自己使用的时候忘记。
 
 ### ❌ <font color=FireBrick>Traceback 显示详细的报错信息</font>
