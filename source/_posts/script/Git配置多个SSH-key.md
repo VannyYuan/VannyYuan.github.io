@@ -1,5 +1,5 @@
 ---
-title: [转]Git配置多个SSH-key
+title: Git配置多个SSH-key
 tags: [SCRIPT]
 category: SCRIPT
 ---
@@ -26,7 +26,7 @@ $ ssh-keygen -t rsa -C "your email” -f ~/.ssh/github_rsa
 ### 2. 添加公钥到代码平台
 &emsp;&emsp;分别登录github和公司代码托管平台，在“Setting - SSH-keys”中添加公钥。
 
-![]([转]Git配置多个SSH-key/公钥.png)
+![](Git配置多个SSH-key/公钥.png)
 
 &emsp;&emsp;填写好名称和内容后，点击“Add SSH key”。
 
@@ -38,7 +38,7 @@ $ ssh-add ~/.ssh/id_rsa $ ssh-add ~/.ssh/id_rsa
 
 &emsp;&emsp;如果运行后出现“Could not open a connection to your authentication agent.”，执行“ssh-agent bash”后再重新执行添加命令。
 
-![]([转]Git配置多个SSH-key/not_connect.png)
+![](Git配置多个SSH-key/not_connect.png)
 
 ```
 $ ssh-agent bash
@@ -85,4 +85,4 @@ $ ssh -T git@git.popic.com
 
 &emsp;&emsp;成功！🎉
 
-![]([转]Git配置多个SSH-key/succeed.png)
+![](Git配置多个SSH-key/succeed.png)
