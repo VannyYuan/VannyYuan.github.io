@@ -1,5 +1,5 @@
 ---
-title: 使用cv2进行图像匹配（一）
+title: 使用cv2进行图像匹配
 tags: [SCRIPT,PYTHON,cv2]
 category: [SCRIPT,cv2]
 ---
@@ -16,7 +16,7 @@ pip3 install opencv-python
 
 &emsp;&emsp;安装成功：
 
-![](使用cv2进行图像匹配（一）/pip安装.png)
+![](使用cv2进行图像匹配/pip安装.png)
 
 😮 <font color=orange>题外话 Begin</font>
 
@@ -90,9 +90,9 @@ cv2.imwrite('sky_2.png',img, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])
 
 运行后显示图片：
 
-![](使用cv2进行图像匹配（一）/显示的图像.png)
+![](使用cv2进行图像匹配/显示的图像.png)
 
 运行结束后保存图片：
 
-![](使用cv2进行图像匹配（一）/保存的图像.png)
+![](使用cv2进行图像匹配/保存的图像.png)
 
