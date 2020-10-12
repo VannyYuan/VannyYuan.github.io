@@ -121,3 +121,31 @@ $(document).ready(function() {
   scrollDownArrowEvent();
   scrollTopArrowEvent();
 });
+
+
+// Note 添加 comment 特殊样式
+$(".comment").each(function(){
+  let py_long_comment = $(this).text().slice(0,6).toLowerCase()
+  let c_long_comment = $(this).text().slice(0,7).toLowerCase()
+  let py_short_comment = $(this).text().slice(0,3).toLowerCase()
+  let c_short_comment = $(this).text().slice(0,4).toLowerCase()
+  
+  if (py_long_comment == "# note" || c_long_comment == "// note"){
+      $(this).css({
+          "color":"#FFD700",
+          "font-style": "normal"
+      })
+  }
+  else if (py_long_comment == "# todo" || c_long_comment == "// todo"){
+      $(this).css({
+          "color":"#FF8C00",
+          "font-style": "normal"
+      })
+  }
+  if (py_short_comment == "# !" || c_short_comment == "// !"){
+      $(this).css({
+          "color":"#FF2D00",
+          "font-style": "normal"
+      })
+  }
+})

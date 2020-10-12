@@ -2,6 +2,7 @@
 title: Maya开发过程常用功能集合
 tags: [MAYA,SUM]
 category: Maya
+top: true
 ---
 
 &emsp;&emsp;由于我的工作需要在Maya上进行开发，所以想总结一下自己常用的功能，以免下次自己使用的时候忘记。
