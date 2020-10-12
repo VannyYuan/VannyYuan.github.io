@@ -1,7 +1,7 @@
 ---
 title: Git配置多个SSH-key
 tags: [SCRIPT]
-category: SCRIPT
+category: [SCRIPT,Common]
 ---
 
 &emsp;&emsp;该内容主要源于 [Git配置多个SSH key](https://blog.csdn.net/hao495430759/article/details/80673568)。

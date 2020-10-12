@@ -128,4 +128,64 @@ ptr.layout().addWidget(tool_ui)
 ptr.setFixedSize(QSize(tool_ui.width(), tool_ui.height()))
 ```
 
+### 🔎 <font color=FireBrick>加快Maya启动速度</font>
+&emsp;&emsp;Maya在启动时会获取服务器登陆信息，在断网的工作状态下，会由于无法联网而不断重新获取，因此会卡住一段时间，对于需要频繁打开关闭maya测试会十分影响效率。
+
+&emsp;&emsp;在“文档\maya\2018（视下载版本而定）”文件夹的“Maya.env”文件中，添加```MAYA_DISABLE_CLIC_IPM=1```即可关闭在线登入功能，提高maya打开的速度。
+
+![](Maya开发过程常用功能集合/加快maya启动.png)
+
+&emsp;&emsp;运行以下文件可以对该电脑内所有maya版本的“Maya.env”文件添加“MAYA_DISABLE_CLIC_IPM=1”。
+```python
+# -*- coding: utf-8 -*-
+import os
+import re
+import ctypes
+from ctypes.wintypes import MAX_PATH
+import win32api,win32con
+
+def setting():
+    # ! 获取文档路径
+    dll = ctypes.windll.shell32
+    buf = ctypes.create_unicode_buffer(MAX_PATH + 1)
+    if dll.SHGetSpecialFolderPathW(None, buf, 0x0005, False):
+        doc_path = buf.value
+    else:
+        return False
+    maya_path = doc_path + '/' + 'maya'
+    maya_path = maya_path.replace('\\', '/')
+
+    if not os.path.exists(maya_path):
+        win32api.MessageBox(0,u'文档下没有maya文件夹!', u'MayaEnv配置失败',win32con.MB_OK)
+        return
+
+    # ! 获取mayaenv路径
+    maya_env_list = []
+    file_list = os.listdir(maya_path)
+    for _file in file_list:
+        match = re.match('^(20\d\d)',_file)
+        maya_dir = maya_path + '/' + _file
+        if match and os.path.isdir(maya_dir):
+            maya_env_list.append(maya_path + '/' + _file + '/maya.env')
+
+    if not maya_env_list:
+        win32api.MessageBox(0, u'maya文件夹下没有对应版本的maya!', u'MayaEnv配置失败',win32con.MB_OK)
+        return
+
+    setting_content = 'MAYA_DISABLE_CLIC_IPM=1'
+    lines = []
+    for path in maya_env_list:
+        # ! 添加配置
+        with open(path,'a+') as fp:
+            content = fp.read()
+            if not setting_content in content:
+                fp.seek(0)
+                fp.write('\n' + setting_content)
+        
+    win32api.MessageBox(0, u'配置成功!', u'MayaEnv配置',win32con.MB_OK)
+
+if __name__ == '__main__':
+    setting()
+```
+
 🖌 待续未完...

@@ -1,7 +1,7 @@
 ---
 title: 按下“ESC”中断运行中的for循环
 tags: [SCRIPT,PYTHON,MAYA]
-category: SCRIPT
+category: [SCRIPT,Common]
 ---
 
 &emsp;&emsp;假设有一个程序，运行过程中每隔一秒打印一次数字，当键盘按下“ESC”时，使该循环终止。
