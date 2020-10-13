@@ -2,7 +2,6 @@
 title: Maya制作文件问题集合
 tags: [MAYA,SUM]
 category: Maya
-top: true
 ---
 
 &emsp;&emsp;由于工作中经常遇到Maya中奇奇怪怪的问题上，所以总结一下一些遇到的小问题。
@@ -36,7 +35,7 @@ cmds.delete(cam)
 
 ### 🌄 <font color=FireBrick>内存不足，纹理加载失败警告</font>
 
-&emsp;&emsp;<font color=orange>原因：</font>场景中包含多个高分辨率纹理，以致您的显卡没有足够的内存来处理，则不会加载这些纹理并以非纹理模式显示该场景
+&emsp;&emsp;<font color=orange>原因：</font>场景中包含多个高分辨率纹理，以致您的显卡没有足够的内存来处理，则不会加载这些纹理并以非纹理模式显示该场景。
 
 
 &emsp;&emsp;<font color=orange>解决：</font>

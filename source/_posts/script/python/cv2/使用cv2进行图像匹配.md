@@ -6,8 +6,6 @@ category: [SCRIPT,cv2]
 
 &emsp;&emsp;本节介绍cv2在python中的安装，及其读取、显示、保存图片功能用法。
 
-&emsp;&emsp;参考：https://blog.csdn.net/fu6543210/article/details/80835280
-
 ### 🔻 安装cv2
 &emsp;&emsp;利用pip3 install 安装
 ```
@@ -43,11 +41,15 @@ import cv2
 ```
 
 ### 👀 读取、显示、保存图像
+参考：https://blog.csdn.net/qq_42079689/article/details/102535329
 #### <font color=pink>读取图像 cv2.imread(filepath,flags)</font>
-- filepath：读入图像路径
-- flags：参数
-  - cv2.IMREAD_COLOR：读入一副彩色图像。图像的透明度会被忽略，这是默认参数
-  - cv2.IMREAD_GRAYSCALE：以灰度模式读入图像
+- filepath：读入图像路径（索引地址）
+- flags：用于指定以什么样的格式来读取图像
+  - flags = 1 / cv2.IMREAD_UNCHANGED：采用保持原始格式的方式读取图像。默认参数。
+  - flags = 2 / cv2.IMREAD_GRAYSCALE：以灰度图像格式读取图像。无论原始图像原来是什么格式，读取后都的结果都转变为灰度图像。
+  - flags = 3 / cv2.IMREAD_COLOR：以BGR格式读取图像。无论原始图像原来是什么格式，读取后都的结果都转变为BGR形式的三通道图像。
+
+需要特别注意的是：cv2.imread()函数读取RGB图像时，返回的图像格式的通道并不是按R、G、B排列的，而是按B、G、R顺序排列的。
 
 #### <font color=pink>显示图像 cv2.imshow(wname,img)</font>
 - wname：显示窗口的名字
@@ -64,6 +66,7 @@ import cv2
 #### <font color=orange>实例</font>
 &emsp;&emsp;以“sky.jpg”图片为例进行图像读取、显示及保存。
 ```python
+# -*- coding:utf-8 -*-
 import cv2
 
 # ! 读入一张图像，读取方式为灰度模式
@@ -95,4 +98,54 @@ cv2.imwrite('sky_2.png',img, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])
 运行结束后保存图片：
 
 ![](使用cv2进行图像匹配/保存的图像.png)
+
+
+
+### 🎆 翻转、复制、颜色空间转换图像
+参考：https://blog.csdn.net/djcxym/article/details/52097812
+#### <font color=pink>翻转图像 cv2.flip(img,flipcode)</font>
+- img：需要翻转的图像（使用imread读入）
+- flipcode：控制翻转效果
+  - flipcode = 0：沿x轴翻转
+  - flipcode > 0：沿y轴翻转
+  - flipcode < 0：x,y轴同时翻转
+
+```python
+# ! 翻转图像
+img = cv2.flip(img,0)
+```
+
+#### <font color=pink>复制图像 cv2.flip(img,flipcode)</font>
+```python
+imgcopy = img.copy()
+```
+
+#### <font color=pink>颜色空间转化 cv2.flip(img,flipcode)</font>
+```python
+# 彩色图像转为灰度图像
+img2 = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY) 
+# 灰度图像转为彩色图像
+img3 = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
+# cv2.COLOR_X2Y，其中X,Y = RGB, BGR, GRAY, HSV, YCrCb, XYZ, Lab, Luv, HLS
+```
+
+### 🔍 图像匹配
+参考：https://blog.csdn.net/zhusongziye/article/details/93393725
+#### <font color=pink>模版匹配 cv2.matchTemplate()</font>
+&emsp;&emsp;已知一幅小图像（即模版），一幅大图像，该大图像中有需要匹配的目标，且该目标与模板有相同的尺寸、方向和图像元素，则可以通过模版匹配在图中找到目标。
+
+![](使用cv2进行图像匹配/模版匹配.png)
+
+&emsp;&emsp;该函数作用是在模板和输入图像之间寻找匹配，获得匹配结果图像。其中模板匹配的算法：
+1. 利用平方差来进行匹配，最好匹配为0。匹配越差，匹配值越大。
+   - 平方差匹配：CV_TM_SQDIFF
+   - 标准平方差匹配：CV_TM_SQDIFF_NORMED
+1. 采用模板和图像间的乘法操作，得出数值越大表示匹配程度较高，0为最坏匹配。
+   - 相关匹配：CV_TM_CCORR
+   - 标准相关匹配：CV_TM_CCORR_NORMED
+1. 将模版对其均值的相对值与图像对其均值的相关值进行匹配，1表示完美匹配，-1表示糟糕的匹配，0表示没有任何相关性(随机序列)。
+   - 相关系数匹配：CV_TM_CCOEFF
+   - 标准相关系数匹配：CV_TM_CCOEFF_NORMED
+
+&emsp;&emsp;标准化意味着将数值统一到0~1。除了平方差类型的是值越小越好，其他的都是值越大越好。
 

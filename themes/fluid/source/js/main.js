@@ -115,14 +115,6 @@ function scrollTopArrowEvent() {
   });
 }
 
-$(document).ready(function() {
-  navbarScrollEvent();
-  parallaxEvent();
-  scrollDownArrowEvent();
-  scrollTopArrowEvent();
-});
-
-
 // Note 添加 comment 特殊样式
 $(".comment").each(function(){
   let py_long_comment = $(this).text().slice(0,6).toLowerCase()
@@ -149,3 +141,10 @@ $(".comment").each(function(){
       })
   }
 })
+
+$(document).ready(function() {
+  navbarScrollEvent();
+  parallaxEvent();
+  scrollDownArrowEvent();
+  scrollTopArrowEvent();
+});

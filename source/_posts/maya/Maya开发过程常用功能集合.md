@@ -1,8 +1,8 @@
 ---
 title: Maya开发过程常用功能集合
+top: true
 tags: [MAYA,SUM]
 category: Maya
-top: true
 ---
 
 &emsp;&emsp;由于我的工作需要在Maya上进行开发，所以想总结一下自己常用的功能，以免下次自己使用的时候忘记。
@@ -182,11 +182,43 @@ def setting():
             if not setting_content in content:
                 fp.seek(0)
                 fp.write('\n' + setting_content)
-        
+
     win32api.MessageBox(0, u'配置成功!', u'MayaEnv配置',win32con.MB_OK)
 
 if __name__ == '__main__':
     setting()
 ```
+
+### 🍒 <font color=FireBrick>获取Maya的runTimeCommand所在路径</font>
+&emsp;&emsp;在Maya开发经常会在一些Maya自带的功能上进行改进，假设需要对工具栏上的某个功能进行改进，如何找到这些命令的代码呢？
+
+&emsp;&emsp;以Maya的Attach Cache为例来说明，这个命令可以通过选择需要替换的节点，指定缓存路径来替换缓存，但是只能对选择的节点进行替换。假如我们需要对场景中所有的毛发节点根据节点名称替换不同缓存，该如何实现呢？
+
+![](Maya开发过程常用功能集合/ncache1.png)
+
+1. 首先，找到这个功能的名称。通过组合键“Ctrl+Shift+左键”点击“Attach Cache”，可以把它添加到工具栏上。  
+   ![](Maya开发过程常用功能集合/ncache2.png)
+2. 在工具栏中右击该工具，选择“Edit”，打开工具编辑器。  
+   ![](Maya开发过程常用功能集合/ncache3.png)
+1. 在“Shelf Editor”中，可以通过Command面板查看到该工具使用的语言以及调用的命令。可以看到，“Attach Cache”工具用的是Mel语言，调用的命令为“attachCache”。在脚本编辑器“MEL”中运行“attachCache”，效果与直接点击该工具相同。  
+   ![](Maya开发过程常用功能集合/ncache4.png)
+1. 通过whatIs命令查询mel文件所在位置。  
+   ```MEL
+   // 直接运行
+    attachCache
+
+    // 查询attachCache类型
+    whatIs attachCache
+    // Result: Run Time Command // 
+
+    // 查询runTimeCommand调用的方法
+    runTimeCommand -q -command attachCache
+    // Result: doAttachCacheArgList(0,{}) // 
+
+    // 查询doAttachCacheArgList
+    whatIs doAttachCacheArgList
+    // Result: Mel procedure found in: C:/Program Files/Autodesk/Maya2018/scripts/others/doAttachCacheArgList.mel //
+    ```
+1. 找到所在mel文件后，我们就可以查看里面的代码内容自己进行修改了~。
 
 🖌 待续未完...
