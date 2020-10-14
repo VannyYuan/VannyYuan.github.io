@@ -132,20 +132,66 @@ img3 = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
 ### 🔍 图像匹配
 参考：https://blog.csdn.net/zhusongziye/article/details/93393725
 #### <font color=pink>模版匹配 cv2.matchTemplate()</font>
-&emsp;&emsp;已知一幅小图像（即模版），一幅大图像，该大图像中有需要匹配的目标，且该目标与模板有相同的尺寸、方向和图像元素，则可以通过模版匹配在图中找到目标。
+&emsp;&emsp;在模板和输入图像之间寻找匹配，获得匹配结果图像。
+
+&emsp;&emsp;模板匹配具有自身的局限性，主要表现在它只能进行平行移动，若原图像中的匹配目标发生旋转或大小变化，该算法无效。
 
 ![](使用cv2进行图像匹配/模版匹配.png)
 
-&emsp;&emsp;该函数作用是在模板和输入图像之间寻找匹配，获得匹配结果图像。其中模板匹配的算法：
+&emsp;&emsp;其中模板匹配的算法：
 1. 利用平方差来进行匹配，最好匹配为0。匹配越差，匹配值越大。
    - 平方差匹配：CV_TM_SQDIFF
    - 标准平方差匹配：CV_TM_SQDIFF_NORMED
-1. 采用模板和图像间的乘法操作，得出数值越大表示匹配程度较高，0为最坏匹配。
+2. 采用模板和图像间的乘法操作，得出数值越大表示匹配程度较高，0为最坏匹配。
    - 相关匹配：CV_TM_CCORR
    - 标准相关匹配：CV_TM_CCORR_NORMED
-1. 将模版对其均值的相对值与图像对其均值的相关值进行匹配，1表示完美匹配，-1表示糟糕的匹配，0表示没有任何相关性(随机序列)。
+3. 将模版对其均值的相对值与图像对其均值的相关值进行匹配，1表示完美匹配，-1表示糟糕的匹配，0表示没有任何相关性(随机序列)。
    - 相关系数匹配：CV_TM_CCOEFF
    - 标准相关系数匹配：CV_TM_CCOEFF_NORMED
 
 &emsp;&emsp;标准化意味着将数值统一到0~1。除了平方差类型的是值越小越好，其他的都是值越大越好。
 
+#### <font color=pink>找出矩阵最大值和最小值的位置 cv2.minMaxLoc()</font>
+&emsp;&emsp;在给定的矩阵中寻找最大和最小值，并给出它们的位置。
+
+#### <font color=orange>实例</font>
+```python
+# -*- coding:utf-8 -*-
+import cv2
+
+# ! 读取匹配图像
+img = cv2.imread('sky.jpg',1)
+# ! 读取模版图像
+temple = cv2.imread('people.png',1)
+
+# ! 获取匹配图像的宽高
+ih, iw = img.shape[:2]
+# ! 获取模版图像的宽高
+th, tw = temple.shape[:2]
+
+# ! 使用标准相关系数匹配，返回一个矩阵
+result = cv2.matchTemplate(img, temple, cv2.TM_CCOEFF_NORMED)
+
+# ! 获取矩阵的最大值和最小值，以及其位置
+min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+
+# ! 此处选取最大值的位置,即匹配结果图像的左上角
+tl = max_loc
+
+# ! 根据模版大小，得出匹配结果图像的右下角
+br = (tl[0]+tw, tl[1]+th)
+
+# ! 绘制矩形框
+cv2.rectangle(img, tl, br, (0, 0, 255), 2)
+
+# ! 显示匹配结果窗口
+cv2.namedWindow('match', 0)
+cv2.resizeWindow('match', iw, ih)
+cv2.imshow('match', img)
+
+cv2.waitKey(0)
+```
+
+&emsp;&emsp;图像显示的匹配结果：
+
+![](使用cv2进行图像匹配/匹配结果.png)
