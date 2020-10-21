@@ -14,11 +14,11 @@ category: [SCRIPT,Common]
 ### 1，生成SSH-key
 &emsp;&emsp;生成公司用的SSH-key：
 ```
-$ ssh-keygen -t rsa -C "your email” -f ~/.ssh/id_rsa
+ssh-keygen -t rsa -C "your email” -f ~/.ssh/popic_rsa
 ```
 &emsp;&emsp;生成GitHub用的SSH-key：
 ```
-$ ssh-keygen -t rsa -C "your email” -f ~/.ssh/github_rsa
+ssh-keygen -t rsa -C "your email” -f ~/.ssh/github_rsa
 ```
 
 &emsp;&emsp;此时，C:/Users/"用户名"/.ssh文件夹下应该有四个新创建的文件，其中“.pub”格式结尾的文件为公钥文件。
@@ -32,8 +32,8 @@ $ ssh-keygen -t rsa -C "your email” -f ~/.ssh/github_rsa
 
 ### 3. 添加私钥
 ```
-$ ssh-add ~/.ssh/id_rsa $ ssh-add ~/.ssh/github_rsa
-$ ssh-add ~/.ssh/id_rsa $ ssh-add ~/.ssh/id_rsa
+ssh-add ~/.ssh/popic_rsa
+ssh-add ~/.ssh/github_rsa
 ```
 
 &emsp;&emsp;如果运行后出现“Could not open a connection to your authentication agent.”，执行“ssh-agent bash”后再重新执行添加命令。
@@ -41,14 +41,15 @@ $ ssh-add ~/.ssh/id_rsa $ ssh-add ~/.ssh/id_rsa
 ![](Git配置多个SSH-key/not_connect.png)
 
 ```
-$ ssh-agent bash
-$ ssh-add ~/.ssh/id_rsa $ ssh-add ~/.ssh/github_rsa
+ssh-agent bash
+ssh-add ~/.ssh/popic_rsa
+ssh-add ~/.ssh/github_rsa
 ```
 
 &emsp;&emsp;通过“ssh-add -l”列出私钥列表，通过“ssh-add -D”来清空私钥列表
 ```
-$ ssh-add -l
-$ ssh-add -D
+ssh-add -l
+ssh-add -D
 ```
 
 ### 4. 修改config配置文件
@@ -73,15 +74,17 @@ User vannyyuan
 Host git.popic.com
 HostName git.popic.com
 PreferredAuthentications publickey
-IdentityFile C:/Users/“用户名”/.ssh/id_rsa
+IdentityFile C:/Users/“用户名”/.ssh/popic_rsa
 User vanny
 ```
 
 ### 5. 测试
 ```
-$ ssh -T git@github.com
-$ ssh -T git@git.popic.com
+ssh -T git@github.com
+ssh -T git@git.popic.com
 ```
+
+&emsp;&emsp;如果提示“Are you sure you want to continue connecting (yes/no/[fingerprint])?”，则输入“yes”并回车即可。会在“.ssh”目录下生成缺少的known_hosts文件。
 
 &emsp;&emsp;成功！🎉
 
