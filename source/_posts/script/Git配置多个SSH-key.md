@@ -84,8 +84,23 @@ ssh -T git@github.com
 ssh -T git@git.popic.com
 ```
 
-&emsp;&emsp;如果提示“Are you sure you want to continue connecting (yes/no/[fingerprint])?”，则输入“yes”并回车即可。会在“.ssh”目录下生成缺少的known_hosts文件。
+&emsp;&emsp;如果提示 <font color='orange'>Are you sure you want to continue connecting (yes/no/[fingerprint])? </font>，则输入“yes”并回车即可。会在“.ssh”目录下生成缺少的known_hosts文件。
 
 &emsp;&emsp;成功！🎉
 
 ![](Git配置多个SSH-key/succeed.png)
+
+
+### 🚏 出现 Permission denied 问题
+
+&emsp;&emsp;在使用命令 ```ssh -T git@git.popic.com``` 时，出现了 <font color='red'>Permission denied (publickey,password,keyboard-interactive). </font> 的错误。
+
+&emsp;&emsp;试过删除密钥重新生成和添加，也不能解决这个问题，最终在网上找到了可用方法：提升 “~/.ssh” 文件夹的权限。
+
+```
+chmod 700 ~/.ssh
+```
+&emsp;&emsp;执行后删除 “~/.ssh” 文件夹中的 “known_hosts” 文件。
+
+
+&emsp;&emsp;此时重新使用命令就可以成功登陆了！
