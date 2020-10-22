@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      458 字
+      572 字
     </span>
   
 
@@ -260,9 +260,14 @@ User vanny</code></pre></div>
 <h3 id="5-测试"><a href="#5-测试" class="headerlink" title="5. 测试"></a>5. 测试</h3><div class="hljs"><pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> -T git<span class="hljs-variable">@github</span>.com
 ssh -T git<span class="hljs-variable">@git</span>.popic.com</code></pre></div>
 
-<p>&emsp;&emsp;如果提示“Are you sure you want to continue connecting (yes/no/[fingerprint])?”，则输入“yes”并回车即可。会在“.ssh”目录下生成缺少的known_hosts文件。</p>
+<p>&emsp;&emsp;如果提示 <font color="orange">Are you sure you want to continue connecting (yes/no/[fingerprint])? </font>，则输入“yes”并回车即可。会在“.ssh”目录下生成缺少的known_hosts文件。</p>
 <p>&emsp;&emsp;成功！🎉</p>
 <p><img src="/2020/10/22/script/Git%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AASSH-key/succeed.png" srcset="/img/loading.gif"></p>
+<h3 id="🚏-出现-Permission-denied-问题"><a href="#🚏-出现-Permission-denied-问题" class="headerlink" title="🚏 出现 Permission denied 问题"></a>🚏 出现 Permission denied 问题</h3><p>&emsp;&emsp;在使用命令 <code>ssh -T git@git.popic.com</code> 时，出现了 <font color="red">Permission denied (publickey,password,keyboard-interactive). </font> 的错误。</p>
+<p>&emsp;&emsp;试过删除密钥重新生成和添加，也不能解决这个问题，最终在网上找到了可用方法：提升 “~/.ssh” 文件夹的权限。</p>
+<div class="hljs"><pre><code class="hljs angelscript">chmod <span class="hljs-number">700</span> ~/.ssh</code></pre></div>
+<p>&emsp;&emsp;执行后删除 “~/.ssh” 文件夹中的 “known_hosts” 文件。</p>
+<p>&emsp;&emsp;此时重新使用命令就可以成功登陆了！</p>
 
             </div>
             <hr>
@@ -473,7 +478,7 @@ ssh -T git<span class="hljs-variable">@git</span>.popic.com</code></pre></div>
         '  ',
         "Git配置多个SSH-key&nbsp;",
       ],
-      cursorChar: "🐾",
+      cursorChar: "🌻",
       typeSpeed: 70,
       loop: false,
     });
