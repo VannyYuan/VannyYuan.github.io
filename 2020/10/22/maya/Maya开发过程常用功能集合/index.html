@@ -1,0 +1,736 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>Maya开发过程常用功能集合 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-10-22 15:35" pubdate>
+      2020年10月22日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Maya开发过程常用功能集合</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;由于我的工作需要在Maya上进行开发，所以想总结一下自己常用的功能，以免下次自己使用的时候忘记。</p>
+<h3 id="❌-Traceback-显示详细的报错信息"><a href="#❌-Traceback-显示详细的报错信息" class="headerlink" title="❌ Traceback 显示详细的报错信息"></a>❌ <font color="FireBrick">Traceback 显示详细的报错信息</font></h3><p>&emsp;&emsp;使用traceback类可以捕捉异常并打印信息。由于在编写代码时，经常需要import多个类，但是如果在maya的脚本编辑器中直接运行错误的代码，不一定能返回详细的报错信息，无法得知是哪一个文件哪一行的错误。下面是一个小例子。</p>
+<ul>
+<li><strong>创建两个文件：test.py 和 errorfile.py</strong><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> errorfile
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_func</span>():</span>
+    errorfile.error_func()</code></pre></div>
+  errorfile.py<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">error_func</span>():</span>
+    os.makedirs(<span class="hljs-string">r&quot;C:\test_folder&quot;</span>)</code></pre></div>
+
+
+</li>
+</ul>
+<ul>
+<li><strong>在maya中的运行代码：</strong><ul>
+<li>不使用traceback的代码<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys
+sys.path.insert(<span class="hljs-number">0</span>,<span class="hljs-string">r&#x27;D:\git_script&#x27;</span>)
+<span class="hljs-keyword">import</span> test
+reload(test)
+test.test_func()</code></pre></div>
+  报错：<br>  <font color="red"># Error: WindowsError: file C:\Program Files\Autodesk\Maya2018\bin\python27.zip\os.py line 157: 183 # </font></li>
+<li>使用traceback的代码<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:
+    <span class="hljs-keyword">import</span> test
+    reload(test)
+    test.test_func()
+<span class="hljs-keyword">except</span>:
+    <span class="hljs-keyword">import</span> traceback
+    traceback.print_exc()</code></pre></div>
+  报错：<br>  <font color="red"># Traceback (most recent call last):<br>  #   File “<maya console>“, line 7, in <module><br>  #   File “D:\git_script\test.py”, line 5, in test_func<br>  #     faa.error_func()<br>  #   File “D:\git_script\errorfile.py”, line 4, in error_func<br>  #     os.makedirs(r”C:\test_folder”)<br>  #   File “C:\Program Files\Autodesk\Maya2018\bin\python27.zip\os.py”, line 157, in makedirs<br>  #     mkdir(name, mode)<br>  # WindowsError: [Error 183] : ‘C:\test_folder’  </module></maya></font>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>&emsp;&emsp;从上面例子可以看到，使用traceback后显示的错误信息十分完整，对于找bug十分有用。👍</p>
+<h3 id="💡-修改参考文件的路径"><a href="#💡-修改参考文件的路径" class="headerlink" title="💡 修改参考文件的路径"></a>💡 <font color="FireBrick">修改参考文件的路径</font></h3><p>&emsp;&emsp;开发某些工具的过程中需要修改maya场景参考资产的路径，以下是cmds和pm获取reference节点以及修改路径的方法：</p>
+<ul>
+<li><strong>使用pm</strong><div class="hljs"><pre><code class="hljs python">pm.FileReference(rn_node).unresolvedPath()
+pm.FileReference(rn_node).replaceWith(new_path)</code></pre></div></li>
+<li><strong>使用cmds</strong>：<div class="hljs"><pre><code class="hljs python">cmds.referenceQuery(rn_node, filename=<span class="hljs-number">1</span>)
+cmds.file(new_path, loadReference=rn_node)</code></pre></div>
+
+</li>
+</ul>
+<h3 id="⏰-场景时间轴节点-sceneConfigurationScriptNode"><a href="#⏰-场景时间轴节点-sceneConfigurationScriptNode" class="headerlink" title="⏰ 场景时间轴节点 sceneConfigurationScriptNode"></a>⏰ <font color="FireBrick">场景时间轴节点 sceneConfigurationScriptNode</font></h3><p>&emsp;&emsp;Maya在保存文件时会记录一个记录场景时间轴信息的节点“sceneConfigurationScriptNode”，该节点可以在表达式编辑器“Expression Editor”中找到。<br><img src="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/editor.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;在属性编辑器“Attribute Editor”中，可以看到该节点的详细信息。<br><img src="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/script_editor.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;可以通过cmds.objExists()查询节点是否存在。在对选择导出时，可以把该节点一同选择导出，使场景保留时间轴信息。</p>
+<div class="hljs"><pre><code class="hljs python">cmds.objExists(<span class="hljs-string">&#x27;sceneConfigurationScriptNode&#x27;</span>)
+cmds.objectType(<span class="hljs-string">&#x27;sceneConfigurationScriptNode&#x27;</span>)</code></pre></div>
+
+<h3 id="💎-使用PySide2创建Maya置顶的窗口"><a href="#💎-使用PySide2创建Maya置顶的窗口" class="headerlink" title="💎 使用PySide2创建Maya置顶的窗口"></a>💎 <font color="FireBrick">使用PySide2创建Maya置顶的窗口</font></h3><p>&emsp;&emsp;Maya2016版本以上会自带PySide2，我们可以使用PySide2在Maya中创建窗口。</p>
+<p>&emsp;&emsp;M该内容参考来源 <a target="_blank" rel="noopener" href="https://blog.l0v0.com/%2Fposts%2F2e0af969.html">智伤帝 - Python Qt 开发教程 扩展说明</a>。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMayaUI <span class="hljs-keyword">as</span> omui
+<span class="hljs-keyword">try</span>:
+    <span class="hljs-keyword">from</span> shiboken2 <span class="hljs-keyword">import</span> wrapInstance
+<span class="hljs-keyword">except</span> ImportError:
+    <span class="hljs-keyword">from</span> shiboken <span class="hljs-keyword">import</span> wrapInstance
+
+<span class="hljs-comment"># ! 这个函数可以实现将 Maya 的 UI 转换为 Qt 的 QWidget 组件</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mayaToQT</span>(<span class="hljs-params">name</span>):</span>
+    ptr = omui.MQtUtil.findControl(name)
+    <span class="hljs-keyword">if</span> ptr <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        ptr = omui.MQtUtil.findLayout(name)
+    <span class="hljs-keyword">if</span> ptr <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        ptr = omui.MQtUtil.findMenuItem(name)
+    <span class="hljs-keyword">if</span> ptr <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span> wrapInstance(long(ptr), QWidget)
+
+<span class="hljs-comment"># ! 检查窗口多开</span>
+<span class="hljs-keyword">global</span> XG_WIN
+<span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;XG_WIN&#x27;</span> <span class="hljs-keyword">in</span> globals():
+    <span class="hljs-keyword">if</span> cmds.window(XG_WIN, q=<span class="hljs-number">1</span>, ex=<span class="hljs-number">1</span>):
+        cmds.evalDeferred(<span class="hljs-string">&quot;cmds.deleteUI(\&quot;&quot;</span> + XG_WIN + <span class="hljs-string">&quot;\&quot;)&quot;</span>)
+
+<span class="hljs-comment"># ! 获取 Qt 窗口控件</span>
+tool_ui = p_xgmArchiveExportBatchUI(<span class="hljs-literal">False</span>)
+<span class="hljs-comment"># ! 创建 Maya 窗口</span>
+XG_WIN = cmds.window(title=tool_ui.windowTitle())
+<span class="hljs-comment"># ! 显示 Maya 窗口</span>
+cmds.showWindow(XG_WIN)
+<span class="hljs-comment"># ! Maya 窗口转换为 Qt 对象</span>
+ptr = mayaToQT(XG_WIN)
+<span class="hljs-comment"># ! Maya 窗口添加 Qt 布局</span>
+ptr.setLayout(QVBoxLayout())
+ptr.layout().setContentsMargins(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+<span class="hljs-comment"># ! 把 Qt 窗口控件添加到 Maya 窗口布局中</span>
+ptr.layout().addWidget(tool_ui)
+ptr.setFixedSize(QSize(tool_ui.width(), tool_ui.height()))</code></pre></div>
+
+<h3 id="🔎-加快Maya启动速度"><a href="#🔎-加快Maya启动速度" class="headerlink" title="🔎 加快Maya启动速度"></a>🔎 <font color="FireBrick">加快Maya启动速度</font></h3><p>&emsp;&emsp;Maya在启动时会获取服务器登陆信息，在断网的工作状态下，会由于无法联网而不断重新获取，因此会卡住一段时间，对于需要频繁打开关闭maya测试会十分影响效率。</p>
+<p>&emsp;&emsp;在“文档\maya\2018（视下载版本而定）”文件夹的“Maya.env”文件中，添加<code>MAYA_DISABLE_CLIC_IPM=1</code>即可关闭在线登入功能，提高maya打开的速度。</p>
+<p><img src="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/%E5%8A%A0%E5%BF%ABmaya%E5%90%AF%E5%8A%A8.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;运行以下文件可以对该电脑内所有maya版本的“Maya.env”文件添加“MAYA_DISABLE_CLIC_IPM=1”。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">import</span> ctypes
+<span class="hljs-keyword">from</span> ctypes.wintypes <span class="hljs-keyword">import</span> MAX_PATH
+<span class="hljs-keyword">import</span> win32api,win32con
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setting</span>():</span>
+    <span class="hljs-comment"># ! 获取文档路径</span>
+    dll = ctypes.windll.shell32
+    buf = ctypes.create_unicode_buffer(MAX_PATH + <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">if</span> dll.SHGetSpecialFolderPathW(<span class="hljs-literal">None</span>, buf, <span class="hljs-number">0x0005</span>, <span class="hljs-literal">False</span>):
+        doc_path = buf.value
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    maya_path = doc_path + <span class="hljs-string">&#x27;/&#x27;</span> + <span class="hljs-string">&#x27;maya&#x27;</span>
+    maya_path = maya_path.replace(<span class="hljs-string">&#x27;\\&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>)
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(maya_path):
+        win32api.MessageBox(<span class="hljs-number">0</span>,<span class="hljs-string">u&#x27;文档下没有maya文件夹!&#x27;</span>, <span class="hljs-string">u&#x27;MayaEnv配置失败&#x27;</span>,win32con.MB_OK)
+        <span class="hljs-keyword">return</span>
+
+    <span class="hljs-comment"># ! 获取mayaenv路径</span>
+    maya_env_list = []
+    file_list = os.listdir(maya_path)
+    <span class="hljs-keyword">for</span> _file <span class="hljs-keyword">in</span> file_list:
+        match = re.match(<span class="hljs-string">&#x27;^(20\d\d)&#x27;</span>,_file)
+        maya_dir = maya_path + <span class="hljs-string">&#x27;/&#x27;</span> + _file
+        <span class="hljs-keyword">if</span> match <span class="hljs-keyword">and</span> os.path.isdir(maya_dir):
+            maya_env_list.append(maya_path + <span class="hljs-string">&#x27;/&#x27;</span> + _file + <span class="hljs-string">&#x27;/maya.env&#x27;</span>)
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> maya_env_list:
+        win32api.MessageBox(<span class="hljs-number">0</span>, <span class="hljs-string">u&#x27;maya文件夹下没有对应版本的maya!&#x27;</span>, <span class="hljs-string">u&#x27;MayaEnv配置失败&#x27;</span>,win32con.MB_OK)
+        <span class="hljs-keyword">return</span>
+
+    setting_content = <span class="hljs-string">&#x27;MAYA_DISABLE_CLIC_IPM=1&#x27;</span>
+    lines = []
+    <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> maya_env_list:
+        <span class="hljs-comment"># ! 添加配置</span>
+        <span class="hljs-keyword">with</span> open(path,<span class="hljs-string">&#x27;a+&#x27;</span>) <span class="hljs-keyword">as</span> fp:
+            content = fp.read()
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> setting_content <span class="hljs-keyword">in</span> content:
+                fp.seek(<span class="hljs-number">0</span>)
+                fp.write(<span class="hljs-string">&#x27;\n&#x27;</span> + setting_content)
+
+    win32api.MessageBox(<span class="hljs-number">0</span>, <span class="hljs-string">u&#x27;配置成功!&#x27;</span>, <span class="hljs-string">u&#x27;MayaEnv配置&#x27;</span>,win32con.MB_OK)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    setting()</code></pre></div>
+
+<h3 id="🍒-获取Maya的runTimeCommand所在路径"><a href="#🍒-获取Maya的runTimeCommand所在路径" class="headerlink" title="🍒 获取Maya的runTimeCommand所在路径"></a>🍒 <font color="FireBrick">获取Maya的runTimeCommand所在路径</font></h3><p>&emsp;&emsp;在Maya开发经常会在一些Maya自带的功能上进行改进，假设需要对工具栏上的某个功能进行改进，如何找到这些命令的代码呢？</p>
+<p>&emsp;&emsp;以Maya的Attach Cache为例来说明，这个命令可以通过选择需要替换的节点，指定缓存路径来替换缓存，但是只能对选择的节点进行替换。假如我们需要对场景中所有的毛发节点根据节点名称替换不同缓存，该如何实现呢？</p>
+<p><img src="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/ncache1.png" srcset="/img/loading.gif"></p>
+<ol>
+<li>首先，找到这个功能的名称。通过组合键“Ctrl+Shift+左键”点击“Attach Cache”，可以把它添加到工具栏上。<br><img src="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/ncache2.png" srcset="/img/loading.gif"></li>
+<li>在工具栏中右击该工具，选择“Edit”，打开工具编辑器。<br><img src="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/ncache3.png" srcset="/img/loading.gif"></li>
+<li>在“Shelf Editor”中，可以通过Command面板查看到该工具使用的语言以及调用的命令。可以看到，“Attach Cache”工具用的是Mel语言，调用的命令为“attachCache”。在脚本编辑器“MEL”中运行“attachCache”，效果与直接点击该工具相同。<br><img src="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/ncache4.png" srcset="/img/loading.gif"></li>
+<li>通过whatIs命令查询mel文件所在位置。  <div class="hljs"><pre><code class="hljs MEL"><span class="hljs-comment">// 直接运行</span>
+ attachCache
+
+ <span class="hljs-comment">// 查询attachCache类型</span>
+ <span class="hljs-keyword">whatIs</span> attachCache
+ <span class="hljs-comment">// Result: Run Time Command // </span>
+
+ <span class="hljs-comment">// 查询runTimeCommand调用的方法</span>
+ <span class="hljs-keyword">runTimeCommand</span> -q -command attachCache
+ <span class="hljs-comment">// Result: doAttachCacheArgList(0,&#123;&#125;) // </span>
+
+ <span class="hljs-comment">// 查询doAttachCacheArgList</span>
+ <span class="hljs-keyword">whatIs</span> doAttachCacheArgList
+ <span class="hljs-comment">// Result: Mel procedure found in: C:/Program Files/Autodesk/Maya2018/scripts/others/doAttachCacheArgList.mel //</span></code></pre></div></li>
+<li>找到所在mel文件后，我们就可以查看里面的代码内容自己进行修改了~。</li>
+</ol>
+<p>🖌 待续未完…</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Maya/">Maya</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SUM/">SUM</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/22/script/Git%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AASSH-key/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git配置多个SSH-key</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/">
+                        <span class="hidden-mobile">Maya制作文件问题集合</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Maya开发过程常用功能集合&nbsp;",
+      ],
+      cursorChar: "🍒",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
