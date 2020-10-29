@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Vanny Yuan">
   <meta name="keywords" content="">
-  <title>按下“ESC”中断运行中的for循环 - Vanny Yuan&#39;s Blog</title>
+  <title>在Hugo中使用css自定义图片位置 - Vanny Yuan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-22 15:35" pubdate>
-      2020年10月22日 下午
+    <time datetime="2020-10-29 10:12" pubdate>
+      2020年10月29日 上午
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      690 字
+      826 字
     </span>
   
 
@@ -210,153 +210,97 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">按下“ESC”中断运行中的for循环</h1>
+            <h1 style="display: none">在Hugo中使用css自定义图片位置</h1>
             
             <div class="markdown-body" id="post-body">
-              <p>&emsp;&emsp;假设有一个程序，运行过程中每隔一秒打印一次数字，当键盘按下“ESC”时，使该循环终止。</p>
-<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">a_func</span>():</span>
-    <span class="hljs-comment"># ! 循环程序</span>
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
-        time.sleep(<span class="hljs-number">1</span>)
-        <span class="hljs-keyword">print</span> i</code></pre></div>
-
-<h3 id="🐾-pynput"><a href="#🐾-pynput" class="headerlink" title="🐾 pynput"></a>🐾 pynput</h3><p>&emsp;&emsp;pynput.keyboard：包含控制和监控键盘的类。</p>
-<p>&emsp;&emsp;调用pynput.mouse.Listener.stop，发起StopException异常，或者回调函数中返回False都会停止事件的监听。</p>
-<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
-
-<span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">from</span> pynput <span class="hljs-keyword">import</span> keyboard
-<span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">thread</span>(<span class="hljs-params">Thread</span>):</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
-        Thread.__init__( self )
-        self.shut_down_signal = <span class="hljs-literal">True</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span>(<span class="hljs-params">self</span>):</span>
-        <span class="hljs-comment"># ! 循环程序</span>
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
-            <span class="hljs-keyword">if</span> self.shut_down_signal:
-                time.sleep(<span class="hljs-number">1</span>)
-                <span class="hljs-keyword">print</span> i
-            <span class="hljs-keyword">else</span>:
-                <span class="hljs-keyword">return</span>
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">on_press</span>(<span class="hljs-params">key</span>):</span>
-    <span class="hljs-comment"># ! 重写on_press</span>
-    <span class="hljs-keyword">pass</span>
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">on_release</span>(<span class="hljs-params">key</span>):</span>
-    <span class="hljs-comment"># ! 重写on_release</span>
-    <span class="hljs-keyword">if</span> key ==  keyboard.Key.esc:
-        <span class="hljs-keyword">print</span> <span class="hljs-string">&quot;Esc&quot;</span>
-        <span class="hljs-comment"># ! 修改线程中的shut_down_signal</span>
-        run_thread.shut_down_signal = <span class="hljs-literal">False</span>
-        <span class="hljs-comment"># ! 退出监听器</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
-
-<span class="hljs-comment"># ! 启动线程</span>
-run_thread = thread()
-run_thread.start()
-<span class="hljs-comment"># ! 启动监听器</span>
-<span class="hljs-keyword">with</span> keyboard.Listener(on_press=on_press,on_release=on_release) <span class="hljs-keyword">as</span> listener:
-    listener.join()</code></pre></div>
-
-<h3 id="🚀-QWidget-的-keyPressEvent-和-keyReleaseEvent"><a href="#🚀-QWidget-的-keyPressEvent-和-keyReleaseEvent" class="headerlink" title="🚀 QWidget 的 keyPressEvent 和 keyReleaseEvent"></a>🚀 QWidget 的 keyPressEvent 和 keyReleaseEvent</h3><p>&emsp;&emsp;在Qt窗口中，可以通过重写 keyPressEvent() 和 keyReleaseEvent() 这两个方法实现。keyPressEvent 是 QWidget 里面的函数，所以凡是继承自 QWidget 的类都可以通过实现这个函数来完成对按键事件的响应。</p>
-<p>&emsp;&emsp;点击“Click to run”按钮开始for循环，按“Esc”退出。</p>
-<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
-
-<span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
-
-<span class="hljs-keyword">from</span> PySide2.QtCore <span class="hljs-keyword">import</span> *
-<span class="hljs-keyword">from</span> PySide2.QtGui <span class="hljs-keyword">import</span> *
-<span class="hljs-keyword">from</span> PySide2.QtWidgets <span class="hljs-keyword">import</span> *
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">thread</span>(<span class="hljs-params">Thread</span>):</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
-        Thread.__init__( self )
-        self.shut_down_signal = <span class="hljs-literal">True</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span>(<span class="hljs-params">self</span>):</span>
-        <span class="hljs-comment"># ! 循环程序</span>
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
-            <span class="hljs-keyword">if</span> self.shut_down_signal:
-                time.sleep(<span class="hljs-number">1</span>)
-                <span class="hljs-keyword">print</span> i
-            <span class="hljs-keyword">else</span>:
-                <span class="hljs-keyword">return</span>
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">m_window</span>(<span class="hljs-params">QMainWindow</span>):</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
-        super(m_window, self).__init__()
-        self.centralwidget = QWidget(self)
-        <span class="hljs-comment"># ! StrongFocus：可以通过单击来接受焦点，只要在窗口下，就能接收键盘事件</span>
-        self.setFocusPolicy(Qt.StrongFocus)
-        self.lay = QHBoxLayout(self.centralwidget)
-        self.m_btn = QPushButton(<span class="hljs-string">&#x27;Click to run&#x27;</span>)
-        self.lay.addWidget(self.m_btn)
-        <span class="hljs-comment"># ! 点击按钮启动线程</span>
-        self.m_btn.clicked.connect(self.start_thread)
-    
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start_thread</span>(<span class="hljs-params">self</span>):</span>
-        <span class="hljs-comment"># ! 启动线程</span>
-        self.thread = thread()
-        self.thread.start()
-
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">keyPressEvent</span>(<span class="hljs-params">self, event</span>):</span>
-        <span class="hljs-comment"># ! 重写keyPressEvent</span>
-        <span class="hljs-keyword">pass</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">keyReleaseEvent</span>(<span class="hljs-params">self, event</span>):</span>
-        <span class="hljs-comment"># ! 重写keyReleaseEvent</span>
-        <span class="hljs-comment"># ! 当按下“esc”时，退出for循环</span>
-        <span class="hljs-keyword">if</span> event.key() == Qt.Key_Escape:
-            <span class="hljs-keyword">print</span> <span class="hljs-string">&quot;esc&quot;</span>
-            self.thread.shut_down_signal = <span class="hljs-literal">False</span>
+              <p>&emsp;&emsp;最近公司开发了gitlab上的文档功能，并配置了主题（hugo-learn-free）。</p>
+<p>&emsp;&emsp;在使用过程中，我发现该主题的图片会自动换行追踪，不能修改图片显示的位置。这对于需要图片排版的文章十分不友好，因此我自己在本地配置了一个相同主题的网站做测试。</p>
+<p>我在markdown中编辑的效果：</p>
+<p><img src="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/right.png" srcset="/img/loading.gif"></p>
+<p>我在Hugo主题中显示的效果：</p>
+<p><img src="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/wrong.png" srcset="/img/loading.gif"></p>
+<hr>
+<h3 id="🦊-Hugo安装"><a href="#🦊-Hugo安装" class="headerlink" title="🦊 Hugo安装"></a>🦊 Hugo安装</h3><p>&emsp;&emsp;Hugo是一个非常受欢迎的、开源的静态网站生成工具，和Hexo类似。 它速度快，扩展性强。</p>
+<ol>
+<li>从 hugo 的 <a target="_blank" rel="noopener" href="https://github.com/gohugoio/hugo/releases">GitHub 仓库</a> 下载对应安装包（我的win10系统下载的是“ hugo_0.76.5_Windows-64bit.zip ”）。</li>
+<li>解压安装包到自定义目录下。</li>
+<li>把目录添加到 Windows 的系统环境变量的 PATH 中。</li>
+<li>验证Hugo是否安装成功：<code>hugo version</code></li>
+</ol>
+<h3 id="🐮-搭建站点"><a href="#🐮-搭建站点" class="headerlink" title="🐮 搭建站点"></a>🐮 搭建站点</h3><p>&emsp;&emsp;在想放置站点的文件夹，打开“Git Bash Here”，输入“ hugo new site + 站点名”。</p>
+<div class="hljs"><pre><code class="hljs haxe">hugo <span class="hljs-keyword">new</span> <span class="hljs-type">site</span> blog</code></pre></div>
 
 
-<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
-    mainWin = m_window()
-    mainWin.show()</code></pre></div>
+<h3 id="🐰-配置主题"><a href="#🐰-配置主题" class="headerlink" title="🐰 配置主题"></a>🐰 配置主题</h3><p>&emsp;&emsp;既然要测试，那么肯定要测试相同的主题了。</p>
+<ol>
+<li>把“ hugo-learn-free ”主题内容解压后放在 “blog/themes” 目录下（blog替换成创建的站点名）。</li>
+<li>在“ blog/hugo-theme-learn/exampleSite ”中有一个“config.toml”文件，这是一个主题的模版配置文件，把它复制到你的站点根目录下。</li>
+<li>这样就能加载到该主题了。</li>
+</ol>
+<h3 id="🐢-添加文章"><a href="#🐢-添加文章" class="headerlink" title="🐢 添加文章"></a>🐢 添加文章</h3><p>&emsp;&emsp;创建 blog/content/posts/_index.md。</p>
+<div class="hljs"><pre><code class="hljs reasonml">hugo <span class="hljs-keyword">new</span> posts/<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_index</span>.</span></span>md</code></pre></div>
+<p>&emsp;&emsp;正常主题这样就可以显示文章了，但是“ hugo-learn-free ”主题不一样，它有文章命名规则：</p>
+<p><img src="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/theme_rules.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;第一点就是：在内容文件夹中创建一个_index.md文档，并用Markdown内容填充它。也就是说，我们的文章需要放在一个文件夹内，且文章命名要为_index.md。</p>
+<p>&emsp;&emsp;文章的大致结构如下：</p>
+<div class="hljs"><pre><code class="hljs markdown">content
+├─ pages
+│  ├─ first<span class="hljs-emphasis">_page                //文件夹，可以自定义命名</span>
+<span class="hljs-emphasis">│  │  ├─ index                  //文件夹，存放同层级的_</span>index.md中的图片
+│  │  │  └─ test<span class="hljs-emphasis">_pic.png        </span>
+<span class="hljs-emphasis">│  │  └─ _</span>index.md              //文章A下的文章B
+│  └─ <span class="hljs-emphasis">_index.md                 //文章A</span>
+<span class="hljs-emphasis">└─ _</span>index.md                    //主页</code></pre></div>
 
-<h3 id="🎉-QProgressDialog"><a href="#🎉-QProgressDialog" class="headerlink" title="🎉 QProgressDialog"></a>🎉 QProgressDialog</h3><p>&emsp;&emsp;进度对话框用于向用户指示操作将花费多长时间，并表明应用程序正在运行。它还可以使用户有机会中止该操作。</p>
-<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
+<p>&emsp;&emsp;_index.md文件中 title 属性为在页面中显示的文章标题。</p>
+<p>&emsp;&emsp;创建成功的页面预览：</p>
+<p><img src="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/show1.png" srcset="/img/loading.gif"></p>
+<h3 id="🐭-利用css修改图片位置"><a href="#🐭-利用css修改图片位置" class="headerlink" title="🐭 利用css修改图片位置"></a>🐭 利用css修改图片位置</h3><p>&emsp;&emsp;到这里，站点配置差不多了，可以开始进行图片设置了。这里使用的方法参考了这里：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5b13d1b3ca3a">自定义 HUGO Markdown 图文混排和图片位置</a>。</p>
+<ol>
+<li>找到 blog\themes\hugo-theme-learn\static\css 文件夹下的 theme.css 。</li>
+<li>打开 theme.css ，找到设置图片的css样式代码。这里的实现效果是图片视频都默认居中且会上下换行。  <div class="hljs"><pre><code class="hljs css"><span class="hljs-selector-id">#body</span> <span class="hljs-selector-tag">img</span>, <span class="hljs-selector-id">#body</span> <span class="hljs-selector-class">.video-container</span> &#123;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">3rem</span> auto;
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">text-align</span>: center;
+&#125;</code></pre></div></li>
+<li>如果我们想保留这个样式，但又想有时使图片居中，添加以下css样式到 theme.css 文件夹中：<div class="hljs"><pre><code class="hljs css"><span class="hljs-selector-id">#body</span> <span class="hljs-selector-tag">img</span><span class="hljs-selector-attr">[alt$=<span class="hljs-string">&quot;&lt;&quot;</span>]</span> &#123;
+    <span class="hljs-attribute">float</span>: left;
+&#125;
+<span class="hljs-selector-id">#body</span> <span class="hljs-selector-tag">img</span><span class="hljs-selector-attr">[alt$=<span class="hljs-string">&quot;&gt;&lt;&quot;</span>]</span> &#123;
+    <span class="hljs-attribute">float</span>: center;
+&#125;
+<span class="hljs-selector-id">#body</span> <span class="hljs-selector-tag">img</span><span class="hljs-selector-attr">[alt$=<span class="hljs-string">&quot;&gt;&quot;</span>]</span> &#123;
+    <span class="hljs-attribute">float</span>: right;
+&#125;</code></pre></div>
 
-<span class="hljs-keyword">import</span> time
+</li>
+</ol>
+<p>在markdown中写图片：</p>
+<div class="hljs"><pre><code class="hljs markdown"><span class="hljs-section"># 图片靠左</span>
 
-<span class="hljs-keyword">from</span> PySide2.QtCore <span class="hljs-keyword">import</span> *
-<span class="hljs-keyword">from</span> PySide2.QtGui <span class="hljs-keyword">import</span> *
-<span class="hljs-keyword">from</span> PySide2.QtWidgets <span class="hljs-keyword">import</span> *
+![<span class="hljs-string">&lt;</span>](<span class="hljs-link">./index/test_pic.png</span>)
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">m_window</span>(<span class="hljs-params">QMainWindow</span>):</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
-        super(m_window, self).__init__()
-        self.centralwidget = QWidget(self)
-        self.lay = QHBoxLayout(self.centralwidget)
-        self.m_btn = QPushButton(<span class="hljs-string">&#x27;Click to run&#x27;</span>)
-        self.lay.addWidget(self.m_btn)
-        <span class="hljs-comment"># ! 点击按钮启动线程</span>
-        self.m_btn.clicked.connect(self.start_thread)
-    
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start_thread</span>(<span class="hljs-params">self</span>):</span>
-        <span class="hljs-comment"># ! 创建进度条</span>
-        progress = QProgressDialog(<span class="hljs-string">&quot;Running...&quot;</span>, <span class="hljs-string">&quot;Abort&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>, self);
-        <span class="hljs-comment"># ! 设置进度条模式</span>
-        progress.setWindowModality(Qt.WindowModal);
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
-            progress.setValue(i);
-            <span class="hljs-keyword">if</span> progress.wasCanceled():
-                <span class="hljs-keyword">break</span>
-            time.sleep(<span class="hljs-number">1</span>)
-            <span class="hljs-keyword">print</span> i
-        <span class="hljs-keyword">return</span>
+<span class="hljs-section"># 图片居中</span>
 
-<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
-    mainWin = m_window()
-    mainWin.show()</code></pre></div>
+![](./index/test<span class="hljs-emphasis">_pic.png)</span>
+<span class="hljs-emphasis"></span>
+<span class="hljs-emphasis"># 图片靠右</span>
+<span class="hljs-emphasis"></span>
+<span class="hljs-emphasis">![<span class="hljs-string">&gt;</span>](<span class="hljs-link">./index/test_pic.png</span>)</span></code></pre></div>
 
-<p>&emsp;&emsp;我们可以通过QProgressDialog进度条随时打断正在运行的程序，而不用自己创建线程。</p>
+<p>显示效果：</p>
+<p><img src="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/float.png" srcset="/img/loading.gif"></p>
+<p>也可以尝试下这种写法：</p>
+<div class="hljs"><pre><code class="hljs css"><span class="hljs-selector-id">#body</span> <span class="hljs-selector-tag">img</span><span class="hljs-selector-attr">[src$=<span class="hljs-string">&quot;#left&quot;</span>]</span> &#123;
+    <span class="hljs-attribute">float</span>: left;
+    <span class="hljs-attribute">margin</span>: auto;
+    <span class="hljs-attribute">display</span>: -moz-inline-box;
+&#125;</code></pre></div>
+<p>对应markdown：</p>
+<div class="hljs"><pre><code class="hljs awk">![](.<span class="hljs-regexp">/index/</span>test_pic.png<span class="hljs-comment">#left)</span></code></pre></div>
+
+<hr>
+<p>Over~</p>
 
             </div>
             <hr>
@@ -368,7 +312,7 @@ run_thread.start()
                     
                       <a class="hover-with-bg" href="/categories/SCRIPT/">SCRIPT</a>
                     
-                      <a class="hover-with-bg" href="/categories/SCRIPT/Common/">Common</a>
+                      <a class="hover-with-bg" href="/categories/SCRIPT/Hogo/">Hogo</a>
                     
                   </div>
                 
@@ -376,11 +320,7 @@ run_thread.start()
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
-                    
                       <a class="hover-with-bg" href="/tags/SCRIPT/">SCRIPT</a>
-                    
-                      <a class="hover-with-bg" href="/tags/PYTHON/">PYTHON</a>
                     
                   </div>
                 
@@ -393,18 +333,12 @@ run_thread.start()
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在Hugo中使用css自定义图片位置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/22/script/python/cv2/%E4%BD%BF%E7%94%A8cv2%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%8C%B9%E9%85%8D/">
-                        <span class="hidden-mobile">使用cv2进行图像匹配</span>
+                      <a href="/2020/10/22/script/python/%E6%8C%89%E4%B8%8BESC%E4%B8%AD%E6%96%AD%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84for%E5%BE%AA%E7%8E%AF/">
+                        <span class="hidden-mobile">按下“ESC”中断运行中的for循环</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -569,9 +503,9 @@ run_thread.start()
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "按下“ESC”中断运行中的for循环&nbsp;",
+        "在Hugo中使用css自定义图片位置&nbsp;",
       ],
-      cursorChar: "🍔",
+      cursorChar: "🐾",
       typeSpeed: 70,
       loop: false,
     });
