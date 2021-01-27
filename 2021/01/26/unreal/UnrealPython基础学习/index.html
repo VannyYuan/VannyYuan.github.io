@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>UnrealPython基础学习 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-01-26 17:12" pubdate>
+      2021年1月26日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">UnrealPython基础学习</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;🛎 在 UE4 中使用 Python 开发入门。</p>
+<p>&emsp;&emsp;视频学习链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1b4411r7kX?p=9">虚幻引擎使用Python开发</a></p>
+<h2 id="L1-在-UE4-中配置-Python"><a href="#L1-在-UE4-中配置-Python" class="headerlink" title="L1 在 UE4 中配置 Python"></a>L1 在 UE4 中配置 Python</h2><h3 id="加载插件"><a href="#加载插件" class="headerlink" title="加载插件"></a>加载插件</h3><p>&emsp;&emsp;从菜单 “Edit - Plugins” 进入插件管理，从左侧列表找到 “Scripting”。勾选 Python Editor Script Plugin 后重启引擎。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L1_1.png" srcset="/img/loading.gif"></p>
+<h3 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h3><p>&emsp;&emsp;从菜单 “Edit - Project Settings” 进入项目设置，从左侧列表找到 “Python”。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L1_2.png" srcset="/img/loading.gif"></p>
+<ul>
+<li>Startup Scripts: 指定 UE4 打开时运行的脚本文件。</li>
+<li>Additional Paths: UE4 可以读取到 Python 脚本的路径。</li>
+</ul>
+<h3 id="Unreal-Python-API"><a href="#Unreal-Python-API" class="headerlink" title="Unreal Python API"></a>Unreal Python API</h3><p>Unreal Python <a target="_blank" rel="noopener" href="https://docs.unrealengine.com/en-US/PythonAPI/index.html">API 文档</a></p>
+<h2 id="L2-使用-Python-导入资产"><a href="#L2-使用-Python-导入资产" class="headerlink" title="L2 使用 Python 导入资产"></a>L2 使用 Python 导入资产</h2><h3 id="Example1-导入贴图和音频"><a href="#Example1-导入贴图和音频" class="headerlink" title="Example1 导入贴图和音频"></a>Example1 导入贴图和音频</h3><p>AssetFunction_1.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_1 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.importMyAssets()</span>
+
+asset_folder = <span class="hljs-string">&#x27;D:/ue4/test/asset&#x27;</span>
+texture_jpg = os.path.join(asset_folder, <span class="hljs-string">&#x27;dear.jpg&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+sound_mp3 = os.path.join(asset_folder, <span class="hljs-string">&#x27;easy.mp3&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">importMyAssets</span>():</span>
+    texture_task = bulidImportTask(texture_jpg, <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>)
+    sound_task = bulidImportTask(sound_mp3, <span class="hljs-string">&#x27;/Game/MyAsset/Sounds&#x27;</span>)
+    executeImportTasks([texture_task, sound_task])
+
+<span class="hljs-comment"># ! 设置导入资产属性</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bulidImportTask</span>(<span class="hljs-params">filename, destination_path</span>):</span>
+    task = unreal.AssetImportTask()
+    task.set_editor_property(<span class="hljs-string">&#x27;automated&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_name&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_path&#x27;</span>, destination_path)
+    task.set_editor_property(<span class="hljs-string">&#x27;filename&#x27;</span>, filename)
+    task.set_editor_property(<span class="hljs-string">&#x27;replace_existing&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;save&#x27;</span>, <span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">return</span> task
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeImportTasks</span>(<span class="hljs-params">tasks</span>):</span>
+    unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks(tasks)
+    <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> tasks:
+        <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> task.get_editor_property(<span class="hljs-string">&#x27;imported_object_paths&#x27;</span>):
+            <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Imported &#123;&#125;&#x27;</span>.format(path)</code></pre></div>
+
+<h3 id="Example2-导入fbx"><a href="#Example2-导入fbx" class="headerlink" title="Example2 导入fbx"></a>Example2 导入fbx</h3><p>AssetFunction_2.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_2 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.importMyAssets()</span>
+
+asset_folder = <span class="hljs-string">&#x27;D:/ue4/test/asset&#x27;</span>
+static_mesh_fbx = os.path.join(asset_folder, <span class="hljs-string">&#x27;static_fbx.fbx&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+skeletal_mesh_fbx = os.path.join(asset_folder, <span class="hljs-string">&#x27;skeletal_fbx.fbx&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">importMyAssets</span>():</span>
+    <span class="hljs-comment"># ! 静态网格</span>
+    static_mesh_task = bulidImportTask(static_mesh_fbx, <span class="hljs-string">&#x27;/Game/MyAsset/StaticMeshes&#x27;</span>, buildStaticMeshImportOptions())
+    <span class="hljs-comment"># ! 带骨骼的网格</span>
+    skeletal_mesh_task = bulidImportTask(skeletal_mesh_fbx, <span class="hljs-string">&#x27;/Game/MyAsset/SkeletalMeshes&#x27;</span>, buildSkeletalMeshImportOptions())
+    executeImportTasks([static_mesh_task, skeletal_mesh_task])
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bulidImportTask</span>(<span class="hljs-params">filename, destination_path, options=None</span>):</span>
+    task = unreal.AssetImportTask()
+    task.set_editor_property(<span class="hljs-string">&#x27;automated&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_name&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_path&#x27;</span>, destination_path)
+    task.set_editor_property(<span class="hljs-string">&#x27;filename&#x27;</span>, filename)
+    task.set_editor_property(<span class="hljs-string">&#x27;replace_existing&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;save&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;options&#x27;</span>, options)
+    <span class="hljs-keyword">return</span> task
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeImportTasks</span>(<span class="hljs-params">tasks</span>):</span>
+    unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks(tasks)
+    <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> tasks:
+        <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> task.get_editor_property(<span class="hljs-string">&#x27;imported_object_paths&#x27;</span>):
+            <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Imported &#123;&#125;&#x27;</span>.format(path)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildStaticMeshImportOptions</span>():</span>
+    options = unreal.FbxImportUI()
+    <span class="hljs-comment"># unreal.FbxImportUI</span>
+    options.set_editor_property(<span class="hljs-string">&#x27;import_mesh&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_textures&#x27;</span>, <span class="hljs-literal">False</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_materials&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_as_skeletal&#x27;</span>, <span class="hljs-literal">False</span>) <span class="hljs-comment"># Static Mesh</span>
+    <span class="hljs-comment"># unreal.FbxMeshImportData</span>
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_translation&#x27;</span>, unreal.Vector(<span class="hljs-number">50.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>))
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_rotation&#x27;</span>, unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">110.0</span>, <span class="hljs-number">0.0</span>))
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_uniform_scale&#x27;</span>, <span class="hljs-number">1.0</span>)
+    <span class="hljs-comment"># unreal.FbxStaticMeshImportData</span>
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;combine_meshes&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;generate_lightmap_u_vs&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;auto_generate_collision&#x27;</span>, <span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">return</span> options
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildSkeletalMeshImportOptions</span>():</span>
+    options = unreal.FbxImportUI()
+    <span class="hljs-comment"># unreal.FbxImportUI</span>
+    options.set_editor_property(<span class="hljs-string">&#x27;import_mesh&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_textures&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_materials&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_as_skeletal&#x27;</span>, <span class="hljs-literal">True</span>) <span class="hljs-comment"># Skeletal Mesh</span>
+    <span class="hljs-comment"># unreal.FbxMeshImportData</span>
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_translation&#x27;</span>, unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>))
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_rotation&#x27;</span>, unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>))
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_uniform_scale&#x27;</span>, <span class="hljs-number">1.0</span>)
+    <span class="hljs-comment"># unreal.FbxSkeletalMeshImportData</span>
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_morph_targets&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;update_skeleton_reference_pose&#x27;</span>, <span class="hljs-literal">False</span>)
+    <span class="hljs-keyword">return</span> options</code></pre></div>
+
+<h3 id="Example3-创建、复制、删除、重命名资产和文件夹"><a href="#Example3-创建、复制、删除、重命名资产和文件夹" class="headerlink" title="Example3 创建、复制、删除、重命名资产和文件夹"></a>Example3 创建、复制、删除、重命名资产和文件夹</h3><p>AssetFunction_3.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_3 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.createDirectory()</span>
+
+<span class="hljs-comment"># ! 创建文件夹 ~/MyNewDirectory</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createDirectory</span>():</span>
+    unreal.EditorAssetLibrary.make_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory&#x27;</span>)
+
+<span class="hljs-comment"># ! 复制文件夹 ~/MyNewDirectory -&gt; ~/MyNewDirectory_Duplicated</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">duplicateDirectory</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorAssetLibrary.duplicate_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory_Duplicated&#x27;</span>)
+
+<span class="hljs-comment"># ! 删除文件夹 ~/MyNewDirectory</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteDirectory</span>():</span>
+    unreal.EditorAssetLibrary.delete_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory&#x27;</span>)
+
+<span class="hljs-comment"># ! 重命名文件夹 ~/MyNewDirectory_Duplicated -&gt; ~/MyNewDirectory_Renamed</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">renameDirectory</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorAssetLibrary.rename_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory_Renamed&#x27;</span>)
+
+<span class="hljs-comment"># ! 复制资产 ~/dear -&gt; ~/dear_Duplicated</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">duplicateAsset</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorAssetLibrary.duplicate_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>)
+
+<span class="hljs-comment"># ! 删除资产 ~/dear</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteAsset</span>():</span>
+    unreal.EditorAssetLibrary.delete_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>)
+
+<span class="hljs-comment"># ! 判断资产是否存在</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">assetExist</span>():</span>
+    <span class="hljs-keyword">print</span> unreal.EditorAssetLibrary.does_asset_exist(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>)
+    <span class="hljs-keyword">print</span> unreal.EditorAssetLibrary.does_asset_exist(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>)
+
+<span class="hljs-comment"># ! 重命名资产 ~/dear_Duplicated -&gt; ~/dear_Renamed</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">renameAsset</span>():</span>
+    unreal.EditorAssetLibrary.rename_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>)
+
+<span class="hljs-comment"># ! 显示复制资产提示框 ~/dear_Renamed -&gt; ~/dear_Duplicated</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">duplicateAssetDialog</span>(<span class="hljs-params">show_dialog=True</span>):</span>
+    <span class="hljs-keyword">if</span> show_dialog:
+        unreal.AssetToolsHelpers.get_asset_tools().duplicate_asset_with_dialog(<span class="hljs-string">&#x27;dear_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>))
+    <span class="hljs-keyword">else</span>:
+        unreal.AssetToolsHelpers.get_asset_tools().duplicate_asset(<span class="hljs-string">&#x27;dear_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>))
+
+<span class="hljs-comment"># ! 显示重命名提示框 </span>
+<span class="hljs-comment"># ! ~/dear_Renamed -&gt; ~/dear_Renamed_2</span>
+<span class="hljs-comment"># ! ~/dear_Duplicated -&gt; ~/dear_Duplicated_Renamed</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">renameAssetDialog</span>(<span class="hljs-params">show_dialog=True</span>):</span>
+    first_renmae_data = unreal.AssetRenameData(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>), <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, <span class="hljs-string">&#x27;dear_Renamed_2&#x27;</span>)
+    second_rename_data = unreal.AssetRenameData(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>), <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, <span class="hljs-string">&#x27;dear_Duplicated_Renamed&#x27;</span>)
+    <span class="hljs-keyword">if</span> show_dialog:
+        unreal.AssetToolsHelpers.get_asset_tools().rename_assets_with_dialog([first_renmae_data, second_rename_data])
+    <span class="hljs-keyword">else</span>:
+        unreal.AssetToolsHelpers.get_asset_tools().rename_assets([first_renmae_data, second_rename_data])</code></pre></div>
+
+<h2 id="L3-使用-Python-调用-C-函数"><a href="#L3-使用-Python-调用-C-函数" class="headerlink" title="L3 使用 Python 调用 C++ 函数"></a>L3 使用 Python 调用 C++ 函数</h2><p>&emsp;&emsp;可以通过公开蓝图类的方式使 Python 可以访问 C++ 的函数。</p>
+<h3 id="创建蓝图C-类"><a href="#创建蓝图C-类" class="headerlink" title="创建蓝图C++类"></a>创建蓝图C++类</h3><ol>
+<li>首先，创建一个继承蓝图函数库的C++类，命名为“ ZFunction ”，创建成功后会自动打开 Visual Studio。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L3_1.png" srcset="/img/loading.gif"></li>
+<li>修改 .h 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;ZFunction.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UZFunction</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+
+<span class="hljs-keyword">public</span>:
+    UFUNCTION(BlueprintCallable)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CalledFromPython</span><span class="hljs-params">(FString InputString)</span></span>;
+&#125;;</code></pre></div></li>
+<li>修改 .cpp 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;ZFunction.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UZFunction::CalledFromPython</span><span class="hljs-params">(FString InputString)</span> </span>&#123;
+    UE_LOG(LogTemp, Error, TEXT(<span class="hljs-string">&quot;%s&quot;</span>), *InputString);
+&#125;</code></pre></div>
+<h3 id="遍历函数和类"><a href="#遍历函数和类" class="headerlink" title="遍历函数和类"></a>遍历函数和类</h3>&emsp;&emsp;查看 UE4 中所有函数和类：<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> sorted(dir(unreal)):
+	<span class="hljs-keyword">print</span> x</code></pre></div>
+&emsp;&emsp;查看类中所含方法，可以看到我们创建的 ‘called_from_python’ 方法在其中。<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> sorted(dir(unreal.ZFunction)):
+	<span class="hljs-keyword">print</span> x</code></pre></div>
+
+</li>
+</ol>
+<h3 id="调用-C-方法"><a href="#调用-C-方法" class="headerlink" title="调用 C++ 方法"></a>调用 C++ 方法</h3><div class="hljs"><pre><code class="hljs python">unreal.ZFunction.called_from_python(<span class="hljs-string">&#x27;haha&#x27;</span>)</code></pre></div>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L3_2.png" srcset="/img/loading.gif"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Unreal/">Unreal</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/UE/">UE</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">
+                        <span class="hidden-mobile">Maya开发实践课（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "UnrealPython基础学习&nbsp;",
+      ],
+      cursorChar: "✨",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
