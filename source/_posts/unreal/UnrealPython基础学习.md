@@ -1,8 +1,7 @@
 ---
 title: UnrealPython基础学习
-top: true
 tags: [UE,Python]
-category: [Unreal]
+category: Unreal
 ---
 
 &emsp;&emsp;🛎 在 UE4 中使用 Python 开发入门。
