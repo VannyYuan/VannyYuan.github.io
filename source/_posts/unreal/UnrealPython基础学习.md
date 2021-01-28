@@ -262,3 +262,322 @@ unreal.ZFunction.called_from_python('haha')
 ![](UnrealPython基础学习/L3_2.png)
 
 
+## L4 修改文件夹颜色
+### 定义类和方法
+1. 创建一个继承蓝图函数库的C++类，命名为“ CppLib ”  
+![](UnrealPython基础学习/L4_1.png)
+2. 修改 .h 文件  
+    ```C++
+    // Fill out your copyright notice in the Description page of Project Settings.
+
+    #pragma once
+
+    #include "CoreMinimal.h"
+    #include "Kismet/BlueprintFunctionLibrary.h"
+    #include "CppLib.generated.h"
+
+    /**
+    * 
+    */
+    UCLASS()
+    class SCRIPT_PROJ_API UCppLib : public UBlueprintFunctionLibrary
+    {
+        GENERATED_BODY()
+        
+    public:
+        UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+            static void setFolderColor(FString FolderPath, FLinearColor Color);
+    };
+    ```
+3. 修改 .cpp 文件  
+    ```C++
+    // Fill out your copyright notice in the Description page of Project Settings.
+
+
+    #include "CppLib.h"
+    #include  "Runtime/Core/Public/Misc/ConfigCacheIni.h"
+
+    void UCppLib::setFolderColor(FString FolderPath, FLinearColor Color) {
+        GConfig->SetString(TEXT("PathColor"), *FolderPath, *Color.ToString(), GEditorPerProjectIni);
+    }
+    ```
+4. 在 UE4 中点击重新编译。
+
+### 在蓝图中设置文件夹颜色
+1. 创建蓝图类“Folder”。  
+![](UnrealPython基础学习/L4_2.png)
+2. 编辑事件节点，编译。  
+![](UnrealPython基础学习/L4_3.png)  
+其中，自定义事件节点勾选“Call In Editor”，该事件会显示在属性编辑器上。  
+![](UnrealPython基础学习/L4_4.png)
+3. 在场景中创建“Folder”，点击其属性中的“Set Folder Color”  
+![](UnrealPython基础学习/L4_5.png)
+4. 创建 “/Game/MyAsset/EXFolder”，可以看到颜色为蓝色，而对已经存在的文件夹颜色修改需要重启后才能看到效果。  
+![](UnrealPython基础学习/L4_6.png)
+
+### 在Python中创建颜色文件夹
+AssetFunction_4.py
+```python
+# coding: utf-8
+
+import unreal
+
+# import AssetFunction_4 as af
+# reload(af)
+# af.generateColoredDirectories()
+
+def generateColoredDirectories():
+    for x in range(40, 80):
+        dir_path = '/Game/MyAsset/MyColorFolder/' + str(x)
+        linear_color = getGradientColor(x)
+        unreal.CppLib.set_folder_color(dir_path, linear_color)
+        unreal.EditorAssetLibrary.make_directory(dir_path)
+
+def getGradientColor(x):
+    x = float(x) / 100
+    return unreal.LinearColor(x, 1-x, 1-x, 1)
+```
+
+&emsp;&emsp;在 UE4 运行后，会创建颜色不同的文件夹。
+
+![](UnrealPython基础学习/L4_7.png)
+
+
+## L5 打开和关闭资产
+&emsp;&emsp;Python只能打开资产，如果要实现关闭资产，需要添加 C++ 类增加功能来实现效果。
+
+1. 添加 build.cs 依赖  
+![](UnrealPython基础学习/L5_1.png)
+
+2. CppLib .h 文件代码  
+    ```C++
+    // Fill out your copyright notice in the Description page of Project Settings.
+
+    #pragma once
+
+    #include "CoreMinimal.h"
+    #include "Kismet/BlueprintFunctionLibrary.h"
+    #include "CppLib.generated.h"
+
+    /**
+    * 
+    */
+    UCLASS()
+    class SCRIPT_PROJ_API UCppLib : public UBlueprintFunctionLibrary
+    {
+        GENERATED_BODY()
+        
+    public:
+        UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+            static void CloseEditorForAssets(TArray<UObject*> Assets);
+
+        UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+            static TArray<UObject*> GetAssetsOpenedInEditor();
+    };
+
+    ```
+
+3. CppLib .cpp 文件代码  
+    ```C++
+    // Fill out your copyright notice in the Description page of Project Settings.
+
+
+    #include "CppLib.h"
+    #include "Editor.h"
+    #include "Editor/UnrealEd/Public/Subsystems/AssetEditorSubsystem.h"
+
+    void UCppLib::CloseEditorForAssets(TArray<UObject*> Assets) {
+        UAssetEditorSubsystem* AssetEditorSubsystem = GEditor->GetEditorSubsystem<UAssetEditorSubsystem>();
+        for (UObject* Asset : Assets) {
+            AssetEditorSubsystem->CloseAllEditorsForAsset(Asset);
+        }
+    }
+
+    TArray<UObject*> UCppLib::GetAssetsOpenedInEditor() {
+        UAssetEditorSubsystem* AssetEditorSubsystem = GEditor->GetEditorSubsystem<UAssetEditorSubsystem>();
+        TArray<UObject*> EditedAssets = AssetEditorSubsystem->GetAllEditedAssets();
+            return EditedAssets;
+    }
+    ```
+    注：教程上用的是 FAssetEditorManager ，但由于版本更新已经不适用，需要替换成 UAssetEditorSubsystem 。
+
+4. AssetFunction_5.py 文件代码  
+    ```python
+    # coding: utf-8
+
+    import unreal
+
+    # ! 加载资产
+    def openAssets():
+        assets = [
+            unreal.load_asset('/Game/MyAsset/Textures/dear'),
+            unreal.load_asset('/Game/MyAsset/Sounds/easy'),
+            unreal.load_asset('/Game/MyAsset/StaticMeshes/static_fbx')
+        ]
+        unreal.AssetToolsHelpers.get_asset_tools().open_editor_for_assets(assets)
+
+    # ! 获取已经打开的资产列表
+    def getAllOpenedAssets():
+        return unreal.CppLib.get_assets_opened_in_editor()
+
+    # ! 关闭所有打开的资产
+    def closeAssets():
+        assets = getAllOpenedAssets()
+        unreal.CppLib.close_editor_for_assets(assets)
+    ```
+
+5. 在 UE4 中调试代码   
+    ```python
+    import AssetFunction_5 as af
+    reload(af)
+    print af.getAllOpenedAssets()
+    af.closeAssets()
+    ```
+    打印出已经打开的资产窗口，以及关闭所有资产窗口。  
+    ![](UnrealPython基础学习/L5_2.png)
+
+
+## L6 选择内容浏览器中的资产
+
+### 利用 Python 选择指定资产
+AssetFunction_6.py
+```python
+# coding: utf-8
+
+import unreal
+
+# import AssetFunction_6 as af
+# reload(af)
+# af.showAssetsInContentBrowser()
+
+# ! 选择指定资产
+def showAssetsInContentBrowser():
+    paths = [
+        '/Game/MyAsset/Sounds/easy',
+        '/Game/MyAsset/Textures/dear'
+    ]
+    unreal.EditorAssetLibrary.sync_browser_to_objects(paths)
+```
+![](UnrealPython基础学习/L6_1.png)
+
+### 利用 C++ 和 Python 设置选择资产和文件夹
+1. 添加 build.cs 依赖  
+![](UnrealPython基础学习/L6_2.png)
+
+2. CppLib .h 文件代码  
+    ```C++
+    // Fill out your copyright notice in the Description page of Project Settings.
+
+    #pragma once
+
+    #include "CoreMinimal.h"
+    #include "Kismet/BlueprintFunctionLibrary.h"
+    #include "CppLib.generated.h"
+
+    /**
+    * 
+    */
+    UCLASS()
+    class SCRIPT_PROJ_API UCppLib : public UBlueprintFunctionLibrary
+    {
+        GENERATED_BODY()
+        
+    public:
+
+        UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+            static TArray<FString> GetSelectedAssets();
+
+        UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+            static TArray<FString> GetSelectedFolders();
+
+        UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+            static void SetSelectedAssets(TArray<FString> Paths);
+
+        UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+            static void SetSelectedFolders(TArray<FString> Paths);
+    };
+
+    ```
+3. CppLib .cpp 文件代码  
+    ```C++
+    // Fill out your copyright notice in the Description page of Project Settings.
+
+
+    #include "CppLib.h"
+    #include "Editor/ContentBrowser/Public/ContentBrowserModule.h"
+    #include "Editor/ContentBrowser/Private/SContentBrowser.h"
+    #include "Runtime/AssetRegistry/Public/AssetRegistryModule.h"
+
+    TArray<FString> UCppLib::GetSelectedAssets() {
+        FContentBrowserModule& ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+        // get selected assets
+        TArray<FAssetData> SelectedAssets;
+        ContentBrowserModule.Get().GetSelectedAssets(SelectedAssets);
+        // convert assets to string
+        TArray<FString> Result;
+        for (FAssetData& AssetData : SelectedAssets) {
+            Result.Add(AssetData.PackageName.ToString());
+        }
+        return Result;
+    }
+
+    void UCppLib::SetSelectedAssets(TArray<FString> Paths) {
+        FContentBrowserModule& ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+        FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
+        // convert the string to FName
+        TArray<FName> PathsName;
+        for (FString Path : Paths) {
+            PathsName.Add(*Path);
+        }
+        FARFilter AssetFilter;
+        AssetFilter.PackageNames = PathsName;
+        // Find the assets
+        TArray<FAssetData> AssetDatas;
+        AssetRegistryModule.Get().GetAssets(AssetFilter, AssetDatas);
+        // Ask the ContentBrowser to select them Different to python, the folder levels is also selected.
+        ContentBrowserModule.Get().SyncBrowserToAssets(AssetDatas);
+    }
+
+    TArray<FString> UCppLib::GetSelectedFolders() {
+        FContentBrowserModule& ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+        TArray<FString> SelectedFolders;
+        ContentBrowserModule.Get().GetSelectedFolders(SelectedFolders);
+        return SelectedFolders;
+    }
+
+    void UCppLib::SetSelectedFolders(TArray<FString> Paths) {
+        FContentBrowserModule& ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+        TArray<FString> SelectedFolders;
+        ContentBrowserModule.Get().SyncBrowserToFolders(Paths);
+    }
+    ```
+
+4. Python 调用 C++ 测试运行  
+    ```python
+    # ! 调用 C++ 命令设置选择文件夹
+    def getSelectedAssets():
+        return unreal.CppLib.get_selected_assets(paths)
+
+    # ! 调用 C++ 命令设置选择文件夹
+    def setSelectedAssets():
+        paths = [
+            '/Game/MyAsset/Sounds/easy',
+            '/Game/MyAsset/Textures/dear'
+        ]
+        return unreal.CppLib.set_selected_assets(paths)
+
+    # ! 调用 C++ 命令获取选择文件夹
+    def getSelectedFolders():
+        return unreal.CppLib.get_selected_folders()
+
+    # ! 调用 C++ 命令设置文件夹
+    def setSelectedFolders():
+        paths = [
+            '/Game/MyAsset/Sounds',
+            '/Game/MyAsset/Textures'
+        ]
+        return unreal.CppLib.set_selected_folders(paths)
+    ```
+
+&emsp;&emsp;⚠ 令人奇怪的是，在 UE4 中编译测试可以实现我们想要的效果，但是在Visual Studio中却会报错：```无法打开源文件 "SAssetSearchBox.h"12	```。
+
