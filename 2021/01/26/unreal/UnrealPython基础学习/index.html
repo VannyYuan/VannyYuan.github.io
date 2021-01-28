@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      2.6k 字
     </span>
   
 
@@ -432,7 +432,283 @@ UCLASS()
 </ol>
 <h3 id="调用-C-方法"><a href="#调用-C-方法" class="headerlink" title="调用 C++ 方法"></a>调用 C++ 方法</h3><div class="hljs"><pre><code class="hljs python">unreal.ZFunction.called_from_python(<span class="hljs-string">&#x27;haha&#x27;</span>)</code></pre></div>
 <p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L3_2.png" srcset="/img/loading.gif"></p>
+<h2 id="L4-修改文件夹颜色"><a href="#L4-修改文件夹颜色" class="headerlink" title="L4 修改文件夹颜色"></a>L4 修改文件夹颜色</h2><h3 id="定义类和方法"><a href="#定义类和方法" class="headerlink" title="定义类和方法"></a>定义类和方法</h3><ol>
+<li>创建一个继承蓝图函数库的C++类，命名为“ CppLib ”<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_1.png" srcset="/img/loading.gif"></li>
+<li>修改 .h 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
 
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+    
+<span class="hljs-keyword">public</span>:
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFolderColor</span><span class="hljs-params">(FString FolderPath, FLinearColor Color)</span></span>;
+&#125;;</code></pre></div></li>
+<li>修改 .cpp 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>  <span class="hljs-meta-string">&quot;Runtime/Core/Public/Misc/ConfigCacheIni.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::setFolderColor</span><span class="hljs-params">(FString FolderPath, FLinearColor Color)</span> </span>&#123;
+    GConfig-&gt;SetString(TEXT(<span class="hljs-string">&quot;PathColor&quot;</span>), *FolderPath, *Color.ToString(), GEditorPerProjectIni);
+&#125;</code></pre></div></li>
+<li>在 UE4 中点击重新编译。</li>
+</ol>
+<h3 id="在蓝图中设置文件夹颜色"><a href="#在蓝图中设置文件夹颜色" class="headerlink" title="在蓝图中设置文件夹颜色"></a>在蓝图中设置文件夹颜色</h3><ol>
+<li>创建蓝图类“Folder”。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_2.png" srcset="/img/loading.gif"></li>
+<li>编辑事件节点，编译。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_3.png" srcset="/img/loading.gif"><br>其中，自定义事件节点勾选“Call In Editor”，该事件会显示在属性编辑器上。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_4.png" srcset="/img/loading.gif"></li>
+<li>在场景中创建“Folder”，点击其属性中的“Set Folder Color”<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_5.png" srcset="/img/loading.gif"></li>
+<li>创建 “/Game/MyAsset/EXFolder”，可以看到颜色为蓝色，而对已经存在的文件夹颜色修改需要重启后才能看到效果。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_6.png" srcset="/img/loading.gif"></li>
+</ol>
+<h3 id="在Python中创建颜色文件夹"><a href="#在Python中创建颜色文件夹" class="headerlink" title="在Python中创建颜色文件夹"></a>在Python中创建颜色文件夹</h3><p>AssetFunction_4.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_4 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.generateColoredDirectories()</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generateColoredDirectories</span>():</span>
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">40</span>, <span class="hljs-number">80</span>):
+        dir_path = <span class="hljs-string">&#x27;/Game/MyAsset/MyColorFolder/&#x27;</span> + str(x)
+        linear_color = getGradientColor(x)
+        unreal.CppLib.set_folder_color(dir_path, linear_color)
+        unreal.EditorAssetLibrary.make_directory(dir_path)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getGradientColor</span>(<span class="hljs-params">x</span>):</span>
+    x = float(x) / <span class="hljs-number">100</span>
+    <span class="hljs-keyword">return</span> unreal.LinearColor(x, <span class="hljs-number">1</span>-x, <span class="hljs-number">1</span>-x, <span class="hljs-number">1</span>)</code></pre></div>
+
+<p>&emsp;&emsp;在 UE4 运行后，会创建颜色不同的文件夹。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_7.png" srcset="/img/loading.gif"></p>
+<h2 id="L5-打开和关闭资产"><a href="#L5-打开和关闭资产" class="headerlink" title="L5 打开和关闭资产"></a>L5 打开和关闭资产</h2><p>&emsp;&emsp;Python只能打开资产，如果要实现关闭资产，需要添加 C++ 类增加功能来实现效果。</p>
+<ol>
+<li><p>添加 build.cs 依赖<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L5_1.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>CppLib .h 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+    
+<span class="hljs-keyword">public</span>:
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CloseEditorForAssets</span><span class="hljs-params">(TArray&lt;UObject*&gt; Assets)</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;UObject*&gt; <span class="hljs-title">GetAssetsOpenedInEditor</span><span class="hljs-params">()</span></span>;
+&#125;;
+</code></pre></div>
+</li>
+<li><p>CppLib .cpp 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/UnrealEd/Public/Subsystems/AssetEditorSubsystem.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::CloseEditorForAssets</span><span class="hljs-params">(TArray&lt;UObject*&gt; Assets)</span> </span>&#123;
+    UAssetEditorSubsystem* AssetEditorSubsystem = GEditor-&gt;GetEditorSubsystem&lt;UAssetEditorSubsystem&gt;();
+    <span class="hljs-keyword">for</span> (UObject* Asset : Assets) &#123;
+        AssetEditorSubsystem-&gt;CloseAllEditorsForAsset(Asset);
+    &#125;
+&#125;
+
+<span class="hljs-function">TArray&lt;UObject*&gt; <span class="hljs-title">UCppLib::GetAssetsOpenedInEditor</span><span class="hljs-params">()</span> </span>&#123;
+    UAssetEditorSubsystem* AssetEditorSubsystem = GEditor-&gt;GetEditorSubsystem&lt;UAssetEditorSubsystem&gt;();
+    TArray&lt;UObject*&gt; EditedAssets = AssetEditorSubsystem-&gt;GetAllEditedAssets();
+        <span class="hljs-keyword">return</span> EditedAssets;
+&#125;</code></pre></div>
+<p> 注：教程上用的是 FAssetEditorManager ，但由于版本更新已经不适用，需要替换成 UAssetEditorSubsystem 。</p>
+</li>
+<li><p>AssetFunction_5.py 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># ! 加载资产</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">openAssets</span>():</span>
+    assets = [
+        unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>),
+        unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Sounds/easy&#x27;</span>),
+        unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/StaticMeshes/static_fbx&#x27;</span>)
+    ]
+    unreal.AssetToolsHelpers.get_asset_tools().open_editor_for_assets(assets)
+
+<span class="hljs-comment"># ! 获取已经打开的资产列表</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAllOpenedAssets</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_assets_opened_in_editor()
+
+<span class="hljs-comment"># ! 关闭所有打开的资产</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">closeAssets</span>():</span>
+    assets = getAllOpenedAssets()
+    unreal.CppLib.close_editor_for_assets(assets)</code></pre></div>
+</li>
+<li><p>在 UE4 中调试代码   </p>
+ <div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> AssetFunction_5 <span class="hljs-keyword">as</span> af
+reload(af)
+<span class="hljs-keyword">print</span> af.getAllOpenedAssets()
+af.closeAssets()</code></pre></div>
+<p> 打印出已经打开的资产窗口，以及关闭所有资产窗口。<br> <img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L5_2.png" srcset="/img/loading.gif"></p>
+</li>
+</ol>
+<h2 id="L6-选择内容浏览器中的资产"><a href="#L6-选择内容浏览器中的资产" class="headerlink" title="L6 选择内容浏览器中的资产"></a>L6 选择内容浏览器中的资产</h2><h3 id="利用-Python-选择指定资产"><a href="#利用-Python-选择指定资产" class="headerlink" title="利用 Python 选择指定资产"></a>利用 Python 选择指定资产</h3><p>AssetFunction_6.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_6 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.showAssetsInContentBrowser()</span>
+
+<span class="hljs-comment"># ! 选择指定资产</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">showAssetsInContentBrowser</span>():</span>
+    paths = [
+        <span class="hljs-string">&#x27;/Game/MyAsset/Sounds/easy&#x27;</span>,
+        <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>
+    ]
+    unreal.EditorAssetLibrary.sync_browser_to_objects(paths)</code></pre></div>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_1.png" srcset="/img/loading.gif"></p>
+<h3 id="利用-C-和-Python-设置选择资产和文件夹"><a href="#利用-C-和-Python-设置选择资产和文件夹" class="headerlink" title="利用 C++ 和 Python 设置选择资产和文件夹"></a>利用 C++ 和 Python 设置选择资产和文件夹</h3><ol>
+<li><p>添加 build.cs 依赖<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_2.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>CppLib .h 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+    
+<span class="hljs-keyword">public</span>:
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;FString&gt; <span class="hljs-title">GetSelectedAssets</span><span class="hljs-params">()</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;FString&gt; <span class="hljs-title">GetSelectedFolders</span><span class="hljs-params">()</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetSelectedAssets</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetSelectedFolders</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span></span>;
+&#125;;
+</code></pre></div></li>
+<li><p>CppLib .cpp 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/ContentBrowser/Public/ContentBrowserModule.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/ContentBrowser/Private/SContentBrowser.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Runtime/AssetRegistry/Public/AssetRegistryModule.h&quot;</span></span>
+
+<span class="hljs-function">TArray&lt;FString&gt; <span class="hljs-title">UCppLib::GetSelectedAssets</span><span class="hljs-params">()</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    <span class="hljs-comment">// get selected assets</span>
+    TArray&lt;FAssetData&gt; SelectedAssets;
+    ContentBrowserModule.Get().GetSelectedAssets(SelectedAssets);
+    <span class="hljs-comment">// convert assets to string</span>
+    TArray&lt;FString&gt; Result;
+    <span class="hljs-keyword">for</span> (FAssetData&amp; AssetData : SelectedAssets) &#123;
+        Result.Add(AssetData.PackageName.ToString());
+    &#125;
+    <span class="hljs-keyword">return</span> Result;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::SetSelectedAssets</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    FAssetRegistryModule&amp; AssetRegistryModule = FModuleManager::LoadModuleChecked&lt;FAssetRegistryModule&gt;(<span class="hljs-string">&quot;AssetRegistry&quot;</span>);
+    <span class="hljs-comment">// convert the string to FName</span>
+    TArray&lt;FName&gt; PathsName;
+    <span class="hljs-keyword">for</span> (FString Path : Paths) &#123;
+        PathsName.Add(*Path);
+    &#125;
+    FARFilter AssetFilter;
+    AssetFilter.PackageNames = PathsName;
+    <span class="hljs-comment">// Find the assets</span>
+    TArray&lt;FAssetData&gt; AssetDatas;
+    AssetRegistryModule.Get().GetAssets(AssetFilter, AssetDatas);
+    <span class="hljs-comment">// Ask the ContentBrowser to select them Different to python, the folder levels is also selected.</span>
+    ContentBrowserModule.Get().SyncBrowserToAssets(AssetDatas);
+&#125;
+
+<span class="hljs-function">TArray&lt;FString&gt; <span class="hljs-title">UCppLib::GetSelectedFolders</span><span class="hljs-params">()</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    TArray&lt;FString&gt; SelectedFolders;
+    ContentBrowserModule.Get().GetSelectedFolders(SelectedFolders);
+    <span class="hljs-keyword">return</span> SelectedFolders;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::SetSelectedFolders</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    TArray&lt;FString&gt; SelectedFolders;
+    ContentBrowserModule.Get().SyncBrowserToFolders(Paths);
+&#125;</code></pre></div>
+</li>
+<li><p>Python 调用 C++ 测试运行  </p>
+ <div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># ! 调用 C++ 命令设置选择文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedAssets</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_selected_assets(paths)
+
+<span class="hljs-comment"># ! 调用 C++ 命令设置选择文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setSelectedAssets</span>():</span>
+    paths = [
+        <span class="hljs-string">&#x27;/Game/MyAsset/Sounds/easy&#x27;</span>,
+        <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>
+    ]
+    <span class="hljs-keyword">return</span> unreal.CppLib.set_selected_assets(paths)
+
+<span class="hljs-comment"># ! 调用 C++ 命令获取选择文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedFolders</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_selected_folders()
+
+<span class="hljs-comment"># ! 调用 C++ 命令设置文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setSelectedFolders</span>():</span>
+    paths = [
+        <span class="hljs-string">&#x27;/Game/MyAsset/Sounds&#x27;</span>,
+        <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>
+    ]
+    <span class="hljs-keyword">return</span> unreal.CppLib.set_selected_folders(paths)</code></pre></div>
+
+</li>
+</ol>
+<p>&emsp;&emsp;⚠ 令人奇怪的是，在 UE4 中编译测试可以实现我们想要的效果，但是在Visual Studio中却会报错：<code>无法打开源文件 &quot;SAssetSearchBox.h&quot;12    </code>。然鹅在VS2017有小伙伴测试没有报错，不知道是不是版本的问题。</p>
+<h2 id="L7-显示进度条"><a href="#L7-显示进度条" class="headerlink" title="L7 显示进度条"></a>L7 显示进度条</h2>
             </div>
             <hr>
             <div>
@@ -636,7 +912,7 @@ UCLASS()
         '  ',
         "UnrealPython基础学习&nbsp;",
       ],
-      cursorChar: "✨",
+      cursorChar: "🔥",
       typeSpeed: 70,
       loop: false,
     });
