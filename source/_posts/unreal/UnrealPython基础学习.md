@@ -579,5 +579,7 @@ def showAssetsInContentBrowser():
         return unreal.CppLib.set_selected_folders(paths)
     ```
 
-&emsp;&emsp;⚠ 令人奇怪的是，在 UE4 中编译测试可以实现我们想要的效果，但是在Visual Studio中却会报错：```无法打开源文件 "SAssetSearchBox.h"12	```。
+&emsp;&emsp;⚠ 令人奇怪的是，在 UE4 中编译测试可以实现我们想要的效果，但是在Visual Studio中却会报错：```无法打开源文件 "SAssetSearchBox.h"12	```。然鹅在VS2017有小伙伴测试没有报错，不知道是不是版本的问题。
 
+
+## L7 显示进度条
