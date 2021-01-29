@@ -581,5 +581,348 @@ def showAssetsInContentBrowser():
 
 &emsp;&emsp;⚠ 令人奇怪的是，在 UE4 中编译测试可以实现我们想要的效果，但是在Visual Studio中却会报错：```无法打开源文件 "SAssetSearchBox.h"12	```。然鹅在VS2017有小伙伴测试没有报错，不知道是不是版本的问题。
 
+&emsp;&emsp;为了解决这个问题，我重新新建了一个项目，把代码重新编译，仍然不通过。我在VS 2019 的项目设置 VC++ 目录的包含目录中添加了一个新路径，在 bulid.cs 文件 *PublicDependencyModuleNames.AddRange()* 中添加"EditorWidgets"，重新生成项目，成功！😄
+
+![](UnrealPython基础学习/L6_3.png)
+
+&emsp;&emsp;该路径是通过 C++ Api SAssetSearchBox 中找到的。
+
+![](UnrealPython基础学习/L6_4.png)
+
 
 ## L7 显示进度条
+
+&emsp;&emsp;该部分实现效果为：在 UE4 中显示进度条框并执行相对应任务。
+
+&emsp;&emsp;教程中可以完全使用 Python 来实现该功能，但实际测试时发现，当前版本某些方法已经弃用或找不到 Python 接口，如 unreal.EditorCppLib.begin_spawn_actor() 和 unreal.GameplayStatics.finish_spawning_actor()。因此还是结合 C++、Blueprint 以及 Python 实现。
+
+EditorFunction_1.py
+```python
+# coding: utf-8
+
+import unreal
+import random
+import time
+
+def executeSlowTask():
+    quantity_steps_in_slow_task = 10
+    with unreal.ScopedSlowTask(quantity_steps_in_slow_task, 'My Slow Task Text ...') as slow_task:
+        slow_task.make_dialog(True)
+        for x in range(quantity_steps_in_slow_task):
+            if slow_task.should_cancel():
+                break
+            slow_task.enter_progress_frame(1, 'My Slow Task Text ...' + str(x) + ' / ' + str(quantity_steps_in_slow_task))
+            # Execute slow logic
+            deferredSpawnActor()
+            time.sleep(1)
+
+def deferredSpawnActor():
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    # ! blueprint actor
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class('/Game/BluePrint/bp_actor')
+    actor_location = unreal.Vector(random.uniform(0.0, 2000.0), random.uniform(0.0, 2000.0), 0.0)
+    actor_rotation = unreal.Rotator(random.uniform(0.0, 360.0), random.uniform(0.0, 360.0), random.uniform(0.0, 360.0))
+    actor_scale = unreal.Vector(random.uniform(0.1, 2.0), random.uniform(0.1, 2.0), random.uniform(0.1, 2.0))
+    actor_transform = unreal.Transform(actor_location, actor_rotation, actor_scale)
+    # ! "GameplayStatics.begin_spawning_actor_from_class()" is deprecated. Use BeginDeferredActorSpawnFromClass instead.
+    # actor = unreal.GameplayStatics.begin_spawning_actor_from_class(world, actor_class, actor_transform)
+    # unreal.GameplayStatics.finish_spawning_actor(actor, actor_transform)
+    actor = unreal.EditorCppLib.begin_spawn_actor(world, actor_class, actor_transform)
+    unreal.EditorCppLib.finish_spawn_actor(actor, actor_transform)
+```
+
+EditorCppLib.h
+```C++
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+#include "EditorCppLib.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class SCRIPT_PROJ_API UEditorCppLib : public UBlueprintFunctionLibrary
+{
+	GENERATED_BODY()
+	
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+		static AActor* BeginSpawnActor(const UObject* WorldContextObj,TSubclassOf < AActor > ActorClass, const FTransform& SpawnTransform);
+
+	UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+		static void FinishSpawnActor(AActor* MyActor, const FTransform& SpawnTransform);
+};
+```
+EditorCppLib.cpp
+```C++
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "EditorCppLib.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+
+AActor* UEditorCppLib::BeginSpawnActor(const UObject* WorldContextObj, TSubclassOf < AActor > ActorClass, const FTransform& SpawnTransform) {
+    return UGameplayStatics::BeginDeferredActorSpawnFromClass(WorldContextObj, ActorClass, SpawnTransform);
+}
+
+void UEditorCppLib::FinishSpawnActor(AActor* MyActor, const FTransform& SpawnTransform) {
+    UGameplayStatics::FinishSpawningActor(MyActor, SpawnTransform);
+}
+```
+
+&emsp;&emsp;在 C++ API 中可以查到函数需要的参数及类型。
+
+![](UnrealPython基础学习/L7_1.png)
+
+![](UnrealPython基础学习/L7_2.png)
+
+
+## L8 获取物体属性
+
+&emsp;&emsp;利用 C++ 获取类的所有属性名，再用 Python 获取属性值。
+
+CppLib.h文件
+```C++
+UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+    static TArray<FString> GetAllProperties(UClass* Class);
+```
+
+CppLib.cpp文件
+```C++
+TArray<FString> UCppLib::GetAllProperties(UClass* Class) {
+    TArray<FString> Ret;
+    if (Class != nullptr) {
+        for (TFieldIterator<UProperty> It(Class); It; ++It) {
+            UProperty* Property = *It;
+            if (Property->HasAnyPropertyFlags(EPropertyFlags::CPF_Edit)) {
+                Ret.Add(Property->GetName());
+            }
+        }
+    }
+    return Ret;
+}
+```
+
+PythonHelpers.py文件
+```python
+# coding: utf-8
+
+import unreal
+
+def getAllProperties(object_class):
+    return unreal.CppLib.get_all_properties(object_class)
+
+def printAllProperties():
+    obj = unreal.Actor()
+    object_class = obj.get_class()
+    for x in getAllProperties(object_class):
+        name = x
+        while len(name) < 50:
+            name = ' ' + name
+        print name + ':' + str(obj.get_editor_property(x))
+```
+
+效果展示：
+
+![](UnrealPython基础学习/L8_1.png)
+
+
+## L9 运行 Cmd
+
+&emsp;&emsp;使用 Python 和 C++ 在 UE4 中运行 Cmd 指令。
+
+CppLib.h文件
+```C++
+UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+    static void ExecuteConsoleCommand(FString ConsoleCommand);
+```
+
+CppLib.cpp文件
+
+需要在cs文件中添加依赖项 "UnrealEd" -> PublicDependencyModuleNames）
+```C++
+#include "Editor/UnrealEd/Public/Editor.h"
+
+void UCppLib::ExecuteConsoleCommand(FString ConsoleCommand) {
+    if (GEditor) {
+        UWorld* World = GEditor->GetEditorWorldContext().World();
+        if (World) {
+            GEditor->Exec(World, *ConsoleCommand, *GLog);
+        }
+    }
+}
+```
+
+EditorFunction_2.py文件
+```python
+def executeConsoleCommand():
+    console_commands = ['r.ScreenPercentage 0.1', 'r.Color.Max 6', 'stat fps', 'stat unit']
+    for x in console_commands:
+        unreal.CppLib.execute_console_command(x)
+```
+
+运行效果：
+![](UnrealPython基础学习/L9_1.png)
+
+
+## L10 在场景中实例化 Actor
+
+&emsp;&emsp;在 Python 中可以使用 ```unreal.EditorLevelLibrary.spawn_actor_from_class(actor_class, actor_location, actor_rotation)``` 进行实例化 Actor 。
+
+WorldFunctions.py文件
+```python
+# coding: utf-8
+
+import unreal
+
+def spawnActor():
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class('/Game/BluePrint/MyActor')
+    actor_location = unreal.Vector(0.0, 0.0, 0.0)
+    actor_rotation = unreal.Rotator(0.0, 0.0, 0.0)
+    unreal.EditorLevelLibrary.spawn_actor_from_class(actor_class, actor_location, actor_rotation)
+
+def deferredSpawnActor():
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class('/Game/BluePrint/MyActor')
+    actor_location = unreal.Vector(0.0, 0.0, 0.0)
+    actor_rotation = unreal.Rotator(0.0, 0.0, 0.0)
+    actor_scale = unreal.Vector(1.0, 1.0, 1.0)
+
+    actor_transform = unreal.Transform(actor_location, actor_rotation, actor_scale)
+    actor = unreal.EditorCppLib.begin_spawn_actor(world, actor_class, actor_transform)
+    actor_tags = actor.get_editor_property('tags')
+    actor_tags.append('My Python Tag')
+    actor.set_editor_property('tag', actor_tags)
+    unreal.EditorCppLib.finish_spawn_actor(actor, actor_transform)
+```
+
+&emsp;&emsp;为了更直观看到实例化过程，我们可以对蓝图 Actor 进行编辑并对节点连接，使得在实例化时会打印出内容。 
+![](UnrealPython基础学习/L10_1.png)
+
+在 UE4 中运行效果：
+
+![](UnrealPython基础学习/L10_2.png)
+
+可以看到，使用 unreal.EditorLevelLibrary.spawn_actor_from_class() 时，虽然只创建了一次物体但实例化了两次，而后面的方法只实例化了一次。
+
+
+## L11 类型转换
+
+&emsp;&emsp;如果使用 Python 进行类型转换，转换不支持的类型时会引起崩溃，可以用 C++ 进行类型转换判断。
+
+PythonHelpers_2.py文件
+```python
+# coding: utf-8
+
+import unreal
+
+def tryCast():
+    # ! this run crash use python
+    # if unreal.Actor.cast(unreal.load_asset('/Game/MyAsset/Textures/dear')):   
+    if unreal.Texture2D.cast(unreal.load_asset('/Game/MyAsset/Textures/dear')):
+        print 'Cast Succeeded'
+    else:
+        print 'Cast Failed'
+
+def castObject():
+    # ! this will not crash user C++
+    if cast(unreal.load_asset('/Game/MyAsset/Textures/dear'), unreal.Actor):
+        print 'Cast Succeeded'
+    else:
+        print 'Cast Failed'
+
+def cast(object_to_cast, object_class):
+    try:
+        return object_class.cast(object_to_cast)
+    except:
+        return None
+```
+
+
+## L12 获取世界中的指定Actor
+
+&emsp;&emsp;有三种方法筛选Actor：
+- 获取选择的Actor：unreal.EditorLevelLibrary.get_selected_level_actors()
+- 通过类型获取： unreal.GameplayStatics.get_all_actors_of_class()
+- 通过 tag 获取： unreal.GameplayStatics.get_all_actors_of_class()
+
+```python
+# coding: utf-8
+
+import unreal
+
+def getSelectedActors():
+    # ! Selected
+    selected_actors = unreal.EditorLevelLibrary.get_selected_level_actors()
+    return selected_actors
+
+def getClassActors(actor_class):
+    # ! Class
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    class_actors = unreal.GameplayStatics.get_all_actors_of_class(world, actor_class)
+    return class_actors
+
+def getTagActors(actor_tag):
+    # ! Tag
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    tag_actors = unreal.GameplayStatics.get_all_actors_with_tag(world, actor_tag)
+    return tag_actors
+
+def getAllActors():
+    # ! All
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    all_actors = unreal.GameplayStatics.get_all_actors_of_class(world, unreal.Actor)
+    return all_actors
+
+def sortActors(use_selection = False, actor_class = None, actor_tag = None):
+    """如果有指定，则筛选指定 Actors。否则返回全部 Actors
+
+    """
+    # ! return all actors
+    if not use_selection and not actor_class and not actor_tag:
+        return getAllActors()
+
+    # ! get sort actors
+    selected_actors, class_actors, tag_actors = [], [], []
+    if use_selection:
+        selected_actors = getSelectedActors()
+    if actor_class:
+        class_actors = getClassActors(actor_class)
+    if actor_tag:
+        tag_actors = getTagActors(actor_tag)
+
+    all_actors = selected_actors
+    all_actors.extend(class_actors)
+    all_actors.extend(tag_actors)
+
+    all_actors = getAllActors()
+    final_actors = []
+    for actor in all_actors:
+        if actor in selected_actors and actor in class_actors and actor in tag_actors:
+            if final_actors:
+                final_actors.append(actor)
+            else:
+                final_actors = actor
+
+    return final_actors
+
+
+def cast(object_to_cast, object_class):
+    try:
+        return object_class.cast(object_to_cast)
+    except:
+        return getAllActors()
+```
+
+&emsp;&emsp;写这个的时候，发现获取出来的 Actors 存储都是用的 数组 array，虽然方法有些和列表 List 相同，但是使用起来效果不一样，最终打印结果数组显示和数组内元素显示有差异。
+
+![](UnrealPython基础学习/L11_1.png)
+
+
+## L12 使用 Qt 进行界面开发
+
