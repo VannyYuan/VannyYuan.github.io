@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.6k 字
+      4.1k 字
     </span>
   
 
@@ -708,7 +708,284 @@ UCLASS()
 </li>
 </ol>
 <p>&emsp;&emsp;⚠ 令人奇怪的是，在 UE4 中编译测试可以实现我们想要的效果，但是在Visual Studio中却会报错：<code>无法打开源文件 &quot;SAssetSearchBox.h&quot;12    </code>。然鹅在VS2017有小伙伴测试没有报错，不知道是不是版本的问题。</p>
-<h2 id="L7-显示进度条"><a href="#L7-显示进度条" class="headerlink" title="L7 显示进度条"></a>L7 显示进度条</h2>
+<p>&emsp;&emsp;为了解决这个问题，我重新新建了一个项目，把代码重新编译，仍然不通过。我在VS 2019 的项目设置 VC++ 目录的包含目录中添加了一个新路径，在 bulid.cs 文件 <em>PublicDependencyModuleNames.AddRange()</em> 中添加”EditorWidgets”，重新生成项目，成功！😄</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_3.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;该路径是通过 C++ Api SAssetSearchBox 中找到的。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_4.png" srcset="/img/loading.gif"></p>
+<h2 id="L7-显示进度条"><a href="#L7-显示进度条" class="headerlink" title="L7 显示进度条"></a>L7 显示进度条</h2><p>&emsp;&emsp;该部分实现效果为：在 UE4 中显示进度条框并执行相对应任务。</p>
+<p>&emsp;&emsp;教程中可以完全使用 Python 来实现该功能，但实际测试时发现，当前版本某些方法已经弃用或找不到 Python 接口，如 unreal.EditorCppLib.begin_spawn_actor() 和 unreal.GameplayStatics.finish_spawning_actor()。因此还是结合 C++、Blueprint 以及 Python 实现。</p>
+<p>EditorFunction_1.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> time
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeSlowTask</span>():</span>
+    quantity_steps_in_slow_task = <span class="hljs-number">10</span>
+    <span class="hljs-keyword">with</span> unreal.ScopedSlowTask(quantity_steps_in_slow_task, <span class="hljs-string">&#x27;My Slow Task Text ...&#x27;</span>) <span class="hljs-keyword">as</span> slow_task:
+        slow_task.make_dialog(<span class="hljs-literal">True</span>)
+        <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(quantity_steps_in_slow_task):
+            <span class="hljs-keyword">if</span> slow_task.should_cancel():
+                <span class="hljs-keyword">break</span>
+            slow_task.enter_progress_frame(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;My Slow Task Text ...&#x27;</span> + str(x) + <span class="hljs-string">&#x27; / &#x27;</span> + str(quantity_steps_in_slow_task))
+            <span class="hljs-comment"># Execute slow logic</span>
+            deferredSpawnActor()
+            time.sleep(<span class="hljs-number">1</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deferredSpawnActor</span>():</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    <span class="hljs-comment"># ! blueprint actor</span>
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class(<span class="hljs-string">&#x27;/Game/BluePrint/bp_actor&#x27;</span>)
+    actor_location = unreal.Vector(random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">2000.0</span>), random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">2000.0</span>), <span class="hljs-number">0.0</span>)
+    actor_rotation = unreal.Rotator(random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">360.0</span>), random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">360.0</span>), random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">360.0</span>))
+    actor_scale = unreal.Vector(random.uniform(<span class="hljs-number">0.1</span>, <span class="hljs-number">2.0</span>), random.uniform(<span class="hljs-number">0.1</span>, <span class="hljs-number">2.0</span>), random.uniform(<span class="hljs-number">0.1</span>, <span class="hljs-number">2.0</span>))
+    actor_transform = unreal.Transform(actor_location, actor_rotation, actor_scale)
+    <span class="hljs-comment"># ! &quot;GameplayStatics.begin_spawning_actor_from_class()&quot; is deprecated. Use BeginDeferredActorSpawnFromClass instead.</span>
+    <span class="hljs-comment"># actor = unreal.GameplayStatics.begin_spawning_actor_from_class(world, actor_class, actor_transform)</span>
+    <span class="hljs-comment"># unreal.GameplayStatics.finish_spawning_actor(actor, actor_transform)</span>
+    actor = unreal.EditorCppLib.begin_spawn_actor(world, actor_class, actor_transform)
+    unreal.EditorCppLib.finish_spawn_actor(actor, actor_transform)</code></pre></div>
+
+<p>EditorCppLib.h</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;EditorCppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * </span>
+<span class="hljs-comment"> */</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UEditorCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+	GENERATED_BODY()
+	
+<span class="hljs-keyword">public</span>:
+
+	UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+		<span class="hljs-function"><span class="hljs-keyword">static</span> AActor* <span class="hljs-title">BeginSpawnActor</span><span class="hljs-params">(<span class="hljs-keyword">const</span> UObject* WorldContextObj,TSubclassOf &lt; AActor &gt; ActorClass, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span></span>;
+
+	UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+		<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">FinishSpawnActor</span><span class="hljs-params">(AActor* MyActor, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span></span>;
+&#125;;</code></pre></div>
+<p>EditorCppLib.cpp</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;EditorCppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Runtime/Engine/Classes/Kismet/GameplayStatics.h&quot;</span></span>
+
+<span class="hljs-function">AActor* <span class="hljs-title">UEditorCppLib::BeginSpawnActor</span><span class="hljs-params">(<span class="hljs-keyword">const</span> UObject* WorldContextObj, TSubclassOf &lt; AActor &gt; ActorClass, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> UGameplayStatics::BeginDeferredActorSpawnFromClass(WorldContextObj, ActorClass, SpawnTransform);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UEditorCppLib::FinishSpawnActor</span><span class="hljs-params">(AActor* MyActor, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span> </span>&#123;
+    UGameplayStatics::FinishSpawningActor(MyActor, SpawnTransform);
+&#125;</code></pre></div>
+
+<p>&emsp;&emsp;在 C++ API 中可以查到函数需要的参数及类型。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L7_1.png" srcset="/img/loading.gif"></p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L7_2.png" srcset="/img/loading.gif"></p>
+<h2 id="L8-获取物体属性"><a href="#L8-获取物体属性" class="headerlink" title="L8 获取物体属性"></a>L8 获取物体属性</h2><p>&emsp;&emsp;利用 C++ 获取类的所有属性名，再用 Python 获取属性值。</p>
+<p>CppLib.h文件</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;FString&gt; <span class="hljs-title">GetAllProperties</span><span class="hljs-params">(UClass* Class)</span></span>;</code></pre></div>
+
+<p>CppLib.cpp文件</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-function">TArray&lt;FString&gt; <span class="hljs-title">UCppLib::GetAllProperties</span><span class="hljs-params">(UClass* Class)</span> </span>&#123;
+    TArray&lt;FString&gt; Ret;
+    <span class="hljs-keyword">if</span> (Class != <span class="hljs-literal">nullptr</span>) &#123;
+        <span class="hljs-keyword">for</span> (TFieldIterator&lt;UProperty&gt; It(Class); It; ++It) &#123;
+            UProperty* Property = *It;
+            <span class="hljs-keyword">if</span> (Property-&gt;HasAnyPropertyFlags(EPropertyFlags::CPF_Edit)) &#123;
+                Ret.Add(Property-&gt;GetName());
+            &#125;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> Ret;
+&#125;</code></pre></div>
+
+<p>PythonHelpers.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAllProperties</span>(<span class="hljs-params">object_class</span>):</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_all_properties(object_class)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">printAllProperties</span>():</span>
+    obj = unreal.Actor()
+    object_class = obj.get_class()
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> getAllProperties(object_class):
+        name = x
+        <span class="hljs-keyword">while</span> len(name) &lt; <span class="hljs-number">50</span>:
+            name = <span class="hljs-string">&#x27; &#x27;</span> + name
+        <span class="hljs-keyword">print</span> name + <span class="hljs-string">&#x27;:&#x27;</span> + str(obj.get_editor_property(x))</code></pre></div>
+
+<p>效果展示：</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L8_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L9-运行-Cmd"><a href="#L9-运行-Cmd" class="headerlink" title="L9 运行 Cmd"></a>L9 运行 Cmd</h2><p>&emsp;&emsp;使用 Python 和 C++ 在 UE4 中运行 Cmd 指令。</p>
+<p>CppLib.h文件</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ExecuteConsoleCommand</span><span class="hljs-params">(FString ConsoleCommand)</span></span>;</code></pre></div>
+
+<p>CppLib.cpp文件</p>
+<p>需要在cs文件中添加依赖项 “UnrealEd” -&gt; PublicDependencyModuleNames）</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/UnrealEd/Public/Editor.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::ExecuteConsoleCommand</span><span class="hljs-params">(FString ConsoleCommand)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (GEditor) &#123;
+        UWorld* World = GEditor-&gt;GetEditorWorldContext().World();
+        <span class="hljs-keyword">if</span> (World) &#123;
+            GEditor-&gt;Exec(World, *ConsoleCommand, *GLog);
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+
+<p>EditorFunction_2.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeConsoleCommand</span>():</span>
+    console_commands = [<span class="hljs-string">&#x27;r.ScreenPercentage 0.1&#x27;</span>, <span class="hljs-string">&#x27;r.Color.Max 6&#x27;</span>, <span class="hljs-string">&#x27;stat fps&#x27;</span>, <span class="hljs-string">&#x27;stat unit&#x27;</span>]
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> console_commands:
+        unreal.CppLib.execute_console_command(x)</code></pre></div>
+
+<p>运行效果：<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L9_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L10-在场景中实例化-Actor"><a href="#L10-在场景中实例化-Actor" class="headerlink" title="L10 在场景中实例化 Actor"></a>L10 在场景中实例化 Actor</h2><p>&emsp;&emsp;在 Python 中可以使用 <code>unreal.EditorLevelLibrary.spawn_actor_from_class(actor_class, actor_location, actor_rotation)</code> 进行实例化 Actor 。</p>
+<p>WorldFunctions.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">spawnActor</span>():</span>
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class(<span class="hljs-string">&#x27;/Game/BluePrint/MyActor&#x27;</span>)
+    actor_location = unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    actor_rotation = unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    unreal.EditorLevelLibrary.spawn_actor_from_class(actor_class, actor_location, actor_rotation)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deferredSpawnActor</span>():</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class(<span class="hljs-string">&#x27;/Game/BluePrint/MyActor&#x27;</span>)
+    actor_location = unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    actor_rotation = unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    actor_scale = unreal.Vector(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>)
+
+    actor_transform = unreal.Transform(actor_location, actor_rotation, actor_scale)
+    actor = unreal.EditorCppLib.begin_spawn_actor(world, actor_class, actor_transform)
+    actor_tags = actor.get_editor_property(<span class="hljs-string">&#x27;tags&#x27;</span>)
+    actor_tags.append(<span class="hljs-string">&#x27;My Python Tag&#x27;</span>)
+    actor.set_editor_property(<span class="hljs-string">&#x27;tag&#x27;</span>, actor_tags)
+    unreal.EditorCppLib.finish_spawn_actor(actor, actor_transform)</code></pre></div>
+
+<p>&emsp;&emsp;为了更直观看到实例化过程，我们可以对蓝图 Actor 进行编辑并对节点连接，使得在实例化时会打印出内容。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L10_1.png" srcset="/img/loading.gif"></p>
+<p>在 UE4 中运行效果：</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L10_2.png" srcset="/img/loading.gif"></p>
+<p>可以看到，使用 unreal.EditorLevelLibrary.spawn_actor_from_class() 时，虽然只创建了一次物体但实例化了两次，而后面的方法只实例化了一次。</p>
+<h2 id="L11-类型转换"><a href="#L11-类型转换" class="headerlink" title="L11 类型转换"></a>L11 类型转换</h2><p>&emsp;&emsp;如果使用 Python 进行类型转换，转换不支持的类型时会引起崩溃，可以用 C++ 进行类型转换判断。</p>
+<p>PythonHelpers_2.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tryCast</span>():</span>
+    <span class="hljs-comment"># ! this run crash use python</span>
+    <span class="hljs-comment"># if unreal.Actor.cast(unreal.load_asset(&#x27;/Game/MyAsset/Textures/dear&#x27;)):   </span>
+    <span class="hljs-keyword">if</span> unreal.Texture2D.cast(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>)):
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Succeeded&#x27;</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Failed&#x27;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">castObject</span>():</span>
+    <span class="hljs-comment"># ! this will not crash user C++</span>
+    <span class="hljs-keyword">if</span> cast(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>), unreal.Actor):
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Succeeded&#x27;</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Failed&#x27;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cast</span>(<span class="hljs-params">object_to_cast, object_class</span>):</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">return</span> object_class.cast(object_to_cast)
+    <span class="hljs-keyword">except</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span></code></pre></div>
+
+
+<h2 id="L12-获取世界中的指定Actor"><a href="#L12-获取世界中的指定Actor" class="headerlink" title="L12 获取世界中的指定Actor"></a>L12 获取世界中的指定Actor</h2><p>&emsp;&emsp;有三种方法筛选Actor：</p>
+<ul>
+<li>获取选择的Actor：unreal.EditorLevelLibrary.get_selected_level_actors()</li>
+<li>通过类型获取： unreal.GameplayStatics.get_all_actors_of_class()</li>
+<li>通过 tag 获取： unreal.GameplayStatics.get_all_actors_of_class()</li>
+</ul>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedActors</span>():</span>
+    <span class="hljs-comment"># ! Selected</span>
+    selected_actors = unreal.EditorLevelLibrary.get_selected_level_actors()
+    <span class="hljs-keyword">return</span> selected_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getClassActors</span>(<span class="hljs-params">actor_class</span>):</span>
+    <span class="hljs-comment"># ! Class</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    class_actors = unreal.GameplayStatics.get_all_actors_of_class(world, actor_class)
+    <span class="hljs-keyword">return</span> class_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getTagActors</span>(<span class="hljs-params">actor_tag</span>):</span>
+    <span class="hljs-comment"># ! Tag</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    tag_actors = unreal.GameplayStatics.get_all_actors_with_tag(world, actor_tag)
+    <span class="hljs-keyword">return</span> tag_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAllActors</span>():</span>
+    <span class="hljs-comment"># ! All</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    all_actors = unreal.GameplayStatics.get_all_actors_of_class(world, unreal.Actor)
+    <span class="hljs-keyword">return</span> all_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sortActors</span>(<span class="hljs-params">use_selection = False, actor_class = None, actor_tag = None</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;如果有指定，则筛选指定 Actors。否则返回全部 Actors</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-comment"># ! return all actors</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> use_selection <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> actor_class <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> actor_tag:
+        <span class="hljs-keyword">return</span> getAllActors()
+
+    <span class="hljs-comment"># ! get sort actors</span>
+    selected_actors, class_actors, tag_actors = [], [], []
+    <span class="hljs-keyword">if</span> use_selection:
+        selected_actors = getSelectedActors()
+    <span class="hljs-keyword">if</span> actor_class:
+        class_actors = getClassActors(actor_class)
+    <span class="hljs-keyword">if</span> actor_tag:
+        tag_actors = getTagActors(actor_tag)
+
+    all_actors = selected_actors
+    all_actors.extend(class_actors)
+    all_actors.extend(tag_actors)
+
+    all_actors = getAllActors()
+    final_actors = []
+    <span class="hljs-keyword">for</span> actor <span class="hljs-keyword">in</span> all_actors:
+        <span class="hljs-keyword">if</span> actor <span class="hljs-keyword">in</span> selected_actors <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> class_actors <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> tag_actors:
+            <span class="hljs-keyword">if</span> final_actors:
+                final_actors.append(actor)
+            <span class="hljs-keyword">else</span>:
+                final_actors = actor
+
+    <span class="hljs-keyword">return</span> final_actors
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cast</span>(<span class="hljs-params">object_to_cast, object_class</span>):</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">return</span> object_class.cast(object_to_cast)
+    <span class="hljs-keyword">except</span>:
+        <span class="hljs-keyword">return</span> getAllActors()</code></pre></div>
+
+<p>&emsp;&emsp;写这个的时候，发现获取出来的 Actors 存储都是用的 数组 array，虽然方法有些和列表 List 相同，但是使用起来效果不一样，最终打印结果数组显示和数组内元素显示有差异。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L11_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L12-使用-Qt-进行界面开发"><a href="#L12-使用-Qt-进行界面开发" class="headerlink" title="L12 使用 Qt 进行界面开发"></a>L12 使用 Qt 进行界面开发</h2>
             </div>
             <hr>
             <div>
@@ -912,7 +1189,7 @@ UCLASS()
         '  ',
         "UnrealPython基础学习&nbsp;",
       ],
-      cursorChar: "🔥",
+      cursorChar: "🍭",
       typeSpeed: 70,
       loop: false,
     });
