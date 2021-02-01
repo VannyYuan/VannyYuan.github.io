@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.1k 字
+      5.4k 字
     </span>
   
 
@@ -955,26 +955,33 @@ UCLASS()
     <span class="hljs-comment"># ! get sort actors</span>
     selected_actors, class_actors, tag_actors = [], [], []
     <span class="hljs-keyword">if</span> use_selection:
-        selected_actors = getSelectedActors()
+        selected_actors = list(getSelectedActors())
     <span class="hljs-keyword">if</span> actor_class:
-        class_actors = getClassActors(actor_class)
+        class_actors = list(getClassActors(actor_class))
     <span class="hljs-keyword">if</span> actor_tag:
-        tag_actors = getTagActors(actor_tag)
+        tag_actors = list(getTagActors(actor_tag))
 
-    all_actors = selected_actors
-    all_actors.extend(class_actors)
-    all_actors.extend(tag_actors)
-
-    all_actors = getAllActors()
-    final_actors = []
-    <span class="hljs-keyword">for</span> actor <span class="hljs-keyword">in</span> all_actors:
-        <span class="hljs-keyword">if</span> actor <span class="hljs-keyword">in</span> selected_actors <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> class_actors <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> tag_actors:
-            <span class="hljs-keyword">if</span> final_actors:
-                final_actors.append(actor)
-            <span class="hljs-keyword">else</span>:
-                final_actors = actor
-
-    <span class="hljs-keyword">return</span> final_actors
+    final_actors = selected_actors + class_actors + tag_actors
+    <span class="hljs-keyword">for</span> actor <span class="hljs-keyword">in</span> final_actors:
+        <span class="hljs-keyword">if</span> use_selection <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> selected_actors:
+            <span class="hljs-keyword">pass</span>
+        <span class="hljs-keyword">else</span>:
+            final_actors.remove(actor)
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">if</span> actor_class <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> class_actors:
+            <span class="hljs-keyword">pass</span>
+        <span class="hljs-keyword">else</span>:
+            final_actors.remove(actor)
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">if</span> actor_tag <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> tag_actors:
+            <span class="hljs-keyword">pass</span>
+        <span class="hljs-keyword">else</span>:
+            final_actors.remove(actor)
+            <span class="hljs-keyword">continue</span>
+    <span class="hljs-keyword">if</span> final_actors:
+        <span class="hljs-keyword">return</span> final_actors
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> getAllActors()
 
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cast</span>(<span class="hljs-params">object_to_cast, object_class</span>):</span>
@@ -984,8 +991,291 @@ UCLASS()
         <span class="hljs-keyword">return</span> getAllActors()</code></pre></div>
 
 <p>&emsp;&emsp;写这个的时候，发现获取出来的 Actors 存储都是用的 数组 array，虽然方法有些和列表 List 相同，但是使用起来效果不一样，最终打印结果数组显示和数组内元素显示有差异。</p>
-<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L11_1.png" srcset="/img/loading.gif"></p>
-<h2 id="L12-使用-Qt-进行界面开发"><a href="#L12-使用-Qt-进行界面开发" class="headerlink" title="L12 使用 Qt 进行界面开发"></a>L12 使用 Qt 进行界面开发</h2>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L12_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L13-使用-Qt-进行界面开发"><a href="#L13-使用-Qt-进行界面开发" class="headerlink" title="L13 使用 Qt 进行界面开发"></a>L13 使用 Qt 进行界面开发</h2><p>&emsp;&emsp;在 UE 中一样可以使用Qt Designer进行界面开发。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L13_1.png" srcset="/img/loading.gif"></p>
+<p>主函数 QtFunctions</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> sys
+sys.path.append(<span class="hljs-string">&#x27;C:/Python27/Lib/site-packages&#x27;</span>)
+
+<span class="hljs-keyword">from</span> PySide <span class="hljs-keyword">import</span> QtGui
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__QtAppTick__</span>(<span class="hljs-params">delta_seconds</span>):</span>
+    <span class="hljs-keyword">for</span> window <span class="hljs-keyword">in</span> opened_windows:
+        window.eventTick(delta_seconds)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__QtAppQuit__</span>():</span>
+    unreal.unregister_slate_post_tick_callback(tick_handle)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__QtWindowClosed__</span>(<span class="hljs-params">window=None</span>):</span>
+    <span class="hljs-keyword">if</span> window <span class="hljs-keyword">in</span> opened_windows:
+        opened_windows.remove(window)
+
+unreal_app = QtGui.QApplication.instance()
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> unreal_app:
+    unreal_app = QtGui.QApplication(sys.argv)
+    tick_handle = unreal.register_slate_post_tick_callback(__QtAppTick__)
+    unreal_app.aboutToQuit.connect(__QtAppQuit__)
+    existing_windows = &#123;&#125;
+    opened_windows = []
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">spawnQtWindow</span>(<span class="hljs-params">desired_window_class=None</span>):</span>
+    window = existing_windows.get(desired_window_class, <span class="hljs-literal">None</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> window:
+        window = desired_window_class()
+        existing_windows[desired_window_class] = window
+        window.aboutToClose = __QtWindowClosed__
+    <span class="hljs-keyword">if</span> window <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> opened_windows:
+        opened_windows.append(window)
+    window.show()
+    window.activateWindow()</code></pre></div>
+
+<p>实现位移函数 QtWindowOne</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+sys.path.append(<span class="hljs-string">&#x27;C:/Python27/Lib/site-packages&#x27;</span>)
+
+<span class="hljs-keyword">from</span> PySide.QtGui <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">from</span> PySide <span class="hljs-keyword">import</span> QtUiTools
+
+WINDOW_NAME = <span class="hljs-string">&#x27;Qt Window One&#x27;</span>
+UI_FILE_FULLNAME = os.path.join(os.path.dirname(__file__), <span class="hljs-string">&#x27;ui&#x27;</span>, <span class="hljs-string">&#x27;window_move.ui&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QtWindowOne</span>(<span class="hljs-params">QWidget</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, parent=None</span>):</span>
+        super(QtWindowOne, self).__init__(parent)
+        self.aboutToClose = <span class="hljs-literal">None</span>
+        self.widget = QtUiTools.QUiLoader().load(UI_FILE_FULLNAME)
+        self.widget.setParent(self)
+        self.setWindowTitle(WINDOW_NAME)
+        self.setGeometry(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>, self.widget.width(),self.widget.height())
+        self.initialiseWidget()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">clossEvent</span>(<span class="hljs-params">self, event</span>):</span>  
+        <span class="hljs-keyword">if</span> self.aboutToClose:
+            self.aboutToClose(self)
+        event.accept()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eventTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+        self.myTick(delta_seconds)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialiseWidget</span>(<span class="hljs-params">self</span>):</span>
+        self.time_while_this_window_is_open = <span class="hljs-number">0.0</span>
+        self.random_actor = <span class="hljs-literal">None</span>
+        self.random_actor_is_going_up = <span class="hljs-literal">True</span>
+        self.widget.pushButton.clicked.connect(self.moveRandomActorInScene)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">moveRandomActorInScene</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">import</span> random
+        <span class="hljs-keyword">import</span> WorldFunctions_2
+        all_actors = WorldFunctions_2.sortActors(use_selection=<span class="hljs-literal">False</span>, actor_class=unreal.StaticMeshActor, actor_tag=<span class="hljs-literal">None</span>)
+        rand = random.randrange(<span class="hljs-number">0</span>, len(all_actors))
+        self.random_actor = all_actors[rand]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+        self.time_while_this_window_is_open += delta_seconds
+        self.widget.label.setText(<span class="hljs-string">&quot;&#123;&#125; Seconds&quot;</span>.format(self.time_while_this_window_is_open))
+        <span class="hljs-keyword">if</span> self.random_actor:
+            actor_location = self.random_actor.get_actor_location()
+            speed = <span class="hljs-number">300.0</span> * delta_seconds
+            <span class="hljs-keyword">if</span> self.random_actor_is_going_up:
+                <span class="hljs-keyword">if</span> actor_location.z &gt; <span class="hljs-number">1000.0</span>:
+                    self.random_actor_is_going_up = <span class="hljs-literal">False</span>
+            <span class="hljs-keyword">else</span>:
+                speed = -speed
+                <span class="hljs-keyword">if</span> actor_location.z &lt; <span class="hljs-number">0.0</span>:
+                    self.random_actor_is_going_up = <span class="hljs-literal">True</span>
+            self.random_actor.add_actor_world_offset(unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, speed), <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>)</code></pre></div>
+
+<p>实现旋转函数（部分） QtWindowTwo</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+    self.time_while_this_window_is_open += delta_seconds
+    self.widget.label.setText(<span class="hljs-string">&quot;&#123;&#125; Seconds&quot;</span>.format(self.time_while_this_window_is_open))
+    <span class="hljs-keyword">if</span> self.random_actor:
+        speed = <span class="hljs-number">90.0</span> * delta_seconds
+        self.random_actor.add_actor_world_rotation(unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, speed), <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>)</code></pre></div>
+
+<p>实现缩放函数（部分） QtWindowThree</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+    self.time_while_this_window_is_open += delta_seconds
+    self.widget.label.setText(<span class="hljs-string">&quot;&#123;&#125; Seconds&quot;</span>.format(self.time_while_this_window_is_open))
+    <span class="hljs-keyword">if</span> self.random_actor:
+        actor_scale = self.random_actor.get_actor_scale3d()
+        speed = <span class="hljs-number">3.0</span> * delta_seconds
+        <span class="hljs-keyword">if</span> self.random_actor_is_going_up:
+            <span class="hljs-keyword">if</span> actor_scale.z &gt; <span class="hljs-number">2.0</span>:
+                self.random_actor_is_going_up = <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">else</span>:
+            speed = -speed
+            <span class="hljs-keyword">if</span> actor_scale.z &lt; <span class="hljs-number">0.5</span>:
+                self.random_actor_is_going_up = <span class="hljs-literal">True</span>
+        self.random_actor.set_actor_scale3d(unreal.Vector(actor_scale.x + speed, actor_scale.y + speed, actor_scale.z + speed))</code></pre></div>
+
+<h2 id="L14-git-代码"><a href="#L14-git-代码" class="headerlink" title="L14 git 代码"></a>L14 git 代码</h2><p>&emsp;&emsp;emmm，学习到这里，才看到作者把代码放到 git 上了。-&gt; <a target="_blank" rel="noopener" href="https://github.com/AlexQuevillon/UnrealPythonLibrary">UnrealPythonLibrary</a></p>
+<p>&emsp;&emsp;不用全部自己手打可以节省更多时间！</p>
+<p>&emsp;&emsp;不过有些代码自己还会做一些修改，自己的代码也放到 git上了 -&gt; <a target="_blank" rel="noopener" href="https://github.com/VannyYuan/UnrealPythonStudy">UnrealPythonStudy</a></p>
+<h2 id="L15-在世界中选择和取消选择物体"><a href="#L15-在世界中选择和取消选择物体" class="headerlink" title="L15 在世界中选择和取消选择物体"></a>L15 在世界中选择和取消选择物体</h2><p>获取选择物体：unreal.EditorLevelLibrary.get_selected_level_actors()</p>
+<p>设置选择物体：unreal.EditorLevelLibrary.set_selected_level_actors(actors_to_select)</p>
+<p>WorldFunctions_3.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># return: obj List unreal.Actor : The selected actors in the world</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedActors</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorLevelLibrary.get_selected_level_actors()
+
+<span class="hljs-comment"># Note: Will always clear the selection before selecting.</span>
+<span class="hljs-comment"># actors_to_select: obj List unreal.Actor : The actors to select.</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">selectActors</span>(<span class="hljs-params">actors_to_select=[]</span>):</span>
+    unreal.EditorLevelLibrary.set_selected_level_actors(actors_to_select)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">selectActors_EXAMPLE</span>():</span>
+    <span class="hljs-keyword">import</span> WorldFunctions_2
+    all_actors = WorldFunctions_2.sortActors()
+    actors_to_select = []
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(len(all_actors)):
+        <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span>:
+            actors_to_select.append(all_actors[x])
+    selectActors(actors_to_select)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">clearActorSelection_EXAMPLE</span>():</span>
+    selectActors()</code></pre></div>
+
+<h2 id="L16-在视口中聚焦物体"><a href="#L16-在视口中聚焦物体" class="headerlink" title="L16 在视口中聚焦物体"></a>L16 在视口中聚焦物体</h2><p>&emsp;&emsp;可以实现在全部/活跃视口中聚焦指定物体。</p>
+<p>EditorFunction_3.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> random
+
+<span class="hljs-comment"># active_viewport_only: bool : If True, will only affect the active viewport</span>
+<span class="hljs-comment"># actor: obj unreal.Actor : The actor you want to snap to</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">focusViewportOnActor</span>(<span class="hljs-params">active_viewport_only=True, actor=None</span>):</span>
+    <span class="hljs-comment"># ! focus command</span>
+    command = <span class="hljs-string">&#x27;CAMERA ALIGN&#x27;</span>
+    <span class="hljs-keyword">if</span> active_viewport_only:
+        command += <span class="hljs-string">&#x27; ACTIVEVIEWPORTONLY&#x27;</span>
+    <span class="hljs-keyword">if</span> actor:
+        command += <span class="hljs-string">&#x27; NAME=&#x27;</span> + actor.get_name()
+    unreal.CppLib.execute_console_command(command)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">focusAllViewportsOnSelectedActors_EXAMPLE</span>():</span>
+    focusViewportOnActor(<span class="hljs-literal">False</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">focusActiveViewportOnRandomActor_EXAMPLE</span>():</span>
+    actors_in_world = unreal.GameplayStatics.get_all_actors_of_class(unreal.EditorLevelLibrary.get_editor_world(), unreal.Actor)
+    random_actor_in_world = actors_in_world[random.randrange(len(actors_in_world))]
+    focusViewportOnActor(<span class="hljs-literal">True</span>, random_actor_in_world)</code></pre></div>
+
+<h2 id="L17-移动、旋转视口"><a href="#L17-移动、旋转视口" class="headerlink" title="L17 移动、旋转视口"></a>L17 移动、旋转视口</h2><p>&emsp;&emsp;结合 C++ 和 snapViewport 实现。</p>
+<p>C++ .h 文件（部分）</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetViewportLocationAndRotation</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ViewportIndex, FVector Location, FRotator Rotation)</span></span>;
+
+UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">GetActiveViewportIndex</span><span class="hljs-params">()</span></span>;</code></pre></div>
+
+<p>C++ .cpp 文件（部分）</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::SetViewportLocationAndRotation</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ViewportIndex, FVector Location, FRotator Rotation)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (GEditor != <span class="hljs-literal">nullptr</span> &amp;&amp; ViewportIndex &lt; GEditor-&gt;GetLevelViewportClients().Num()) &#123;
+        FLevelEditorViewportClient* LevelViewportClient = GEditor-&gt;GetLevelViewportClients()[ViewportIndex];
+        <span class="hljs-keyword">if</span> (LevelViewportClient != <span class="hljs-literal">nullptr</span>) &#123;
+            LevelViewportClient-&gt;SetViewLocation(Location);
+            LevelViewportClient-&gt;SetViewRotation(Rotation);
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">UCppLib::GetActiveViewportIndex</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">int</span> Index = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span> (GEditor != <span class="hljs-literal">nullptr</span> &amp;&amp; GCurrentLevelEditingViewportClient != <span class="hljs-literal">nullptr</span>) &#123;
+        GEditor-&gt;GetLevelViewportClients().Find(GCurrentLevelEditingViewportClient, Index);
+    &#125;
+    <span class="hljs-keyword">return</span> Index;
+&#125;</code></pre></div>
+
+<p>Python EditorFunction_4.py 文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> random
+
+<span class="hljs-comment"># return: int : The index of the active viewport</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getActiveViewportIndex</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_active_viewport_index()
+
+<span class="hljs-comment"># viewport_index: int : The index of the viewport you want to affect</span>
+<span class="hljs-comment"># location: obj unreal.Vector : The viewport location</span>
+<span class="hljs-comment"># rotation: obj unreal.Rotator : The viewport rotation</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setViewportLocationAndRotation</span>(<span class="hljs-params">viewport_index=<span class="hljs-number">1</span>, location=unreal.Vector(<span class="hljs-params"></span>), rotation=unreal.Rotator(<span class="hljs-params"></span>)</span>):</span>
+    unreal.CppLib.set_viewport_location_and_rotation(viewport_index, location, rotation)
+
+<span class="hljs-comment"># viewport_index: int : The index of the viewport you want to affect</span>
+<span class="hljs-comment"># actor: obj unreal.Actor : The actor you want to snap to</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">snapViewportToActor</span>(<span class="hljs-params">viewport_index=<span class="hljs-number">1</span>, actor=None</span>):</span>
+    setViewportLocationAndRotation(viewport_index, actor.get_actor_location(), actor.get_actor_rotation())
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setViewportLocationAndRotation_EXAMPLE</span>():</span>
+    viewport_index = getActiveViewportIndex()
+    setViewportLocationAndRotation(viewport_index, unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>), unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">90.0</span>, <span class="hljs-number">0.0</span>))
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">snapViewportToActor_EXAMPLE</span>():</span>
+    actors_in_world = unreal.GameplayStatics.get_all_actors_of_class(unreal.EditorLevelLibrary.get_editor_world(), unreal.Actor)
+    random_actor_in_world = actors_in_world[random.randrange(len(actors_in_world))]
+    viewport_index = getActiveViewportIndex()
+    snapViewportToActor(viewport_index, random_actor_in_world)</code></pre></div>
+
+<h2 id="L18-创建-generic-资产"><a href="#L18-创建-generic-资产" class="headerlink" title="L18 创建 generic 资产"></a>L18 创建 generic 资产</h2><p>AssetFunction_7.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createGenericAsset</span>(<span class="hljs-params">asset_path=<span class="hljs-string">&#x27;&#x27;</span>, unique_name=True, asset_class=None, asset_factory=None</span>):</span>
+    <span class="hljs-keyword">if</span> unique_name:
+        asset_path, asset_name = unreal.AssetToolsHelpers.get_asset_tools().create_unique_asset_name(base_package_name=asset_path, suffix=<span class="hljs-string">&#x27;&#x27;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> unreal.EditorAssetLibrary.does_asset_exist(asset_path=asset_path):
+        path = asset_path.rsplit(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]
+        name = asset_path.rsplit(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">1</span>)[<span class="hljs-number">1</span>]
+        <span class="hljs-keyword">return</span> unreal.AssetToolsHelpers.get_asset_tools().create_asset(asset_name=name, package_path=path, asset_class=asset_class, factory=asset_factory)
+    <span class="hljs-keyword">return</span> unreal.load_asset(asset_path)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createGenericAsset_EXAMPLE</span>():</span>
+    base_path = <span class="hljs-string">&#x27;/Game/MyAsset/GenericAssets/&#x27;</span>
+    generic_assets = [
+        [base_path + <span class="hljs-string">&#x27;sequence&#x27;</span>,        unreal.LevelSequence,  unreal.LevelSequenceFactoryNew()],
+        [base_path + <span class="hljs-string">&#x27;material&#x27;</span>,        unreal.Material,       unreal.MaterialFactoryNew()],
+        [base_path + <span class="hljs-string">&#x27;world&#x27;</span>,           unreal.World,          unreal.WorldFactory()],
+        [base_path + <span class="hljs-string">&#x27;particle_system&#x27;</span>, unreal.ParticleSystem, unreal.ParticleSystemFactoryNew()],
+        [base_path + <span class="hljs-string">&#x27;paper_flipbook&#x27;</span>,  unreal.PaperFlipbook,  unreal.PaperFlipbookFactory()],
+        [base_path + <span class="hljs-string">&#x27;data_table&#x27;</span>,      unreal.DataTable,      unreal.DataTableFactory()], <span class="hljs-comment"># Will not work</span>
+    ]
+    <span class="hljs-keyword">for</span> asset <span class="hljs-keyword">in</span> generic_assets:
+        <span class="hljs-keyword">print</span> createGenericAsset(asset[<span class="hljs-number">0</span>], <span class="hljs-literal">True</span>, asset[<span class="hljs-number">1</span>], asset[<span class="hljs-number">2</span>])</code></pre></div>
+
+
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L18_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L19-添加动画序列"><a href="#L19-添加动画序列" class="headerlink" title="L19 添加动画序列"></a>L19 添加动画序列</h2><p>pass</p>
+<h2 id="L20-利用-Blueprint-运行Python代码"><a href="#L20-利用-Blueprint-运行Python代码" class="headerlink" title="L20 利用 Blueprint 运行Python代码"></a>L20 利用 Blueprint 运行Python代码</h2><p>&emsp;&emsp;原理和利用 Blueprint 运行 cmd 代码相同。</p>
+<p>build.cs 加上 “Python”, “PythonScriptPlugin”</p>
+<p>C++ .h（部分）</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ExecutePythonScript</span><span class="hljs-params">(FString PythonScript)</span></span>;</code></pre></div>
+
+<p>C++ .cpp（部分）</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;../Plugins/Experimental/PythonScriptPlugin/Source/PythonScriptPlugin/Private/PythonScriptPlugin.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::ExecutePythonScript</span><span class="hljs-params">(FString PythonScript)</span> </span>&#123;
+    FPythonScriptPlugin::Get()-&gt;ExecPythonCommand(*PythonScript);
+&#125;</code></pre></div>
+
+<p>蓝图节点<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L20_1.png" srcset="/img/loading.gif"></p>
+<p>点击事件<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L20_2.png" srcset="/img/loading.gif"></p>
+
             </div>
             <hr>
             <div>
@@ -1189,7 +1479,7 @@ UCLASS()
         '  ',
         "UnrealPython基础学习&nbsp;",
       ],
-      cursorChar: "🍭",
+      cursorChar: "🎸",
       typeSpeed: 70,
       loop: false,
     });
