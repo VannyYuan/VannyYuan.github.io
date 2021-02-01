@@ -890,26 +890,33 @@ def sortActors(use_selection = False, actor_class = None, actor_tag = None):
     # ! get sort actors
     selected_actors, class_actors, tag_actors = [], [], []
     if use_selection:
-        selected_actors = getSelectedActors()
+        selected_actors = list(getSelectedActors())
     if actor_class:
-        class_actors = getClassActors(actor_class)
+        class_actors = list(getClassActors(actor_class))
     if actor_tag:
-        tag_actors = getTagActors(actor_tag)
+        tag_actors = list(getTagActors(actor_tag))
 
-    all_actors = selected_actors
-    all_actors.extend(class_actors)
-    all_actors.extend(tag_actors)
-
-    all_actors = getAllActors()
-    final_actors = []
-    for actor in all_actors:
-        if actor in selected_actors and actor in class_actors and actor in tag_actors:
-            if final_actors:
-                final_actors.append(actor)
-            else:
-                final_actors = actor
-
-    return final_actors
+    final_actors = selected_actors + class_actors + tag_actors
+    for actor in final_actors:
+        if use_selection and actor in selected_actors:
+            pass
+        else:
+            final_actors.remove(actor)
+            continue
+        if actor_class and actor in class_actors:
+            pass
+        else:
+            final_actors.remove(actor)
+            continue
+        if actor_tag and actor in tag_actors:
+            pass
+        else:
+            final_actors.remove(actor)
+            continue
+    if final_actors:
+        return final_actors
+    else:
+        return getAllActors()
 
 
 def cast(object_to_cast, object_class):
@@ -921,8 +928,343 @@ def cast(object_to_cast, object_class):
 
 &emsp;&emsp;写这个的时候，发现获取出来的 Actors 存储都是用的 数组 array，虽然方法有些和列表 List 相同，但是使用起来效果不一样，最终打印结果数组显示和数组内元素显示有差异。
 
-![](UnrealPython基础学习/L11_1.png)
+![](UnrealPython基础学习/L12_1.png)
 
 
-## L12 使用 Qt 进行界面开发
+## L13 使用 Qt 进行界面开发
+&emsp;&emsp;在 UE 中一样可以使用Qt Designer进行界面开发。
+![](UnrealPython基础学习/L13_1.png)
 
+主函数 QtFunctions
+```python 
+# coding: utf-8
+
+import unreal
+import sys
+sys.path.append('C:/Python27/Lib/site-packages')
+
+from PySide import QtGui
+
+def __QtAppTick__(delta_seconds):
+    for window in opened_windows:
+        window.eventTick(delta_seconds)
+
+def __QtAppQuit__():
+    unreal.unregister_slate_post_tick_callback(tick_handle)
+
+def __QtWindowClosed__(window=None):
+    if window in opened_windows:
+        opened_windows.remove(window)
+
+unreal_app = QtGui.QApplication.instance()
+if not unreal_app:
+    unreal_app = QtGui.QApplication(sys.argv)
+    tick_handle = unreal.register_slate_post_tick_callback(__QtAppTick__)
+    unreal_app.aboutToQuit.connect(__QtAppQuit__)
+    existing_windows = {}
+    opened_windows = []
+
+def spawnQtWindow(desired_window_class=None):
+    window = existing_windows.get(desired_window_class, None)
+    if not window:
+        window = desired_window_class()
+        existing_windows[desired_window_class] = window
+        window.aboutToClose = __QtWindowClosed__
+    if window not in opened_windows:
+        opened_windows.append(window)
+    window.show()
+    window.activateWindow()
+```
+
+实现位移函数 QtWindowOne
+```python
+# coding: utf-8
+
+import unreal
+import os
+import sys
+sys.path.append('C:/Python27/Lib/site-packages')
+
+from PySide.QtGui import *
+from PySide import QtUiTools
+
+WINDOW_NAME = 'Qt Window One'
+UI_FILE_FULLNAME = os.path.join(os.path.dirname(__file__), 'ui', 'window_move.ui').replace('\\','/')
+
+class QtWindowOne(QWidget):
+    def __init__(self, parent=None):
+        super(QtWindowOne, self).__init__(parent)
+        self.aboutToClose = None
+        self.widget = QtUiTools.QUiLoader().load(UI_FILE_FULLNAME)
+        self.widget.setParent(self)
+        self.setWindowTitle(WINDOW_NAME)
+        self.setGeometry(100, 100, self.widget.width(),self.widget.height())
+        self.initialiseWidget()
+
+    def clossEvent(self, event):  
+        if self.aboutToClose:
+            self.aboutToClose(self)
+        event.accept()
+
+    def eventTick(self, delta_seconds):
+        self.myTick(delta_seconds)
+
+    def initialiseWidget(self):
+        self.time_while_this_window_is_open = 0.0
+        self.random_actor = None
+        self.random_actor_is_going_up = True
+        self.widget.pushButton.clicked.connect(self.moveRandomActorInScene)
+
+    def moveRandomActorInScene(self):
+        import random
+        import WorldFunctions_2
+        all_actors = WorldFunctions_2.sortActors(use_selection=False, actor_class=unreal.StaticMeshActor, actor_tag=None)
+        rand = random.randrange(0, len(all_actors))
+        self.random_actor = all_actors[rand]
+
+    def myTick(self, delta_seconds):
+        self.time_while_this_window_is_open += delta_seconds
+        self.widget.label.setText("{} Seconds".format(self.time_while_this_window_is_open))
+        if self.random_actor:
+            actor_location = self.random_actor.get_actor_location()
+            speed = 300.0 * delta_seconds
+            if self.random_actor_is_going_up:
+                if actor_location.z > 1000.0:
+                    self.random_actor_is_going_up = False
+            else:
+                speed = -speed
+                if actor_location.z < 0.0:
+                    self.random_actor_is_going_up = True
+            self.random_actor.add_actor_world_offset(unreal.Vector(0.0, 0.0, speed), False, False)
+```
+
+实现旋转函数（部分） QtWindowTwo
+```python
+def myTick(self, delta_seconds):
+    self.time_while_this_window_is_open += delta_seconds
+    self.widget.label.setText("{} Seconds".format(self.time_while_this_window_is_open))
+    if self.random_actor:
+        speed = 90.0 * delta_seconds
+        self.random_actor.add_actor_world_rotation(unreal.Rotator(0.0, 0.0, speed), False, False)
+```
+
+实现缩放函数（部分） QtWindowThree
+```python
+def myTick(self, delta_seconds):
+    self.time_while_this_window_is_open += delta_seconds
+    self.widget.label.setText("{} Seconds".format(self.time_while_this_window_is_open))
+    if self.random_actor:
+        actor_scale = self.random_actor.get_actor_scale3d()
+        speed = 3.0 * delta_seconds
+        if self.random_actor_is_going_up:
+            if actor_scale.z > 2.0:
+                self.random_actor_is_going_up = False
+        else:
+            speed = -speed
+            if actor_scale.z < 0.5:
+                self.random_actor_is_going_up = True
+        self.random_actor.set_actor_scale3d(unreal.Vector(actor_scale.x + speed, actor_scale.y + speed, actor_scale.z + speed))
+```
+
+## L14 git 代码
+&emsp;&emsp;emmm，学习到这里，才看到作者把代码放到 git 上了。-> [UnrealPythonLibrary](https://github.com/AlexQuevillon/UnrealPythonLibrary)
+
+&emsp;&emsp;不用全部自己手打可以节省更多时间！
+
+&emsp;&emsp;不过有些代码自己还会做一些修改，自己的代码也放到 git上了 -> [UnrealPythonStudy](https://github.com/VannyYuan/UnrealPythonStudy)
+
+
+## L15 在世界中选择和取消选择物体
+获取选择物体：unreal.EditorLevelLibrary.get_selected_level_actors()
+
+设置选择物体：unreal.EditorLevelLibrary.set_selected_level_actors(actors_to_select)
+
+WorldFunctions_3.py文件
+```python
+# coding: utf-8
+
+import unreal
+
+# return: obj List unreal.Actor : The selected actors in the world
+def getSelectedActors():
+    return unreal.EditorLevelLibrary.get_selected_level_actors()
+
+# Note: Will always clear the selection before selecting.
+# actors_to_select: obj List unreal.Actor : The actors to select.
+def selectActors(actors_to_select=[]):
+    unreal.EditorLevelLibrary.set_selected_level_actors(actors_to_select)
+
+def selectActors_EXAMPLE():
+    import WorldFunctions_2
+    all_actors = WorldFunctions_2.sortActors()
+    actors_to_select = []
+    for x in range(len(all_actors)):
+        if x % 2:
+            actors_to_select.append(all_actors[x])
+    selectActors(actors_to_select)
+
+def clearActorSelection_EXAMPLE():
+    selectActors()
+```
+
+## L16 在视口中聚焦物体
+&emsp;&emsp;可以实现在全部/活跃视口中聚焦指定物体。
+
+EditorFunction_3.py文件
+```python
+# coding: utf-8
+import unreal
+import random
+
+# active_viewport_only: bool : If True, will only affect the active viewport
+# actor: obj unreal.Actor : The actor you want to snap to
+def focusViewportOnActor(active_viewport_only=True, actor=None):
+    # ! focus command
+    command = 'CAMERA ALIGN'
+    if active_viewport_only:
+        command += ' ACTIVEVIEWPORTONLY'
+    if actor:
+        command += ' NAME=' + actor.get_name()
+    unreal.CppLib.execute_console_command(command)
+
+def focusAllViewportsOnSelectedActors_EXAMPLE():
+    focusViewportOnActor(False)
+
+def focusActiveViewportOnRandomActor_EXAMPLE():
+    actors_in_world = unreal.GameplayStatics.get_all_actors_of_class(unreal.EditorLevelLibrary.get_editor_world(), unreal.Actor)
+    random_actor_in_world = actors_in_world[random.randrange(len(actors_in_world))]
+    focusViewportOnActor(True, random_actor_in_world)
+```
+
+## L17 移动、旋转视口
+
+&emsp;&emsp;结合 C++ 和 snapViewport 实现。
+
+C++ .h 文件（部分）
+```C++
+UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+    static void SetViewportLocationAndRotation(int ViewportIndex, FVector Location, FRotator Rotation);
+
+UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+    static int GetActiveViewportIndex();
+```
+
+C++ .cpp 文件（部分）
+```C++
+void UCppLib::SetViewportLocationAndRotation(int ViewportIndex, FVector Location, FRotator Rotation) {
+    if (GEditor != nullptr && ViewportIndex < GEditor->GetLevelViewportClients().Num()) {
+        FLevelEditorViewportClient* LevelViewportClient = GEditor->GetLevelViewportClients()[ViewportIndex];
+        if (LevelViewportClient != nullptr) {
+            LevelViewportClient->SetViewLocation(Location);
+            LevelViewportClient->SetViewRotation(Rotation);
+        }
+    }
+}
+
+int UCppLib::GetActiveViewportIndex() {
+    int Index = 1;
+    if (GEditor != nullptr && GCurrentLevelEditingViewportClient != nullptr) {
+        GEditor->GetLevelViewportClients().Find(GCurrentLevelEditingViewportClient, Index);
+    }
+    return Index;
+}
+```
+
+Python EditorFunction_4.py 文件
+```python
+# coding: utf-8
+import unreal
+import random
+
+# return: int : The index of the active viewport
+def getActiveViewportIndex():
+    return unreal.CppLib.get_active_viewport_index()
+
+# viewport_index: int : The index of the viewport you want to affect
+# location: obj unreal.Vector : The viewport location
+# rotation: obj unreal.Rotator : The viewport rotation
+def setViewportLocationAndRotation(viewport_index=1, location=unreal.Vector(), rotation=unreal.Rotator()):
+    unreal.CppLib.set_viewport_location_and_rotation(viewport_index, location, rotation)
+
+# viewport_index: int : The index of the viewport you want to affect
+# actor: obj unreal.Actor : The actor you want to snap to
+def snapViewportToActor(viewport_index=1, actor=None):
+    setViewportLocationAndRotation(viewport_index, actor.get_actor_location(), actor.get_actor_rotation())
+
+def setViewportLocationAndRotation_EXAMPLE():
+    viewport_index = getActiveViewportIndex()
+    setViewportLocationAndRotation(viewport_index, unreal.Vector(0.0, 0.0, 0.0), unreal.Rotator(0.0, 90.0, 0.0))
+
+def snapViewportToActor_EXAMPLE():
+    actors_in_world = unreal.GameplayStatics.get_all_actors_of_class(unreal.EditorLevelLibrary.get_editor_world(), unreal.Actor)
+    random_actor_in_world = actors_in_world[random.randrange(len(actors_in_world))]
+    viewport_index = getActiveViewportIndex()
+    snapViewportToActor(viewport_index, random_actor_in_world)
+```
+
+## L18 创建 generic 资产
+
+AssetFunction_7.py文件
+```python
+# coding: utf-8
+
+import unreal
+
+
+def createGenericAsset(asset_path='', unique_name=True, asset_class=None, asset_factory=None):
+    if unique_name:
+        asset_path, asset_name = unreal.AssetToolsHelpers.get_asset_tools().create_unique_asset_name(base_package_name=asset_path, suffix='')
+    if not unreal.EditorAssetLibrary.does_asset_exist(asset_path=asset_path):
+        path = asset_path.rsplit('/', 1)[0]
+        name = asset_path.rsplit('/', 1)[1]
+        return unreal.AssetToolsHelpers.get_asset_tools().create_asset(asset_name=name, package_path=path, asset_class=asset_class, factory=asset_factory)
+    return unreal.load_asset(asset_path)
+
+def createGenericAsset_EXAMPLE():
+    base_path = '/Game/MyAsset/GenericAssets/'
+    generic_assets = [
+        [base_path + 'sequence',        unreal.LevelSequence,  unreal.LevelSequenceFactoryNew()],
+        [base_path + 'material',        unreal.Material,       unreal.MaterialFactoryNew()],
+        [base_path + 'world',           unreal.World,          unreal.WorldFactory()],
+        [base_path + 'particle_system', unreal.ParticleSystem, unreal.ParticleSystemFactoryNew()],
+        [base_path + 'paper_flipbook',  unreal.PaperFlipbook,  unreal.PaperFlipbookFactory()],
+        [base_path + 'data_table',      unreal.DataTable,      unreal.DataTableFactory()], # Will not work
+    ]
+    for asset in generic_assets:
+        print createGenericAsset(asset[0], True, asset[1], asset[2])
+```
+
+
+![](UnrealPython基础学习/L18_1.png)
+
+
+## L19 添加动画序列
+
+pass
+
+## L20 利用 Blueprint 运行Python代码
+
+&emsp;&emsp;原理和利用 Blueprint 运行 cmd 代码相同。
+
+build.cs 加上 "Python", "PythonScriptPlugin"
+
+C++ .h（部分）
+```C++
+UFUNCTION(BlueprintCallable, Category = "Unreal Python")
+    static void ExecutePythonScript(FString PythonScript);
+```
+
+C++ .cpp（部分）
+```C++
+#include "../Plugins/Experimental/PythonScriptPlugin/Source/PythonScriptPlugin/Private/PythonScriptPlugin.h"
+
+void UCppLib::ExecutePythonScript(FString PythonScript) {
+    FPythonScriptPlugin::Get()->ExecPythonCommand(*PythonScript);
+}
+```
+
+蓝图节点
+![](UnrealPython基础学习/L20_1.png)
+
+点击事件
+![](UnrealPython基础学习/L20_2.png)
