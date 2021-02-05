@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Vanny Yuan">
   <meta name="keywords" content="">
-  <title>Maya制作文件问题集合 - Vanny Yuan&#39;s Blog</title>
+  <title>Unreal材质替换插件 - Vanny Yuan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-22 15:35" pubdate>
-      2020年10月22日 下午
+    <time datetime="2021-02-05 14:44" pubdate>
+      2021年2月5日 下午
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      324 字
+      1.1k 字
     </span>
   
 
@@ -210,40 +210,173 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Maya制作文件问题集合</h1>
+            <h1 style="display: none">Unreal材质替换插件</h1>
             
             <div class="markdown-body" id="post-body">
-              <p>&emsp;&emsp;由于工作中经常遇到Maya中奇奇怪怪的问题上，所以总结一下一些遇到的小问题。</p>
-<h3 id="🎥-文件中多余的相机无法删除"><a href="#🎥-文件中多余的相机无法删除" class="headerlink" title="🎥 文件中多余的相机无法删除"></a>🎥 <font color="FireBrick">文件中多余的相机无法删除</font></h3><p><img src="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/%E7%9B%B8%E6%9C%BA%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4.png" srcset="/img/loading.gif"></p>
-<p>&emsp;&emsp;<font color="orange">原因：</font>相机重复出现可能是因为在导入或参考时出错了，需要把相机设置成非默认摄像机才可以删除。</p>
-<p>&emsp;&emsp;<font color="orange">解决：</font>选中需要删除的相机执行。</p>
-<div class="hljs"><pre><code class="hljs mel"><span class="hljs-comment">// MEL</span>
-<span class="hljs-keyword">string</span> $selection[] = <span class="hljs-string">`ls -selection -long`</span>;
-<span class="hljs-keyword">string</span> $object;
-<span class="hljs-keyword">for</span> ( $object <span class="hljs-keyword">in</span> $selection ) &#123;
-<span class="hljs-keyword">camera</span> -e -startupCamera false $object;
-<span class="hljs-keyword">lockNode</span> -lock off $object;
-<span class="hljs-keyword">delete</span> $object;
-&#125;</code></pre></div>
+              <p>&emsp;&emsp;在学习了 UnrealPython 基础教程后，尝试开发了一下小功能：把 A 物体的材质一一对应赋给 B 物体。</p>
+<p><img src="/2021/02/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/1.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;UE4 里面不能对物体选面上材质，一些对物体的操作只能从其他三维软件中进行。在 UE4 中，会把物体的材质信息记录在一个属性当中，对于两个材质分组一致的物体，可以通过替换材质球达到显示一致的效果。</p>
+<p><img src="/2021/02/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/2.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;同时，如果两个物体的材质球数量不一样的话，会对多出来的进行忽略，序号一致的进行一一对应。</p>
+<hr>
+<h2 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h2><p>material_tool.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
 
-<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># python</span>
-cams = cmds.ls(sl=<span class="hljs-number">1</span>)
-<span class="hljs-keyword">for</span> cam <span class="hljs-keyword">in</span> cams:
-cmds.camera(cam,startupCamera=<span class="hljs-number">0</span>,edit=<span class="hljs-number">1</span>)
-cmds.lockNode(cam,lock=<span class="hljs-number">0</span>)
-cmds.delete(cam)</code></pre></div>
+<span class="hljs-keyword">import</span> unreal
 
-<h3 id="🌄-内存不足，纹理加载失败警告"><a href="#🌄-内存不足，纹理加载失败警告" class="headerlink" title="🌄 内存不足，纹理加载失败警告"></a>🌄 <font color="FireBrick">内存不足，纹理加载失败警告</font></h3><p>&emsp;&emsp;<font color="orange">原因：</font>场景中包含多个高分辨率纹理，以致您的显卡没有足够的内存来处理，则不会加载这些纹理并以非纹理模式显示该场景。</p>
-<p>&emsp;&emsp;<font color="orange">解决：</font></p>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_component</span>(<span class="hljs-params">actor</span>):</span>
+    <span class="hljs-keyword">if</span> actor.static_class() == unreal.StaticMeshActor.static_class():
+        <span class="hljs-keyword">return</span> actor.static_mesh_component
+    <span class="hljs-keyword">elif</span> actor.static_class() == unreal.SkeletalMeshActor.static_class():
+        <span class="hljs-keyword">return</span> actor.skeletal_mesh_component
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> (<span class="hljs-string">&quot;Error: unacceptable type: &#123;&#125;, &#123;&#125;&quot;</span>.format(actor.name(), actor.static_class()))
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">world_actor_function</span>():</span>
+    selected_actors = unreal.EditorLevelLibrary.get_selected_level_actors()
+    <span class="hljs-keyword">if</span> len(selected_actors) &lt; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">print</span> (<span class="hljs-string">&quot;please select more than two objects&quot;</span>)
+        <span class="hljs-keyword">return</span>
+    ori_actor = selected_actors[<span class="hljs-number">0</span>]
+    des_actors = selected_actors[<span class="hljs-number">1</span>:]
+
+    ori_component = get_component(ori_actor)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ori_component:
+        <span class="hljs-keyword">return</span>
+    ori_materials_num = len(ori_component.get_materials())
+    <span class="hljs-keyword">for</span> des_actor <span class="hljs-keyword">in</span> des_actors:
+        des_component = get_component(des_actor)
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> des_component:
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> range(ori_materials_num):
+            index_material = ori_component.get_material(index)
+            des_component.set_material(index, index_material)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">asset_function</span>():</span>
+    selected_assets = unreal.EditorUtilityLibrary().get_selected_assets()
+    <span class="hljs-keyword">if</span> len(selected_assets) &lt; <span class="hljs-number">2</span>:
+        print( <span class="hljs-string">&quot;please select more than two objects&quot;</span>)
+        <span class="hljs-keyword">return</span>
+    ori_asset = selected_assets[<span class="hljs-number">0</span>]
+    des_assets = selected_assets[<span class="hljs-number">1</span>:]
+
+    <span class="hljs-keyword">if</span> ori_asset.static_class() == unreal.SkeletalMesh.static_class():
+        ori_mat = ori_asset.get_editor_property(<span class="hljs-string">&#x27;materials&#x27;</span>)
+        <span class="hljs-keyword">for</span> des_asset <span class="hljs-keyword">in</span> des_assets:
+            des_mat = des_asset.get_editor_property(<span class="hljs-string">&#x27;materials&#x27;</span>)
+            <span class="hljs-keyword">if</span> len(ori_mat) &gt; len(des_mat):
+                mat = ori_mat[:len(des_mat)]
+            <span class="hljs-keyword">elif</span> len(ori_mat) &lt; len(des_mat):
+                mat = des_mat
+                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(ori_mat)):
+                    mat[i] = ori_mat[i]
+            <span class="hljs-keyword">else</span>:
+                mat = ori_mat
+            des_asset.set_editor_property(<span class="hljs-string">&#x27;materials&#x27;</span>, mat)
+
+    <span class="hljs-keyword">elif</span> ori_asset.static_class() == unreal.StaticMesh.static_class():
+        ori_materials_num = <span class="hljs-number">0</span>
+        loop = <span class="hljs-literal">True</span>
+        interface_list = []
+        <span class="hljs-keyword">while</span> loop:
+            material = ori_asset.get_material(ori_materials_num)
+            <span class="hljs-keyword">if</span> material:
+                interface_list.append(material)
+                ori_materials_num = ori_materials_num + <span class="hljs-number">1</span>
+            <span class="hljs-keyword">else</span>:
+                loop = <span class="hljs-literal">False</span>
+
+        <span class="hljs-keyword">for</span> des_asset <span class="hljs-keyword">in</span> des_assets:
+            <span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> range(ori_materials_num):
+                index_material = ori_asset.get_material(index)
+                des_asset.set_material(index, index_material)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> (<span class="hljs-string">&quot;Error: unacceptable type: &#123;&#125;, &#123;&#125;&quot;</span>.format(ori_asset, ori_asset.static_class()))
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span>(<span class="hljs-params">asset=True</span>):</span>
+    <span class="hljs-keyword">if</span> asset:
+        <span class="hljs-comment"># edit asset</span>
+        asset_function()
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-comment"># edit world actor</span>
+        world_actor_function()</code></pre></div>
+
+<p>注：</p>
 <ol>
-<li>选择渲染器 &gt; Viewport 2.0 (Renderer &gt; Viewport 2.0) &gt; 。<br><img src="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/vp%E6%B8%B2%E6%9F%93%E5%99%A8.png" srcset="/img/loading.gif"></li>
-<li>在“最大纹理分辨率钳制”(Maximum Texture Resolution Clamping)下，启用“钳制纹理分辨率”(Clamp Texture Resolution)并减小“最大纹理分辨率”(Max Texture Resolution)。<br><img src="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/%E8%AE%BE%E7%BD%AE%E6%9C%80%E5%A4%A7%E7%BA%B9%E7%90%86%E5%88%86%E8%BE%A8%E7%8E%87.png" srcset="/img/loading.gif"></li>
-<li>单击“重新加载所有纹理”(Re-load All Textures)。</li>
-<li>在带纹理的模式的场景视图中按 6。</li>
+<li>可以转化资产材质，也可以转化世界中物体的材质。</li>
+<li>当选择物体类型不一致（StaticMesh / SkeletonMesh）时，在转换资产材质时会出错。</li>
+<li>可以实现一赋多，一套材质赋给多个物体。</li>
 </ol>
-<p>&emsp;&emsp;<font color="orange">官方解决方式参考：</font></p>
-<p><img src="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/%E7%BA%B9%E7%90%86%E5%AE%98%E6%96%B9%E8%A7%A3%E5%86%B3.png" srcset="/img/loading.gif"></p>
-<p>🖌 待续未完…</p>
+<hr>
+<h2 id="创建快捷菜单"><a href="#创建快捷菜单" class="headerlink" title="创建快捷菜单"></a>创建快捷菜单</h2><p>create_mt_tool_menu.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+menus = unreal.ToolMenus.get()
+
+<span class="hljs-comment"># add contextbrowser menu</span>
+menu_name = <span class="hljs-string">&quot;ContentBrowser.AssetContextMenu&quot;</span>
+menu = menus.find_menu(menu_name)
+entry = unreal.ToolMenuEntry(type=unreal.MultiBlockType.MENU_ENTRY)
+entry.set_label(<span class="hljs-string">&quot;Convert Materials&quot;</span>)
+<span class="hljs-comment"># NOTE 注册执行的命令</span>
+typ = unreal.ToolMenuStringCommandType.PYTHON
+run_str = <span class="hljs-string">&quot;import material_tool; material_tool.main()&quot;</span>
+entry.set_string_command(typ, <span class="hljs-string">&quot;&quot;</span>, run_str)
+
+menu.add_section(<span class="hljs-string">&#x27;CustomControl&#x27;</span>, label=<span class="hljs-string">&#x27;CustomMenu&#x27;</span>)
+menu.add_menu_entry(<span class="hljs-string">&#x27;CustomControl&#x27;</span>,entry)
+
+<span class="hljs-comment"># add viewport right clicked menu</span>
+viewport_menu_name = <span class="hljs-string">&quot;LevelEditor.ActorContextMenu&quot;</span>
+menu = menus.find_menu(viewport_menu_name)
+entry = unreal.ToolMenuEntry(type=unreal.MultiBlockType.MENU_ENTRY)
+entry.set_label(<span class="hljs-string">&quot;Convert Materials&quot;</span>)
+typ = unreal.ToolMenuStringCommandType.PYTHON
+run_str = <span class="hljs-string">&quot;import material_tool; material_tool.main(False)&quot;</span>
+entry.set_string_command(typ, <span class="hljs-string">&quot;&quot;</span>, run_str)
+
+menu.add_section(<span class="hljs-string">&#x27;CustomControl&#x27;</span>, label=<span class="hljs-string">&#x27;ComstomMenu&#x27;</span>)
+menu.add_menu_entry(<span class="hljs-string">&#x27;CustomControl&#x27;</span>,entry)
+
+<span class="hljs-comment"># add toolbar menu</span>
+toolbar_menu_name = <span class="hljs-string">&quot;LevelEditor.LevelEditorToolBar&quot;</span>
+menu = menus.find_menu(toolbar_menu_name)
+menu.add_section(<span class="hljs-string">&#x27;CustomControl&#x27;</span>, label=<span class="hljs-string">&#x27;Convert Materials&#x27;</span>)
+typ = unreal.ToolMenuStringCommandType.PYTHON
+
+entry = unreal.ToolMenuEntry(type=unreal.MultiBlockType.TOOL_BAR_BUTTON)
+entry.set_label(<span class="hljs-string">&quot;By Asset&quot;</span>)
+run_str = <span class="hljs-string">&quot;import material_tool; material_tool.main()&quot;</span>
+entry.set_string_command(typ, <span class="hljs-string">&quot;&quot;</span>, run_str)
+menu.add_menu_entry(<span class="hljs-string">&#x27;CustomControl&#x27;</span>,entry)
+
+entry = unreal.ToolMenuEntry(type=unreal.MultiBlockType.TOOL_BAR_BUTTON)
+entry.set_label(<span class="hljs-string">&quot;By World&quot;</span>)
+run_str = <span class="hljs-string">&quot;import material_tool; material_tool.main(False)&quot;</span>
+entry.set_string_command(typ, <span class="hljs-string">&quot;&quot;</span>, run_str)
+menu.add_menu_entry(<span class="hljs-string">&#x27;CustomControl&#x27;</span>,entry)
+
+
+<span class="hljs-comment"># add it to show the button</span>
+menus.refresh_all_widgets()</code></pre></div>
+
+<p>可以选择资产右键、或选择世界中物体右键、或在工具架上点击使用。</p>
+<p><img src="/2021/02/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/3.png" srcset="/img/loading.gif"></p>
+<p><img src="/2021/02/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/4.png" srcset="/img/loading.gif"></p>
+<p><img src="/2021/02/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/5.png" srcset="/img/loading.gif"></p>
+<h2 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h2><p>&emsp;&emsp;一开始我是用 Startup Scripts 进行配置的，但是这种方式配置假如新建了项目，每次都要重新指定脚本路径，非常麻烦。</p>
+<p>&emsp;&emsp;后来跟智伤帝探讨后发现可以像 Maya UserSetup 一样配置一个启动时自动运行的文件。创建一个名为 “init_unreal.py” 的文件，放置于我的文档 “Documents\UnrealEngine\Python” 文件夹中，Unreal 启动时就会自动读取该文件。</p>
+<p>init_unreal.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> create_mt_tool_menu</code></pre></div>
+
+<p>&emsp;&emsp;为了方便，我直接把这几个文件也放进“Documents\UnrealEngine\Python” 文件夹。</p>
+<p><img src="/2021/02/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/6.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;这样，只需要在创建新项目时加载 Python 插件，重启引擎后就可以在菜单上看到配置好的工具了。</p>
+<p>&emsp;&emsp;能不能让引擎在创建新项目的时候自动加载 Python 插件呢（以尽量减少操作为目的）？答案是可以的，智伤帝给出了修改启动 bat 的方式，这种方式以后再研究使用吧，暂时是用不上了。</p>
+<p>&emsp;&emsp;至于加载 Python，项目只要加载过一次，下次就会自动加载了，所以动动手指也没有特别麻烦啦~</p>
 
             </div>
             <hr>
@@ -253,9 +386,7 @@ cmds.delete(cam)</code></pre></div>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Maya/">Maya</a>
-                    
-                      <a class="hover-with-bg" href="/categories/Maya/collection/">collection</a>
+                      <a class="hover-with-bg" href="/categories/Unreal/">Unreal</a>
                     
                   </div>
                 
@@ -263,9 +394,9 @@ cmds.delete(cam)</code></pre></div>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
+                      <a class="hover-with-bg" href="/tags/UE/">UE</a>
                     
-                      <a class="hover-with-bg" href="/tags/SUM/">SUM</a>
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
                     
                   </div>
                 
@@ -278,15 +409,15 @@ cmds.delete(cam)</code></pre></div>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Maya开发过程常用功能集合</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">UnrealPython基础学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
@@ -448,9 +579,9 @@ cmds.delete(cam)</code></pre></div>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Maya制作文件问题集合&nbsp;",
+        "Unreal材质替换插件&nbsp;",
       ],
-      cursorChar: "🍕",
+      cursorChar: "🌻",
       typeSpeed: 70,
       loop: false,
     });

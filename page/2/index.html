@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Vanny Yuan">
   <meta name="keywords" content="">
-  <title>标签 - MAYA - Vanny Yuan&#39;s Blog</title>
+  <title>Vanny Yuan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -43,7 +43,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -137,10 +137,10 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/default.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.2)">
           <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
@@ -149,6 +149,10 @@
             
           </div>
 
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
           
         </div>
       </div>
@@ -159,51 +163,83 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 5 篇文章</p>
-  <hr>
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2020</p>
     
-    <a href="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Maya开发实践课（二）</span>
-      <time style="float: right;">10-30</time>
-    </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/">Maya制作文件问题集合</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/">
+          
+          
+            
+          
+          &emsp;&emsp;由于工作中经常遇到Maya中奇奇怪怪的问题上，所以总结一下一些遇到的小问题。
+🎥 文件中多余的相机无法删除
+&emsp;&emsp;原因：相机重复出现可能是因为在导入或参考时出错了，需要把相机设置成非默认摄像机才可以删除。
+&emsp;&emsp;解决：选中需要删除的相机执行。
+// MEL
+string $selection[] = `ls -selection -lo
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-22 15:35" pubdate>
+              2020-10-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Maya/">Maya</a>
+            
+              <a href="/categories/Maya/collection/">collection</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MAYA/">MAYA</a>
+            
+              <a href="/tags/SUM/">SUM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
   
-    
-    <a href="/2020/10/29/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Maya开发实践课（一）</span>
-      <time style="float: right;">10-29</time>
-    </a>
-  
-    
-    <a href="/2020/10/22/script/python/%E6%8C%89%E4%B8%8BESC%E4%B8%AD%E6%96%AD%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84for%E5%BE%AA%E7%8E%AF/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">按下“ESC”中断运行中的for循环</span>
-      <time style="float: right;">10-22</time>
-    </a>
-  
-    
-    <a href="/2020/10/22/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Maya开发过程常用功能集合</span>
-      <time style="float: right;">10-22</time>
-    </a>
-  
-    
-    <a href="/2020/10/22/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Maya制作文件问题集合</span>
-      <time style="float: right;">10-22</time>
-    </a>
-  
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -322,9 +358,9 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - MAYA&nbsp;",
+        "Life\'s too short to not live wild.&nbsp;",
       ],
-      cursorChar: "🍕",
+      cursorChar: "🧀",
       typeSpeed: 70,
       loop: false,
     });
