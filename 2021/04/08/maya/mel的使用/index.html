@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>Mel的使用 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-04-08 12:26" pubdate>
+      2021年4月8日 中午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      256 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Mel的使用</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;虽然接触 Maya 开发已经快接近两年了，但是发现自己其实并不会 Mel 语言！很多 Maya 中的命令也不知道怎么查询，有时候需要优化 Maya 自带功能时，不管是阅读还是修改都带来了极大的障碍。因此还是抽个时间把 Maya 文档中的 Mel 模块看一遍才行。</p>
+<p>&emsp;&emsp;下面记录一些知识重点！</p>
+<hr>
+<h3 id="查询命令-whatIs"><a href="#查询命令-whatIs" class="headerlink" title="查询命令 whatIs"></a>查询命令 whatIs</h3><p>&emsp;&emsp;有时候我们不知道 Maya 做了什么具体操作，通常会打开脚本编辑器中的“Echo All Commands”，来查看执行过程中调用的命令。</p>
+<p>&emsp;&emsp;我们可以用 <code>whatIs</code> 查询命令。whatIs 命令将返回一个字符串，表示该参数是一个命令、程序、脚本或未知。如果给它一个脚本名称，它将返回脚本路径。</p>
+<p>&emsp;&emsp;以 Maya 的添加分段功能为例，键入命令：</p>
+<div class="hljs"><pre><div class="caption"><span>SubdividePolygon;``` ，运行后返回结果： ```// Result: Run Time Command</span><a href="//">``` 。我们可以找到<font color< a></font></a></div><code class="hljs whatIs">
+SubdividePolygon 命令在文件中的部分如下所示：
+&#96;&#96;&#96;Mel
+runTimeCommand -default true
+-annotation (uiRes(&quot;m_defaultRunTimeCommands.kSubdividePolygonAnnot&quot;))
+-category   (&quot;Menu items.Modeling.Edit Mesh&quot;)
+-command    (&quot;performPolySubdivide \&quot;\&quot; 0&quot;)
+SubdividePolygon;</code></pre></div>
+
+<p>再次键入命令查询 <code>whatIs performPolySubdivide;</code> ，运行后返回结果 <code>// Result: Mel procedure found in: C:/Program Files/Autodesk/Maya2018/scripts/others/performPolySubdivide.mel // </code> ，在这里我们就找到具体的执行文件了。</p>
+<hr>
+<h3 id="拖拽属性到脚本编辑器"><a href="#拖拽属性到脚本编辑器" class="headerlink" title="拖拽属性到脚本编辑器"></a>拖拽属性到脚本编辑器</h3><p>&emsp;&emsp;Maya 可以使用<font color="red">鼠标中键</font>将属性从“属性编辑器”(Attribute Editor)拖放到“脚本编辑器”(Script Editor)。node.attributeName 会直接添加到“脚本编辑器”(Script Editor)中。<br><img src="/2021/04/08/maya/mel%E7%9A%84%E4%BD%BF%E7%94%A8/1.gif" srcset="/img/loading.gif"></p>
+<hr>
+<h3 id="Source-Script"><a href="#Source-Script" class="headerlink" title="Source Script"></a>Source Script</h3><p>&emsp;&emsp;执行文本文件的内容。</p>
+<p>&emsp;&emsp;在调用自定义的 mel 的方法前，需要先定义，也就是先把方法运行声明一次。使用任意文件名保存脚本，然后使用 source 命令将其源化。脚本源化后，可以按任意顺序调用其任何全局程序。</p>
+<p>&emsp;&emsp;可以点击脚本编辑器中的 <img src="/2021/04/08/maya/mel%E7%9A%84%E4%BD%BF%E7%94%A8/2.png" srcset="/img/loading.gif"> 按钮源化脚本。如果在源化脚本之后更改了脚本，那么 Maya 不会自动拾取该更改。您需要使用“文件 &gt; 源化脚本”(File &gt; Source Script)重新运行脚本。</p>
+<p>&emsp;&emsp;如果不确定是否需要源化脚本，则可在调用之前测试函数在 MEL 中是否可用：</p>
+<div class="hljs"><pre><code class="hljs Mel"><span class="hljs-keyword">if</span> (!<span class="hljs-string">`exists myLocalProc`</span>)&#123;
+    <span class="hljs-keyword">source</span> <span class="hljs-string">&quot;xxx.mel&quot;</span>;
+&#125;
+myLocalProc;</code></pre></div>
+
+<p>注意： MEL 脚本和 mayaAscii 文件是不同的。如果将 .ma 文件重命名为 .mel 文件并源化该文件，则可能会出错。或者，如果将 .mel 脚本重命名为 .ma 文件并打开该文件，则可能会出错，或者甚至会使 Maya 崩溃。Maya 在读取文件时会执行一些特殊操作以提高性能，并非所有命令都与此兼容。</p>
+<hr>
+<h3 id="脚本编辑器自动补全"><a href="#脚本编辑器自动补全" class="headerlink" title="脚本编辑器自动补全"></a>脚本编辑器自动补全</h3><p>&emsp;&emsp;开启 Command -&gt; Command Completion ，键入时自动完成命令名称。如果启用“显示工具提示帮助”(Show Tooltip Help)，则命令名称将在您键入时自动显示。如果禁用“显示工具提示帮助”(Show Tooltip Help)，则必须按住 Ctrl+空格键才能显示它们。</p>
+<p><img src="/2021/04/08/maya/mel%E7%9A%84%E4%BD%BF%E7%94%A8/3.gif" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;开启 Command -&gt; Object Path Completion ，键入时自动完成对象路径名称。如果启用“显示工具提示帮助”(Show Tooltip Help)，则命令名称将在您键入时自动显示。如果禁用“显示工具提示帮助”(Show Tooltip Help)，则必须按住 Ctrl+空格键才能显示它们。</p>
+<hr>
+<h3 id="判断存在性"><a href="#判断存在性" class="headerlink" title="判断存在性"></a>判断存在性</h3><ul>
+<li><p>命令和脚本: exists<br>如果参数为有效的命令、子程序或脚本，exists 命令将返回 true。</p>
+  <div class="hljs"><pre><code class="hljs Mel"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">exists</span>(<span class="hljs-string">&quot;sphere&quot;</span>)) &#123;
+    <span class="hljs-keyword">sphere</span>; <span class="hljs-comment">// make a sphere</span>
+&#125;</code></pre></div>
+</li>
+<li><p>对象: objExists<br>如果对象存在且包含某个明确的名称，objExists 函数将返回 true。</p>
+  <div class="hljs"><pre><code class="hljs Mel"><span class="hljs-keyword">sphere</span> -name <span class="hljs-string">&quot;george&quot;</span>;
+<span class="hljs-comment">// Result: george makeNurbSphere1 //</span>
+<span class="hljs-keyword">print</span>(<span class="hljs-keyword">objExists</span>(<span class="hljs-string">&quot;george&quot;</span>));
+<span class="hljs-number">1</span>
+<span class="hljs-keyword">print</span>(<span class="hljs-keyword">objExists</span>(<span class="hljs-string">&quot;martha&quot;</span>));
+<span class="hljs-number">0</span></code></pre></div>
+</li>
+<li><p>节点上的属性: attributeExists<br>使用 attributeExists 检查节点上是否存在给定属性。命令的形式为<code>attributeExists(&quot;attributeName&quot;,&quot;nodeName&quot;)</code></p>
+  <div class="hljs"><pre><code class="hljs MEL"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">attributeExists</span>(<span class="hljs-string">&quot;visibility&quot;</span>,<span class="hljs-string">&quot;mySphere&quot;</span>)) &#123;
+    <span class="hljs-keyword">setAttr</span> mySphere.visibility on;
+&#125;</code></pre></div>
+
+
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Maya/">Maya</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MEL/">MEL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/07/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/">
+                        <span class="hidden-mobile">工具架界面开发</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Mel的使用&nbsp;",
+      ],
+      cursorChar: "🐾",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
