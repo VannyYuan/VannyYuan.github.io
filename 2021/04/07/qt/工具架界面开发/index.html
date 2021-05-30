@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.5k 字
+      5.6k 字
     </span>
   
 
@@ -745,6 +745,14 @@ self.AdminView.setModel(self.tool_model)</code></pre></div>
 
 maya_main()</code></pre></div>
 
+<hr>
+<h2 id="获取-Maya-的-Icon-路径"><a href="#获取-Maya-的-Icon-路径" class="headerlink" title="获取 Maya 的 Icon 路径"></a>获取 Maya 的 Icon 路径</h2><p>&emsp;&emsp;很多 Maya 的工具显示使用的是 Maya 自带的图标，这些图标路径可以通过几个地方找到。</p>
+<h3 id="XBMLANGPATH"><a href="#XBMLANGPATH" class="headerlink" title="XBMLANGPATH"></a>XBMLANGPATH</h3><p>&emsp;&emsp;Icon 路径，在该变量下的路径中的图片文件可以直接用来当作界面控件的图标。  </p>
+<ol>
+<li>运行 mel 命令 <code>xbmLangPathList;</code> 可以查看 icon 路径。  </li>
+<li>也可以通过查询环境变量 <code>os.environ[&#39;XBMLANGPATH&#39;]</code>  查看路径。</li>
+</ol>
+
             </div>
             <hr>
             <div>
@@ -954,7 +962,7 @@ maya_main()</code></pre></div>
         '  ',
         "工具架界面开发&nbsp;",
       ],
-      cursorChar: "🧀",
+      cursorChar: "🐾",
       typeSpeed: 70,
       loop: false,
     });
