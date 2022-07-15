@@ -2,6 +2,7 @@
 title: Maya开发实践课（二）
 tags: [SCRIPT, MAYA]
 category: [Maya, Maya开发实践课]
+date: 2020-11-2 12:31:00
 ---
 
 ## L15 走进 PyMEL 编程

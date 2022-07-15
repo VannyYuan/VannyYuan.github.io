@@ -2,6 +2,7 @@
 title: Unreal材质替换插件
 tags: [UE,Python]
 category: Unreal
+date: 2021-4-5 16:40:00
 ---
 
 &emsp;&emsp;在学习了 UnrealPython 基础教程后，尝试开发了一下小功能：把 A 物体的材质一一对应赋给 B 物体。

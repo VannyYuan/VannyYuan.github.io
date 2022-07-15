@@ -2,6 +2,7 @@
 title: 在Hugo中使用css自定义图片位置
 tags: [SCRIPT]
 category: [SCRIPT,Hogo]
+date: 2020-10-29 16:23:00
 ---
 
 &emsp;&emsp;最近公司开发了gitlab上的文档功能，并配置了主题（hugo-learn-free）。

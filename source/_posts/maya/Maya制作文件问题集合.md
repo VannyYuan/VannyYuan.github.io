@@ -2,6 +2,7 @@
 title: Maya制作文件问题集合
 tags: [MAYA,SUM]
 category: [Maya, collection]
+date: 2020-10-12 17:31:00
 ---
 
 &emsp;&emsp;由于工作中经常遇到Maya中奇奇怪怪的问题上，所以总结一下一些遇到的小问题。

@@ -2,6 +2,7 @@
 title: 使用cv2进行图像匹配
 tags: [SCRIPT,PYTHON,cv2]
 category: [SCRIPT,cv2]
+date: 2020-10-12 17:38:00
 ---
 
 &emsp;&emsp;本节介绍cv2在python中的安装，及其读取、显示、保存图片功能用法。

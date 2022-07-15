@@ -2,6 +2,7 @@
 title: Maya开发实践课（一）
 tags: [SCRIPT, MAYA]
 category: [Maya, Maya开发实践课]
+date: 2020-10-30 18:22:00
 ---
 
 

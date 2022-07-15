@@ -2,6 +2,7 @@
 title: Mel的使用
 tags: [MAYA,MEL]
 category: Maya
+date: 2021-4-13 16:53:00
 ---
 
 &emsp;&emsp;虽然接触 Maya 开发已经快接近两年了，但是发现自己其实并不会 Mel 语言！很多 Maya 中的命令也不知道怎么查询，有时候需要优化 Maya 自带功能时，不管是阅读还是修改都带来了极大的障碍。因此还是抽个时间把 Maya 文档中的 Mel 模块看一遍才行。
