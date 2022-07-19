@@ -1,0 +1,1107 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>工具架界面开发 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-10-09 18:00" pubdate>
+      2020年10月9日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.6k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">工具架界面开发</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;最近有一个任务是开发工具架，主要功能为工具的显示和编辑。由于这次开发涉及未接触过的知识点比较多，而且对美观设计方面也有所欠缺，因此开发周期比较长，但收获良多。</p>
+<p>&emsp;&emsp;Qt是跨平台的，虽然该工具主要是在 Maya 中使用，但是同样可以拓展到其他平台上。在开发这个工具的过程中更加深入学习了 Qt 的 MVC 框架以及对接数据库的 QSql 相关的知识，下面详细讲一下这个工具过程和演示。</p>
+<hr>
+<h1 id="🐙-工具展示"><a href="#🐙-工具展示" class="headerlink" title="🐙 工具展示"></a>🐙 工具展示</h1><h2 id="界面展示"><a href="#界面展示" class="headerlink" title="界面展示"></a>界面展示</h2><ul>
+<li>用户界面<br>用户模式主要进行工具的调用。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/1.png" srcset="/img/loading.gif"></li>
+<li>管理员界面<br>管理员模式主要进行工具的编辑，功能包括工具的增加、删除、修改、移动、改变分组。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/2.png" srcset="/img/loading.gif"></li>
+</ul>
+<hr>
+<h2 id="通用功能"><a href="#通用功能" class="headerlink" title="通用功能"></a>通用功能</h2><ol>
+<li>切换组分类<br>通过点击组选项框，选择需要切换的组名，即可更改视图中显示的工具为所选组内的工具。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/14.gif" srcset="/img/loading.gif"></li>
+<li>搜索工具<br>通过在搜索框中输入需要搜索的工具名称或备注信息，即可从视图中筛选符合搜索条件的工具并显示。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/15.gif" srcset="/img/loading.gif"></li>
+<li>切换用户模式与管理员模式<br>可以通过点击设置菜单中的“进入用户/管理员模式”进行工具模式切换。<br>当工具首次进入管理员模式时会要求输入密码，只有在密码输入正确后才能进入管理员模式，在下次初始化工具前不需要重新输入密码进入管理员模式。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/17.gif" srcset="/img/loading.gif"></li>
+<li>折叠界面<br>可以通过点击工具右上角的 “-” 按钮，把界面进行折叠或者展开。折叠后的标题栏可以点击进行拖拽。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/22.gif" srcset="/img/loading.gif"></li>
+<li>窗口拖拽<br>可以在界面空白处按住鼠标左键并移动鼠标，实现界面拖拽功能。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/23.gif" srcset="/img/loading.gif"></li>
+<li>窗口缩放<br>可以把鼠标移动到窗口边缘，当鼠标出现缩放样式时，可以按住鼠标左键并移动鼠标，实现界面缩放功能。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/24.gif" srcset="/img/loading.gif"></li>
+</ol>
+<hr>
+<h2 id="用户功能展示"><a href="#用户功能展示" class="headerlink" title="用户功能展示"></a>用户功能展示</h2><ol>
+<li>切换视图显示模式<br>在用户模式下，工具视图显示模式有列表显示和图标显示两种，可以通过点击设置菜单上的“切换显示模式”，对视图的显示模式进行交替更换。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/3.gif" srcset="/img/loading.gif"></li>
+<li>调节视图显示比例<br>在用户模式下，可以通过滑动设置菜单上的“调节显示比例”的滑动条，对视图的显示比例进行缩放。<br>不同显示模式视图的缩放值完全独立，调节比例时仅对当前显示模式视图生效，不影响其他显示模式比例。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/4.gif" srcset="/img/loading.gif"></li>
+<li>查看备注<br>在用户模式下，当鼠标悬停在工具上，会弹出该工具的备注。<br>对于设置了说明文档链接的工具，还可以点击“Help”打开说明链接。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/16.gif" srcset="/img/loading.gif"></li>
+<li>运行工具<br>&emsp;&emsp;单击用户界面中的工具即可运行选中工具。</li>
+</ol>
+<hr>
+<h2 id="管理员功能展示"><a href="#管理员功能展示" class="headerlink" title="管理员功能展示"></a>管理员功能展示</h2><h3 id="编辑工具"><a href="#编辑工具" class="headerlink" title="编辑工具"></a>编辑工具</h3><ol>
+<li>在当前行前插入工具<br>在管理员模式下，选中其中一行工具，点击图示“添加”按钮，可以在选中行前插入一行新工具。<br>如果当前组不是 All 组，创建的工具会自动加入到 All 组中。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/5.gif" srcset="/img/loading.gif"></li>
+<li>删除当前行的工具<br>在管理员模式下，选中需要移除的工具，点击图示“删除”按钮，可以删除选中行的工具。<br>删除工具会把工具从所有组中移除。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/6.gif" srcset="/img/loading.gif"></li>
+<li>上移当前行<br>在管理员模式下，选择需要上移的工具行，点击图示“上移”按钮，可以把选中工具上移一位。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/7.gif" srcset="/img/loading.gif"></li>
+<li>下移当前行<br>在管理员模式下，选择需要下移的工具行，点击图示“下移”按钮，可以把选中工具下移一位。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/8.gif" srcset="/img/loading.gif"></li>
+<li>拖拽移动行<br>在管理员模式下，鼠标左键按住需要拖拽移动的工具行，按住拖动鼠标到需要插入的行位置后松开鼠标左键，可以把工具移动到指定行位置。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/13.gif" srcset="/img/loading.gif"></li>
+<li>编辑工具内容<br>在管理员模式下，鼠标左键双击选中需要编辑的内容，可以编辑当前工具。其中 使用次数、 tid 和 tdatetime 为不可编辑列。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/21.gif" srcset="/img/loading.gif"></li>
+</ol>
+<h3 id="运行工具和打开工具帮助"><a href="#运行工具和打开工具帮助" class="headerlink" title="运行工具和打开工具帮助"></a>运行工具和打开工具帮助</h3><ol>
+<li>运行工具<br>在管理员模式下，右键点击选中工具，在弹出菜单中选择“运行工具”，即可运行选中工具。  </li>
+<li>打开帮助<br>在管理员模式下，右键点击选中工具，在弹出菜单中选择“打开帮助”，即可打开选中工具的帮助文档。  </li>
+</ol>
+<h3 id="修改工具的分组"><a href="#修改工具的分组" class="headerlink" title="修改工具的分组"></a>修改工具的分组</h3><ol>
+<li>添加到组<br>在管理员模式下，右键点击选中工具，在弹出菜单中选择“添加到组”，弹出列表会显示除了当前组、 All 组以及 Unsorted 组外的其他组，选择需要添加的组，可以把选中工具添加到选择的组内。<br>“添加到组”功能不会把工具从原来的组中移除，而是直接在需要添加的组中添加该工具。<br>假如选中工具已经存在于需要添加的组，则会跳过添加操作。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/18.gif" srcset="/img/loading.gif"></li>
+<li>移动到组<br>在管理员模式下，右键点击选中工具，在弹出菜单中选择“移动到组”，弹出列表会显示除了当前组、 All 组以及 Unsorted 组外的其他组，选择需要移动的组，可以把选中工具移动到选择的组内。<br>“移动到组”功能会把工具从原来组中移除，并在需要移动的组中添加该工具。<br>假如选中工具已经存在于需要移动的组，则会跳过添加操作，但仍会从原来组中移除。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/19.gif" srcset="/img/loading.gif"></li>
+<li>移出该组<br>在管理员模式下，右键点击选中工具，在弹出菜单中选择“移出该组”，可以把工具从当前组中移除。<br>与“删除工具”不同的是，“删除工具”会把工具从所有组中删除，而“移出该组”只会把工具从该组中移除，而不会影响工具在其他组的存在情况。<br>假如工具在该组中移除后不存在于除了 All 组外的任何其他分组，则工具会自动添加到 Unsorted 分组中。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/20.gif" srcset="/img/loading.gif"></li>
+</ol>
+<h3 id="编辑组"><a href="#编辑组" class="headerlink" title="编辑组"></a>编辑组</h3><p>在管理员模式下，点击“编辑组”按钮，会弹出编辑组窗口界面。我们可以在界面中查看到已经创建的组名，以及进行添加新组、删除组和重命名组操作。编辑组中的组会同步到工具的分组中。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/9.gif" srcset="/img/loading.gif">   </p>
+<ol>
+<li>添加新组<br>在打开的编辑组窗口中，点击“添加组”按钮，会弹出需要输入新组名的窗口，在窗口中输入需要创建的组名后，点击“OK”按钮，即可把在组列表最下方创建一个新组。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/10.gif" srcset="/img/loading.gif"></li>
+<li>删除组<br>在打开的编辑组窗口中，选择需要删除的组，点击“删除组”按钮，会弹出提示框：“确定删除 xxx 组？删除后未分类工具会移动到 Unsorted 组”。点击提示框的“Ok”按钮，即可删除选中组。<br>假如选中组中存在多个工具，则会判断每个工具是否存在与别的组中，如果工具不存在于任何组（“All”组除外），则会把工具移动到 Unsorted 未分类组中。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/11.gif" srcset="/img/loading.gif"></li>
+<li>重命名组<br>在打开的编辑窗口中，选择需要重命名的组，点击“重命名组”，会弹出需要输入新组名的窗口，在窗口中输入新组名后，点击“Ok”按钮，即可把选中组重命名。<br><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/12.gif" srcset="/img/loading.gif"></li>
+</ol>
+<hr>
+<h1 id="🐝-数据结构"><a href="#🐝-数据结构" class="headerlink" title="🐝 数据结构"></a>🐝 数据结构</h1><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>&emsp;&emsp;本来一开始是计划用 PostgreSQL 来实现的，但是由于 Maya 的 PySide2 中没有 PSql 的驱动，本来使用 PSql 已经开发一半了，也无奈被迫中止，转用 sqlite 。</p>
+<p>&emsp;&emsp;至于 Model ，一开始不清楚 Qt 有直接处理数据库的类，使用了传统的 QAbstractTableModel 结合自定义 Node 类型节点实现显示。虽然也可以正常显示数据，但是在得知可以使用 QSqlTableModel 直接操作数据库数据后，就舍弃了传统模型，改用 QSqlTableModel 了。</p>
+<h3 id="PSQL"><a href="#PSQL" class="headerlink" title="PSQL"></a>PSQL</h3><p>&emsp;&emsp;虽然最终并没有使用 Psql ，但是毕竟投入了一点时间进行研究，所以还是记录一下 Psql 中的开发使用吧。</p>
+<h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><p>&emsp;&emsp;使用 pgAdmin 4 创建数据库。</p>
+<h4 id="获取数据库连接"><a href="#获取数据库连接" class="headerlink" title="获取数据库连接"></a>获取数据库连接</h4><div class="hljs"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> psycopg2
+conn = psycopg2.connect(
+                database=<span class="hljs-string">&#x27;database name&#x27;</span>,
+                user=<span class="hljs-string">&#x27;user name&#x27;</span>,
+                password=<span class="hljs-string">&#x27;database password&#x27;</span>,
+                host=<span class="hljs-string">&#x27;your host&#x27;</span>,
+                port=<span class="hljs-string">&#x27;your port&#x27;</span>)
+
+TOOL_TABLE = <span class="hljs-string">&#x27;public.tool_manager&#x27;</span></code></pre></div>
+
+<h4 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h4><div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insert_data</span>(<span class="hljs-params">conn, table, tname, tcommand, tlocation, ttooltip=<span class="hljs-string">&#x27;&#x27;</span>,  tenabled=True, ticon=<span class="hljs-string">&#x27;&#x27;</span>, thelp=<span class="hljs-string">&#x27;&#x27;</span>, tgitlab=<span class="hljs-string">&#x27;&#x27;</span>, tused=<span class="hljs-number">0</span>, tid=<span class="hljs-number">0</span>, tdatetime=<span class="hljs-string">&#x27;&#x27;</span></span>):</span>
+    cursor = conn.cursor()
+    cursor.execute(<span class="hljs-string">&quot;INSERT INTO &#123;&#125;(tname, ttooltip, tcommand, tenabled, ticon, tlocation, thelp, tgitlab, tused, tid, tdate) \</span>
+<span class="hljs-string">        VALUES(&#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#x27;&#123;&#125;&#x27;, &#123;&#125;, &#123;&#125;, &#x27;&#123;&#125;&#x27;)&quot;</span>.format(
+            table, tname, ttooltip.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>), tcommand, tenabled, ticon, tlocation, thelp, tgitlab, tused, tid, tdatetime
+        ))
+
+insert_data(conn, <span class="hljs-string">&#x27;public.group_&#123;&#125;&#x27;</span>.format(tgroups.lower().replace(<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;_&#x27;</span>)), tname=tname, tcommand=tcommand, tlocation=tlocation, ttooltip=ttooltip, ticon=ticon, tenabled=tenabled, thelp=thelp, tused=tused, tid=tid, tdatetime=tdatetime)</code></pre></div>
+
+<h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">delete_data</span>(<span class="hljs-params">conn, table, condition_key, condition_value</span>):</span>
+    cursor = conn.cursor()
+    cursor.execute(<span class="hljs-string">&quot;DELETE FROM &#123;&#125; \</span>
+<span class="hljs-string">        WHERE &#123;&#125;=&#x27;&#123;&#125;&#x27;&quot;</span>.format(table, condition_key, condition_value))
+
+delete_data(conn, TOOL_TABLE, <span class="hljs-string">&#x27;tname&#x27;</span>, <span class="hljs-string">&#x27;first_tool&#x27;</span>)</code></pre></div>
+
+<h4 id="清空表数据"><a href="#清空表数据" class="headerlink" title="清空表数据"></a>清空表数据</h4><p>&emsp;&emsp;truncate 方法在 sqlite 是没有的。</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">truncate_table</span>(<span class="hljs-params">conn, table</span>):</span>
+    cursor = conn.cursor()
+    cursor.execute(<span class="hljs-string">&quot;truncate &#123;&#125;&quot;</span>.format(table))
+
+truncate_table(TOOL_TABLE)</code></pre></div>
+
+<h4 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h4><div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">query_data</span>(<span class="hljs-params">conn, table, key, condition=<span class="hljs-string">&#x27;&#x27;</span></span>):</span>
+    cursor = conn.cursor()
+    <span class="hljs-keyword">if</span> condition:
+        cursor.execute(<span class="hljs-string">&quot;SELECT &#123;&#125; from &#123;&#125; where &#123;&#125;&quot;</span>.format(key, table, condition))
+    <span class="hljs-keyword">else</span>:
+        cursor.execute(<span class="hljs-string">&quot;SELECT &#123;&#125; from &#123;&#125;&quot;</span>.format(key, table))
+    data = cursor.fetchall()
+    <span class="hljs-keyword">return</span> data
+
+query_data(conn, TOOL_TABLE, <span class="hljs-string">&#x27;tname&#x27;</span>)</code></pre></div>
+
+<h4 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h4><div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_data</span>(<span class="hljs-params">conn, table, key, value, condition</span>):</span>
+    cursor = conn.cursor()
+    <span class="hljs-keyword">try</span>:
+        cursor.execute(<span class="hljs-string">&quot;UPDATE &#123;&#125; SET &#123;&#125;=&#x27;&#123;&#125;&#x27; WHERE &#123;&#125;;&quot;</span>.format(table, key, value.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>), condition))
+    <span class="hljs-keyword">except</span>:
+        cursor.execute(<span class="hljs-string">&quot;UPDATE &#123;&#125; SET &#123;&#125;=&#123;&#125; WHERE &#123;&#125;;&quot;</span>.format(table, key, value, condition))
+
+update_data(conn, TOOL_TABLE, <span class="hljs-string">&#x27;thelp&#x27;</span>, thelp, <span class="hljs-string">&quot;tname=&#x27;&#123;&#125;&#x27;&quot;</span>.format(tname))</code></pre></div>
+
+<hr>
+<h3 id="SQlite"><a href="#SQlite" class="headerlink" title="SQlite"></a>SQlite</h3><p>&emsp;&emsp;SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。SQLite 源代码不受版权限制。</p>
+<h4 id="创建数据库-1"><a href="#创建数据库-1" class="headerlink" title="创建数据库"></a>创建数据库</h4><p>&emsp;&emsp;SQLite 可以指定数据库位置，假如位置不存在则会自动创建一个数据库。</p>
+<div class="hljs"><pre><code class="hljs Python">TOOLS_DB = <span class="hljs-string">&#x27;tools.db&#x27;</span>
+conn = sqlite3.connect(TOOLS_DB)
+cursor = conn.cursor()</code></pre></div>
+
+<h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><p>&emsp;&emsp;SQLite 没有单独的 Boolean 存储类。相反，布尔值被存储为整数 0（false）和 1（true）。</p>
+<p>&emsp;&emsp;SQLite 没有一个单独的用于存储日期和/或时间的存储类，但 SQLite 能够把日期和时间存储为 TEXT、REAL 或 INTEGER 值。</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create_table</span>(<span class="hljs-params">table_name</span>):</span>
+    cursor.execute(<span class="hljs-string">&#x27;&#x27;&#x27;select name from sqlite_master where type=&#x27;table&#x27; order by name;&#x27;&#x27;&#x27;</span>)
+    table_tuples = cursor.fetchall()
+    <span class="hljs-keyword">if</span> tuple([table_name]) <span class="hljs-keyword">in</span> table_tuples:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    cursor.execute(<span class="hljs-string">&#x27;&#x27;&#x27;create table &#123;&#125;(</span>
+<span class="hljs-string">        tname       text,</span>
+<span class="hljs-string">        ttooltip    text,</span>
+<span class="hljs-string">        tenabled    boolean,</span>
+<span class="hljs-string">        tsetup      boolean,</span>
+<span class="hljs-string">        tcommand    text,</span>
+<span class="hljs-string">        ticon       text,</span>
+<span class="hljs-string">        tlocation   text,</span>
+<span class="hljs-string">        thelp       text,</span>
+<span class="hljs-string">        tgitlab     text,</span>
+<span class="hljs-string">        tused       integer,</span>
+<span class="hljs-string">        tid         integer,</span>
+<span class="hljs-string">        tdate       text</span>
+<span class="hljs-string">        );&#x27;&#x27;&#x27;</span>.format(table_name))
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+create_table(<span class="hljs-string">&#x27;group_all&#x27;</span>)</code></pre></div>
+
+<h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><p>&emsp;&emsp;SQLite 的 DROP TABLE 语句用来删除表定义及其所有相关数据、索引、触发器、约束和该表的权限规范。</p>
+<p>&emsp;&emsp;使用此命令时要特别注意，因为一旦一个表被删除，表中所有信息也将永远丢失。</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">drop_table</span>(<span class="hljs-params">table_name</span>):</span>
+    cursor.execute(<span class="hljs-string">&#x27;&#x27;&#x27;DROP TABLE &#123;&#125;;&#x27;&#x27;&#x27;</span>.format(table_name))
+
+drop_table(<span class="hljs-string">&#x27;group_all&#x27;</span>)</code></pre></div>
+
+<h4 id="重命名表名"><a href="#重命名表名" class="headerlink" title="重命名表名"></a>重命名表名</h4><div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rename_table</span>(<span class="hljs-params">old_table, new_table</span>):</span>
+    cursor.execute(<span class="hljs-string">&#x27;&#x27;&#x27;select name from sqlite_master where type=&#x27;table&#x27; order by name;&#x27;&#x27;&#x27;</span>)
+    table_tuples = cursor.fetchall()
+    <span class="hljs-keyword">if</span> tuple([new_table]) <span class="hljs-keyword">in</span> table_tuples:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    cursor.execute(<span class="hljs-string">&#x27;&#x27;&#x27;ALTER TABLE &#123;&#125; RENAME TO &#123;&#125;;&#x27;&#x27;&#x27;</span>.format(old_table, new_table))
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+rename_table(<span class="hljs-string">&#x27;old&#x27;</span>, <span class="hljs-string">&#x27;new&#x27;</span>)</code></pre></div>
+
+<h4 id="清空表"><a href="#清空表" class="headerlink" title="清空表"></a>清空表</h4><p>&emsp;&emsp;在 SQLite 中，并没有 TRUNCATE TABLE 命令，但可以使用 SQLite 的 DELETE 命令从已有的表中删除全部的数据。</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">truncate_table</span>(<span class="hljs-params">table</span>):</span>
+    cursor.execute(<span class="hljs-string">&#x27;&#x27;&#x27;delete from &#123;&#125;;&#x27;&#x27;&#x27;</span>.format(table))
+
+truncate_table(<span class="hljs-string">&#x27;group_all&#x27;</span>)</code></pre></div>
+
+<h4 id="插入数据-1"><a href="#插入数据-1" class="headerlink" title="插入数据"></a>插入数据</h4><div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insert_record</span>(<span class="hljs-params">table, tname=<span class="hljs-string">&#x27;NewTool&#x27;</span>, tcommand=<span class="hljs-string">&#x27;&lt;Command&gt;&#x27;</span>, tlocation=<span class="hljs-string">&#x27;&lt;Location&gt;&#x27;</span>, ttooltip=<span class="hljs-string">&#x27;&lt;ToolTip&gt;&#x27;</span>,  tenabled=True, ticon=<span class="hljs-string">&#x27;&lt;Icon&gt;&#x27;</span>, thelp=<span class="hljs-string">&#x27;&lt;Help&gt;&#x27;</span>, tgitlab=<span class="hljs-string">&#x27;&lt;Gitlab&gt;&#x27;</span>, tused=<span class="hljs-number">0</span>, tid=<span class="hljs-number">0</span>, tdate=<span class="hljs-string">&#x27;&#x27;</span>, tsetup=False</span>):</span>
+    cursor.execute(<span class="hljs-string">&#x27;&#x27;&#x27;insert into &#123;&#125;(tname, ttooltip, tenabled, tsetup, tcommand, ticon, tlocation, thelp, tgitlab, tused, tid, tdate)</span>
+<span class="hljs-string">        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?</span>
+<span class="hljs-string">        )&#x27;&#x27;&#x27;</span>.format(table), (tname, ttooltip, tenabled, tsetup, tcommand, ticon, tlocation, thelp, tgitlab, tused, tid, tdate))
+
+insert_record(<span class="hljs-string">&#x27;group_&#123;&#125;&#x27;</span>.format(tgroups.lower().replace(<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;_&#x27;</span>)), tname=tname, tcommand=tcommand, tlocation=tlocation, ttooltip=ttooltip, ticon=ticon, tenabled=tenabled, thelp=thelp, tused=tused, tid=tid, tdate=tdatetime, tsetup=tsetup)</code></pre></div>
+
+<hr>
+<h2 id="QSqlTableModel"><a href="#QSqlTableModel" class="headerlink" title="QSqlTableModel"></a>QSqlTableModel</h2><p>&emsp;&emsp;QSqlTableModel 可以作为 QTableView 的数据源。</p>
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><div class="hljs"><pre><code class="hljs Python">TOOLS_DB = <span class="hljs-string">&#x27;tools.db&#x27;</span>
+<span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sql_db</span>():</span>
+    <span class="hljs-keyword">if</span> QSqlDatabase.contains(<span class="hljs-string">&quot;qt_sql_default_connection&quot;</span>):
+        db = QSqlDatabase.database(<span class="hljs-string">&quot;qt_sql_default_connection&quot;</span>)
+    <span class="hljs-keyword">else</span>:
+        db = QSqlDatabase.addDatabase(<span class="hljs-string">&quot;QSQLITE&quot;</span>)
+        
+    db.setDatabaseName(TOOLS_DB)
+
+    <span class="hljs-keyword">if</span> db.open():
+        <span class="hljs-keyword">return</span> db
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> QSqlDatabase()</code></pre></div>
+
+<h3 id="设置编辑策略"><a href="#设置编辑策略" class="headerlink" title="设置编辑策略"></a>设置编辑策略</h3><p>QSqlTableModel.setEditStrategy(strategy)</p>
+<p>参数为枚举类型：</p>
+<ul>
+<li>OnFieldChange 字段值变化时立即更新到数据库</li>
+<li>OnRowChange 当前行变化时更新到数据库</li>
+<li>OnManualSubmit  所有修改暂时缓存，手动调用submitAll保存</li>
+</ul>
+<div class="hljs"><pre><code class="hljs Python">self.setEditStrategy(QSqlTableModel.OnManualSubmit)</code></pre></div>
+
+<hr>
+<h1 id="⭐-具体功能详解"><a href="#⭐-具体功能详解" class="headerlink" title="⭐ 具体功能详解"></a>⭐ 具体功能详解</h1><h2 id="MVC-框架-显示工具数据"><a href="#MVC-框架-显示工具数据" class="headerlink" title="MVC 框架 显示工具数据"></a>MVC 框架 显示工具数据</h2><p>&emsp;&emsp;经典 MVC 模式中，M 是指业务模型，V 是指用户界面，C 则是控制器，使用 MVC 的目的是将 M 和 V 的实现代码分离，从而使同一个程序可以使用不同的表现形式。其中，View 的定义比较清晰，就是用户界面。</p>
+<p>&emsp;&emsp;在 Qt 中的 MVC 并不叫MVC，而是叫“MVD”，Qt中没有 Controller 的说法，而是使用了另外一种抽象: Delegate (委托) ，其行为和传统的 MVC 是相同的。</p>
+<p>&emsp;&emsp;在本工具中，View 使用了 QListView（用户界面）和 QTableView（管理员界面），Model 使用了 QSqlTableModel，Delegate 使用了 QStyledItemDelegate（combobox 显示 data）。</p>
+<h3 id="工具视图-ToolView"><a href="#工具视图-ToolView" class="headerlink" title="工具视图 ToolView"></a>工具视图 ToolView</h3><p>&emsp;&emsp;继承架构：</p>
+<p><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/ToolView%E7%BB%A7%E6%89%BF%E5%9B%BE.jpg" srcset="/img/loading.gif"></p>
+<h3 id="数据模型-sqlTableModel"><a href="#数据模型-sqlTableModel" class="headerlink" title="数据模型 sqlTableModel"></a>数据模型 sqlTableModel</h3><p>&emsp;&emsp;模型方法：</p>
+<p><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/sqlTableModel%E7%BB%A7%E6%89%BF%E5%9B%BE.jpg" srcset="/img/loading.gif"></p>
+<h3 id="委托代理-ComboBoxDelegate"><a href="#委托代理-ComboBoxDelegate" class="headerlink" title="委托代理 ComboBoxDelegate"></a>委托代理 ComboBoxDelegate</h3><p>&emsp;&emsp;对 tenabled、tsetup 这类布尔值项设置代理，使得编辑时显示自定义下拉框以选择“Yes”或者“No”。</p>
+<p><img src="/2020/10/09/qt/%E5%B7%A5%E5%85%B7%E6%9E%B6%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/ComboBoxDelegate%E7%BB%A7%E6%89%BF%E5%9B%BE.jpg" srcset="/img/loading.gif"></p>
+<h3 id="为视图设置模型和代理"><a href="#为视图设置模型和代理" class="headerlink" title="为视图设置模型和代理"></a>为视图设置模型和代理</h3><p>ui_main_sql.py</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-comment"># init list view</span>
+self.UserView = self.icon_list_view
+self.tool_view = self.UserView
+<span class="hljs-comment"># init model</span>
+self.tool_model = _sql_table_model.sqlTableModel(self.tool_view)
+<span class="hljs-comment"># set list view model</span>
+self.icon_list_view.setModel(self.tool_model)
+self.list_list_view.setModel(self.tool_model)
+
+<span class="hljs-comment"># --- change to AdminMode --- </span>
+<span class="hljs-comment"># init table view</span>
+self.AdminView = _table_view.TableView(self)
+<span class="hljs-comment"># init combobox delegate</span>
+combo_model = QStandardItemModel(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, self.AdminView)
+combo_model.setData(combo_model.index(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, QModelIndex()), <span class="hljs-string">&quot;Yes&quot;</span>)
+combo_model.setData(combo_model.index(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, QModelIndex()), <span class="hljs-string">&quot;No&quot;</span>)
+<span class="hljs-comment"># set table view delegate</span>
+self.AdminView.setItemDelegateForColumn(self.tool_model._column_key[<span class="hljs-string">&#x27;tenabled&#x27;</span>], _combobox_delegate.ComboBoxDelegate(combo_model, self.AdminView))
+self.AdminView.setItemDelegateForColumn(self.tool_model._column_key[<span class="hljs-string">&#x27;tsetup&#x27;</span>], _combobox_delegate.ComboBoxDelegate(combo_model, self.AdminView))
+<span class="hljs-comment"># set table view model</span>
+self.AdminView.setModel(self.tool_model)</code></pre></div>
+<hr>
+<h2 id="切换组时更新工具视图"><a href="#切换组时更新工具视图" class="headerlink" title="切换组时更新工具视图"></a>切换组时更新工具视图</h2><p>&emsp;&emsp;当切换组时，sqkTableModel重新设置数据表。</p>
+<p>ui_main_sql.py</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ToolWin</span>(<span class="hljs-params">QMainWindow</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, parent=None</span>):</span>
+        <span class="hljs-comment"># init group combobox</span>
+        self.group_combobox = _combo_box.ComboBox(self.group_list)
+        <span class="hljs-comment"># parse group combobox to model</span>
+        self.tool_model.set_group_combobox(self.group_combobox)
+        <span class="hljs-comment"># set group combobox signal</span>
+        self.group_combobox.currentTextChanged.connect(self.change_group)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change_group</span>(<span class="hljs-params">self, cur_group</span>):</span>
+        group_table = _table_view.TableView.group_to_table(cur_group)
+        self.tool_model.change_db_table(group_table)</code></pre></div>
+
+<p>sql_table_model.py</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">sqlTableModel</span>(<span class="hljs-params">QSqlTableModel</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change_db_table</span>(<span class="hljs-params">self, table_name</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;更变当前数据库表为指定新表名</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">        Args:</span>
+<span class="hljs-string">            table_name (str): 数据库表名</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        self.setTable(table_name)
+        <span class="hljs-comment"># 重新筛选符合搜索条件的工具</span>
+        self.setFilter(<span class="hljs-string">&quot;lower(tname) like &#x27;%&#123;&#125;%&#x27; or lower(ttooltip) like &#x27;%&#123;&#125;%&#x27;&quot;</span>.format(self._filter_text.lower(), self._filter_text.lower()))
+        self.setSort(self._sort_key, Qt.AscendingOrder)
+        self.select()
+
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;tname&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;工具名称&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;ttooltip&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;说明&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;tcommand&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;调用命令&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;tenabled&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;可见性&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;tsetup&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;启动时调用&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;ticon&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;图标&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;tlocation&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;调用位置&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;thelp&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;帮助文档&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;tgitlab&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;Gitlab仓库&quot;</span>)
+        self.setHeaderData(self._column_key[<span class="hljs-string">&#x27;tused&#x27;</span>], Qt.Horizontal, <span class="hljs-string">u&quot;使用次数&quot;</span>)
+
+        <span class="hljs-comment"># 设置组下拉框当前值为新表名对应的组名</span>
+        <span class="hljs-keyword">if</span> self._group_combobox:
+            cur_table_group = self._parent_view.table_to_group(table_name)
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> cur_table_group == self._group_combobox.currentText():
+                self._group_combobox.setCurrentText(cur_table_group)
+
+        <span class="hljs-comment"># 表格根据记录的tdate选择工具</span>
+        <span class="hljs-keyword">if</span> self._parent_view.inherits(<span class="hljs-string">&#x27;QTableView&#x27;</span>):
+            self._parent_view.setColumnWidth(self._column_key[<span class="hljs-string">&#x27;tname&#x27;</span>], <span class="hljs-number">150</span>)
+            self.set_select_row()</code></pre></div>
+
+<hr>
+<h2 id="无边框窗口添加阴影"><a href="#无边框窗口添加阴影" class="headerlink" title="无边框窗口添加阴影"></a>无边框窗口添加阴影</h2><p>&emsp;&emsp;把阴影窗口 ShadowWidget 设置为显示主窗口的父窗体。</p>
+<p>ui_main_sql.py</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShadowWidget</span>(<span class="hljs-params">QWidget</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, main_win, parent=None</span>):</span>
+        super(ShadowWidget, self).__init__(parent)
+
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.Windo
+        self.setAttribute(Qt.WA_TranslucentBackground)
+
+        self.main_widget = main_win
+        self.main_widget.setParent(self)
+        self.main_layout = QVBoxLayout(self)
+        self.main_layout.addWidget(self.main_widget)
+        self.main_layout.setContentsMargins(<span class="hljs-number">6</span>,<span class="hljs-number">6</span>,<span class="hljs-number">6</span>,<span class="hljs-number">6</span>)
+
+        wndShadow = QGraphicsDropShadowEffect(self)
+        wndShadow.setBlurRadius(<span class="hljs-number">20</span>)
+        wndShadow.setColor(Qt.gray)
+        wndShadow.setOffset(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>)
+        self.main_widget.setGraphicsEffect(wndShadow)</code></pre></div>
+<hr>
+<h2 id="无边框窗口拖拽功能"><a href="#无边框窗口拖拽功能" class="headerlink" title="无边框窗口拖拽功能"></a>无边框窗口拖拽功能</h2><p>&emsp;&emsp;通过重写鼠标点击、释放和移动事件实现窗口拖拽功能。</p>
+<p>&emsp;&emsp;用 ismoving 属性记录窗口移动状态。</p>
+<p>ui_main_sql.py</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShadowWidget</span>(<span class="hljs-params">QWidget</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, main_win, parent=None</span>):</span>
+        self.ismoving = <span class="hljs-literal">False</span>
+        self.main_widget.setMouseTracking(<span class="hljs-literal">True</span>)
+        self.setMouseTracking(<span class="hljs-literal">True</span>)
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mouseMoveEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).mouseMoveEvent(event)
+        <span class="hljs-keyword">if</span> self.ismoving:
+            relpos = event.globalPos() - self.start_point
+            self.move(self.window_point + relpos)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mousePressEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).mousePressEvent(event)
+        <span class="hljs-keyword">if</span> event.button() == Qt.LeftButton:
+            self.ismoving = <span class="hljs-literal">True</span>
+            self.setCursor(Qt.ClosedHandCursor)
+            self.start_point = event.globalPos()
+            self.window_point = self.frameGeometry().topLeft()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mouseReleaseEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).mouseReleaseEvent(event)
+        self.ismoving = <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">if</span> event.button() == Qt.LeftButton:
+            self.setCursor(Qt.ArrowCursor)</code></pre></div>
+
+<hr>
+<h2 id="无边框窗口缩放功能"><a href="#无边框窗口缩放功能" class="headerlink" title="无边框窗口缩放功能"></a>无边框窗口缩放功能</h2><p>属性：</p>
+<ul>
+<li>Margins: 判定窗口边缘距离鼠标的值</li>
+<li>current_edit_rect: 鼠标所在界面的区域范围</li>
+<li>on_left_btn：是否按下左键</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>judgeReigon(pos): 判断鼠标在窗口边缘的哪一部分区域</li>
+<li>resizeWin(mgPos): 鼠标在可以缩放的区域范围并左键点击和拖拽，则进行缩放</li>
+</ul>
+<p>ui_main_sql.py</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShadowWidget</span>(<span class="hljs-params">QWidget</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, main_win, parent=None</span>):</span>
+        self.Margins = <span class="hljs-number">10</span>
+        self.current_edit_rect = <span class="hljs-literal">None</span>
+        self.on_left_btn = <span class="hljs-literal">False</span>
+        self.main_widget.setMouseTracking(<span class="hljs-literal">True</span>)
+        self.setMouseTracking(<span class="hljs-literal">True</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mouseMoveEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).mouseMoveEvent(event)
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.on_left_btn:
+            self.judgeReigon(self.mapToParent(event.pos()))
+        <span class="hljs-keyword">elif</span> self.cursor() != Qt.ArrowCursor:
+            self.resizeWin(event.globalPos())
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mousePressEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).mousePressEvent(event)
+        <span class="hljs-keyword">if</span> event.button() == Qt.LeftButton:
+            self.on_left_btn = <span class="hljs-literal">True</span>
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mouseReleaseEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).mouseReleaseEvent(event)
+        <span class="hljs-keyword">if</span> event.button() == Qt.LeftButton:
+            self.setCursor(Qt.ArrowCursor)
+            self.current_edit_rect = <span class="hljs-literal">None</span>
+            self.on_left_btn = <span class="hljs-literal">False</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">judgeReigon</span>(<span class="hljs-params">self, pos</span>):</span>
+        rect = self.frameGeometry()
+
+        self.top_rect = QRect(rect.x()+self.Margins, rect.y(), rect.width()-self.Margins*<span class="hljs-number">2</span>, self.Margins)
+        self.top_left_rect = QRect(rect.x(), rect.y(), self.Margins, self.Margins)
+        self.left_rect = QRect(rect.x(), rect.y()+self.Margins, self.Margins, rect.height()-self.Margins*<span class="hljs-number">2</span>)
+        self.bottom_left_rect = QRect(rect.x(), rect.y()+rect.height()-self.Margins, self.Margins, self.Margins)
+        self.bottom_rect = QRect(rect.x()+self.Margins, rect.y()+rect.height()-self.Margins, rect.width()-self.Margins*<span class="hljs-number">2</span>, self.Margins)
+        self.botton_right_rect = QRect(rect.x()+self.width()-self.Margins, rect.y()+rect.height()-self.Margins, self.Margins, self.Margins)
+        self.right_rect = QRect(rect.x()+self.width()-self.Margins, rect.y()+self.Margins, self.Margins, rect.height()-self.Margins*<span class="hljs-number">2</span>)
+        self.top_right_rect = QRect(rect.x()+self.width()-self.Margins, rect.y(), self.Margins, self.Margins)
+
+        <span class="hljs-keyword">if</span> self.top_rect.contains(pos):
+            self.setCursor(Qt.SizeVerCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;top_rect&#x27;</span>
+        <span class="hljs-keyword">elif</span> self.top_left_rect.contains(pos):
+            self.setCursor(Qt.SizeFDiagCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;top_left_rect&#x27;</span>
+        <span class="hljs-keyword">elif</span> self.left_rect.contains(pos):
+            self.setCursor(Qt.SizeHorCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;left_rect&#x27;</span>
+        <span class="hljs-keyword">elif</span> self.bottom_left_rect.contains(pos):
+            self.setCursor(Qt.SizeBDiagCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;bottom_left_rect&#x27;</span>
+        <span class="hljs-keyword">elif</span> self.bottom_rect.contains(pos):
+            self.setCursor(Qt.SizeVerCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;bottom_rect&#x27;</span>
+        <span class="hljs-keyword">elif</span> self.botton_right_rect.contains(pos):
+            self.setCursor(Qt.SizeFDiagCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;botton_right_rect&#x27;</span>
+        <span class="hljs-keyword">elif</span> self.right_rect.contains(pos):
+            self.setCursor(Qt.SizeHorCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;right_rect&#x27;</span>
+        <span class="hljs-keyword">elif</span> self.top_right_rect.contains(pos):
+            self.setCursor(Qt.SizeBDiagCursor)
+            self.current_edit_rect = <span class="hljs-string">&#x27;top_right_rect&#x27;</span>
+        <span class="hljs-keyword">else</span>:
+            self.setCursor(Qt.ArrowCursor)
+            self.current_edit_rect = <span class="hljs-literal">None</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">resizeWin</span>(<span class="hljs-params">self, mgPos</span>):</span>
+        <span class="hljs-keyword">if</span> self.current_edit_rect == <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span>
+        winX = self.geometry().x()
+        winY = self.geometry().y()
+        winW = self.geometry().width()
+        winH = self.geometry().height()
+        downside = self.pos().y() + winH
+        rightside = self.pos().x() + winW
+        <span class="hljs-keyword">if</span> self.current_edit_rect == <span class="hljs-string">&#x27;top_rect&#x27;</span>:
+            winY = mgPos.y()
+            winH = downside - winY
+        <span class="hljs-keyword">elif</span> self.current_edit_rect == <span class="hljs-string">&#x27;top_left_rect&#x27;</span>:
+            winY = mgPos.y()
+            winH = downside - winY
+            winX = mgPos.x()
+            winW = rightside - winX
+        <span class="hljs-keyword">elif</span> self.current_edit_rect == <span class="hljs-string">&#x27;left_rect&#x27;</span>:
+            winX = mgPos.x()
+            winW = rightside - winX
+        <span class="hljs-keyword">elif</span> self.current_edit_rect == <span class="hljs-string">&#x27;bottom_left_rect&#x27;</span>:
+            winX = mgPos.x()
+            winW = rightside - winX
+            winH = mgPos.y() - self.pos().y()
+        <span class="hljs-keyword">elif</span> self.current_edit_rect == <span class="hljs-string">&#x27;botton_right_rect&#x27;</span>:
+            winW = mgPos.x() - self.pos().x()
+            winH = mgPos.y() - self.pos().y()
+        <span class="hljs-keyword">elif</span> self.current_edit_rect == <span class="hljs-string">&#x27;right_rect&#x27;</span>:
+            winW = mgPos.x() - self.pos().x()
+        <span class="hljs-keyword">elif</span> self.current_edit_rect == <span class="hljs-string">&#x27;bottom_rect&#x27;</span>:
+            winH = mgPos.y() - self.pos().y()
+        <span class="hljs-keyword">elif</span> self.current_edit_rect == <span class="hljs-string">&#x27;top_right_rect&#x27;</span>:
+            winY = mgPos.y()
+            winH = downside - winY
+            winW = mgPos.x() - self.pos().x()
+        <span class="hljs-keyword">if</span> winW &lt; self.win_min_width:
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">if</span> winH &lt; self.win_min_height:
+            <span class="hljs-keyword">return</span>
+        self.setGeometry(winX, winY, winW, winH)</code></pre></div>
+<hr>
+<h2 id="窗口应用用户配置"><a href="#窗口应用用户配置" class="headerlink" title="窗口应用用户配置"></a>窗口应用用户配置</h2><h3 id="关闭时保存配置信息"><a href="#关闭时保存配置信息" class="headerlink" title="关闭时保存配置信息"></a>关闭时保存配置信息</h3><p>&emsp;&emsp;当工具关闭或者退出时，会在电脑本地文档路径下生成一个“popic_tool_config.json”文件。该文件记录工具窗口的位置、大小、用户/管理员模式、当前列表视图显示模式、工具缩放滑块条数值和当前显示组的信息。</p>
+<div class="hljs"><pre><code class="hljs Python">USER_CONFIG_PATH = os.path.expanduser(<span class="hljs-string">&#x27;~/popic_tool_config.json&#x27;</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShadowWidget</span>(<span class="hljs-params">QWidget</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">closeEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).closeEvent(event)
+        user_config = &#123;
+            <span class="hljs-string">&#x27;win_left&#x27;</span> : self.pos().x(),
+            <span class="hljs-string">&#x27;win_top&#x27;</span> : self.pos().y(),
+            <span class="hljs-string">&#x27;user_width&#x27;</span> : self.main_widget.UserViewWidth,
+            <span class="hljs-string">&#x27;user_height&#x27;</span> : self.main_widget.UserViewHeight,
+            <span class="hljs-string">&#x27;admin_width&#x27;</span> : self.main_widget.AdminViewWidth,
+            <span class="hljs-string">&#x27;admin_height&#x27;</span> : self.main_widget.AdminViewHeight,
+            <span class="hljs-string">&#x27;admin_mode&#x27;</span> : self.main_widget.AdminMode,
+            <span class="hljs-string">&#x27;current_view&#x27;</span> : str(self.main_widget.UserView.viewMode()).split(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">-1</span>],
+            <span class="hljs-string">&#x27;icon_slider_value&#x27;</span> : self.main_widget.size_slider.icon_mode_value,
+            <span class="hljs-string">&#x27;list_slider_value&#x27;</span> : self.main_widget.size_slider.list_mode_value,
+            <span class="hljs-string">&#x27;group_index&#x27;</span> : self.main_widget.group_combobox.currentIndex()
+        &#125;
+
+        <span class="hljs-keyword">with</span> open(USER_CONFIG_PATH, <span class="hljs-string">&#x27;w+&#x27;</span>) <span class="hljs-keyword">as</span> f:
+            json_str = json.dumps(user_config, indent=<span class="hljs-number">4</span>)
+            f.write(json_str)</code></pre></div>
+
+<h3 id="打开时读取配置信息"><a href="#打开时读取配置信息" class="headerlink" title="打开时读取配置信息"></a>打开时读取配置信息</h3><p>&emsp;&emsp;当工具启动时，假如电脑本地文档路径下存在“popic_tool_config.json”文件，则读取该文件信息并更新工具显示，以恢复与关闭工具前相同的状态。</p>
+<p>&emsp;&emsp;如果电脑本地文档路径下不存在“popic_tool_config.json”文件，则会以默认配置启动工具。</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShadowWidget</span>(<span class="hljs-params">QWidget</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">showEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        super(ShadowWidget, self).showEvent(event)
+        <span class="hljs-keyword">if</span> os.path.exists(USER_CONFIG_PATH):
+            <span class="hljs-keyword">with</span> open(USER_CONFIG_PATH, <span class="hljs-string">&#x27;r+&#x27;</span>) <span class="hljs-keyword">as</span> f:
+                user_config = json.load(f)
+            self.move(user_config[<span class="hljs-string">&#x27;win_left&#x27;</span>], user_config[<span class="hljs-string">&#x27;win_top&#x27;</span>])
+            self.main_widget.UserViewWidth = user_config[<span class="hljs-string">&#x27;user_width&#x27;</span>]
+            self.main_widget.UserViewHeight = user_config[<span class="hljs-string">&#x27;user_height&#x27;</span>]
+            self.main_widget.AdminViewWidth = user_config[<span class="hljs-string">&#x27;admin_width&#x27;</span>]
+            self.main_widget.AdminViewHeight = user_config[<span class="hljs-string">&#x27;admin_height&#x27;</span>]
+            self.main_widget.group_combobox.setCurrentIndex(user_config[<span class="hljs-string">&#x27;group_index&#x27;</span>])
+            self.main_widget.size_slider.icon_mode_value = user_config[<span class="hljs-string">&#x27;icon_slider_value&#x27;</span>]
+            self.main_widget.size_slider.list_mode_value = user_config[<span class="hljs-string">&#x27;list_slider_value&#x27;</span>]
+            admin_mode = user_config[<span class="hljs-string">&#x27;admin_mode&#x27;</span>]
+            <span class="hljs-keyword">if</span> admin_mode <span class="hljs-keyword">and</span> self.main_widget.AdminView:
+                <span class="hljs-keyword">pass</span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">if</span> user_config[<span class="hljs-string">&#x27;current_view&#x27;</span>] == <span class="hljs-string">&#x27;IconMode&#x27;</span>:
+                    self.main_widget.change_to_icon_mode()
+                <span class="hljs-keyword">elif</span> user_config[<span class="hljs-string">&#x27;current_view&#x27;</span>] == <span class="hljs-string">&#x27;ListMode&#x27;</span>:
+                    self.main_widget.change_to_list_mode()
+        self.main_widget.resize_view()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">resize</span>(<span class="hljs-params">self</span>):</span>
+        super(ShadowWidget, self).resize(self.main_widget.width()+self.Margins + <span class="hljs-number">20</span>, self.main_widget.height()+self.Margins + <span class="hljs-number">20</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ToolWin</span>(<span class="hljs-params">QMainWindow</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">resize_view</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">if</span> self.tool_view == self.AdminView:
+            self.resize(self.AdminViewWidth, self.AdminViewHeight)
+        <span class="hljs-keyword">else</span>:
+            self.resize(self.UserViewWidth, self.UserViewHeight)
+        self.parent().resize()</code></pre></div>
+
+<hr>
+<h2 id="调用工具"><a href="#调用工具" class="headerlink" title="调用工具"></a>调用工具</h2><h3 id="在-Windows-下调用工具"><a href="#在-Windows-下调用工具" class="headerlink" title="在 Windows 下调用工具"></a>在 Windows 下调用工具</h3><div class="hljs"><pre><code class="hljs Python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    app = QApplication(sys.argv)
+    main_win = ToolWin()
+    win = ShadowWidget(main_win)
+    win.show()
+    sys.exit(app.exec_())</code></pre></div>
+
+<h3 id="在-Maya-下调用工具"><a href="#在-Maya-下调用工具" class="headerlink" title="在 Maya 下调用工具"></a>在 Maya 下调用工具</h3><div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maya_main</span>():</span>
+    ptr = OpenMayaUI.MQtUtil.mainWindow()
+    mayaWindow = wrapInstance(long(ptr), QWidget)
+    win_obj = mayaWindow.findChild(QWidget, <span class="hljs-string">&#x27;popic_tool_window&#x27;</span>)
+    <span class="hljs-keyword">if</span> win_obj:
+        win_obj.close()
+    <span class="hljs-keyword">else</span>:
+        main_win = ToolWin()
+        win_obj = ShadowWidget(main_win, mayaWindow)
+        win_obj.setObjectName(<span class="hljs-string">&#x27;popic_tool_window&#x27;</span>)
+    win_obj.show()
+
+maya_main()</code></pre></div>
+
+<hr>
+<h2 id="获取-Maya-的-Icon-路径"><a href="#获取-Maya-的-Icon-路径" class="headerlink" title="获取 Maya 的 Icon 路径"></a>获取 Maya 的 Icon 路径</h2><p>&emsp;&emsp;很多 Maya 的工具显示使用的是 Maya 自带的图标，这些图标路径可以通过几个地方找到。</p>
+<h3 id="XBMLANGPATH"><a href="#XBMLANGPATH" class="headerlink" title="XBMLANGPATH"></a>XBMLANGPATH</h3><p>&emsp;&emsp;Icon 路径，在该变量下的路径中的图片文件可以直接用来当作界面控件的图标。  </p>
+<ol>
+<li>运行 mel 命令 <code>xbmLangPathList;</code> 可以查看 icon 路径。  </li>
+<li>也可以通过查询环境变量 <code>os.environ[&#39;XBMLANGPATH&#39;]</code>  查看路径。</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Qt/">Qt</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Qt/">Qt</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Maya/">Maya</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/12/maya/Maya%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Maya制作文件问题集合</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/09/script/Git%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AASSH-key/">
+                        <span class="hidden-mobile">Git配置多个SSH-key</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "工具架界面开发&nbsp;",
+      ],
+      cursorChar: "🍕",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

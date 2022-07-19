@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.2)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2022/07/15/unreal/UE4%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/1_%E8%99%9A%E5%B9%BB4%E5%BC%95%E6%93%8E%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1/">UE4高级程序开发系列教程 - 1_虚幻4引擎关卡设计</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/15/unreal/UE4%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/1_%E8%99%9A%E5%B9%BB4%E5%BC%95%E6%93%8E%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1/">
+          
+          
+            
+          
+          &emsp;&emsp;🧁 这是一套比较久远（2019年）的教程，基本都是直接截取知识点，主要是入门基础学习总结，方便自己之后翻阅复习_(:з」∠)_。
+
+L1 获取Epic Games引擎源码
+注册 Github 账号。（相信大家都有吧！）
+在 Unreal 引擎中选择 “管理账户”。
+进入连接页面，连接 Github 账号，登陆后选择加入 Epic 组织。
+在 Github 中的个人主页中可
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-15 16:22" pubdate>
+              2022-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Unreal/">Unreal</a>
+            
+              <a href="/categories/Unreal/UE4%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/">UE4高级程序开发系列教程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/UE/">UE</a>
+            
+              <a href="/tags/Python/">Python</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/">基于Cgtw的打包工具</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/">
+          
+          
+            
+          
+          &emsp;&emsp;因为公司制作资产项目时，经常需要把文件发送给外包或者客户，但是一个个文件整理发送，特别是 Maya 文件位置移动后，里面使用的路径也需要更新，如果逐个文件更改路径显然非常麻烦。因此打包工具的作用就是再打包后实现打开即可用，简化打包方和接收方的操作。
+&emsp;&emsp;其实早在之前就已经开发过打包工具，但是由于当时对 Qt 还不是很熟悉，没有掌握 MVC 框架的知识，而
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-13 16:53" pubdate>
+              2021-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/cgtw/">cgtw</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MAYA/">MAYA</a>
+            
+              <a href="/tags/CgTeamwork/">CgTeamwork</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2021/04/13/maya/mel%E7%9A%84%E4%BD%BF%E7%94%A8/">Mel的使用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/13/maya/mel%E7%9A%84%E4%BD%BF%E7%94%A8/">
+          
+          
+            
+          
+          &emsp;&emsp;虽然接触 Maya 开发已经快接近两年了，但是发现自己其实并不会 Mel 语言！很多 Maya 中的命令也不知道怎么查询，有时候需要优化 Maya 自带功能时，不管是阅读还是修改都带来了极大的障碍。因此还是抽个时间把 Maya 文档中的 Mel 模块看一遍才行。
+&emsp;&emsp;下面记录一些知识重点！
+
+查询命令 whatIs&emsp;&emsp;有时候我们不知道
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-13 16:53" pubdate>
+              2021-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Maya/">Maya</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MAYA/">MAYA</a>
+            
+              <a href="/tags/MEL/">MEL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2021/04/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/">Unreal材质替换插件</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/">
+          
+          
+            
+          
+          &emsp;&emsp;在学习了 UnrealPython 基础教程后，尝试开发了一下小功能：把 A 物体的材质一一对应赋给 B 物体。
+
+&emsp;&emsp;UE4 里面不能对物体选面上材质，一些对物体的操作只能从其他三维软件中进行。在 UE4 中，会把物体的材质信息记录在一个属性当中，对于两个材质分组一致的物体，可以通过替换材质球达到显示一致的效果。
+
+&emsp;&emsp;同时，如果两
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-05 16:40" pubdate>
+              2021-04-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Unreal/">Unreal</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/UE/">UE</a>
+            
+              <a href="/tags/Python/">Python</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">UnrealPython基础学习</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+          
+          
+            
+          
+          &emsp;&emsp;🛎 在 UE4 中使用 Python 开发入门。
+&emsp;&emsp;视频学习链接：虚幻引擎使用Python开发
+L1 在 UE4 中配置 Python加载插件&emsp;&emsp;从菜单 “Edit - Plugins” 进入插件管理，从左侧列表找到 “Scripting”。勾选 Python Editor Script Plugin 后重启引擎。
+
+配置路径&e
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-26 14:40" pubdate>
+              2021-01-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Unreal/">Unreal</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/UE/">UE</a>
+            
+              <a href="/tags/Python/">Python</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">Maya开发实践课（二）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">
+          
+          
+            
+          
+          L15 走进 PyMEL 编程什么是PyMel
+了解PyNode
+pynode转化node = pm.PyNode(&#x27;pSphere1&#x27;)
+
+# ! 查询方法
+dir(node)
+
+# ! 查询属性
+dir(node.attr())
+
+连接属性import maya.cmds as cmds
+import pymel.core as pm
+ball = pm.PyNode(&#
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-02 12:31" pubdate>
+              2020-11-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Maya/">Maya</a>
+            
+              <a href="/categories/Maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/">Maya开发实践课</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MAYA/">MAYA</a>
+            
+              <a href="/tags/SCRIPT/">SCRIPT</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/">Maya开发实践课（一）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/">
+          
+          
+            
+          
+          L0 初识帮助文档
+Maya脚本编辑器
+Maya帮助文档的查阅方法
+Mel与Python写法区别
+
+练习
+import maya.cmds as cmds
+cmds.circle()
+cmds.circle(r=2)
+cmds.circle(r=2,nr=(0,1,0))
+
+cmds.curve(d=1,p=[(-2,0,-2),(3,0,-2),(-2,0,3),(-2,0,-2)])
+
+
+L1
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-30 18:22" pubdate>
+              2020-10-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Maya/">Maya</a>
+            
+              <a href="/categories/Maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/">Maya开发实践课</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MAYA/">MAYA</a>
+            
+              <a href="/tags/SCRIPT/">SCRIPT</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/">在Hugo中使用css自定义图片位置</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/">
+          
+          
+            
+          
+          &emsp;&emsp;最近公司开发了gitlab上的文档功能，并配置了主题（hugo-learn-free）。
+&emsp;&emsp;在使用过程中，我发现该主题的图片会自动换行追踪，不能修改图片显示的位置。这对于需要图片排版的文章十分不友好，因此我自己在本地配置了一个相同主题的网站做测试。
+我在markdown中编辑的效果：
+
+我在Hugo主题中显示的效果：
+
+
+🦊 Hugo安装&emsp;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-29 16:23" pubdate>
+              2020-10-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/SCRIPT/">SCRIPT</a>
+            
+              <a href="/categories/SCRIPT/Hogo/">Hogo</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/SCRIPT/">SCRIPT</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/10/13/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/">Maya开发过程常用功能集合</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/13/maya/Maya%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E9%9B%86%E5%90%88/">
+          
+          
+            
+          
+          &emsp;&emsp;由于我的工作需要在Maya上进行开发，所以想总结一下自己常用的功能，以免下次自己使用的时候忘记。
+❌ Traceback 显示详细的报错信息&emsp;&emsp;使用traceback类可以捕捉异常并打印信息。由于在编写代码时，经常需要import多个类，但是如果在maya的脚本编辑器中直接运行错误的代码，不一定能返回详细的报错信息，无法得知是哪一个文件哪一行的错误。下面
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-13 16:23" pubdate>
+              2020-10-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Maya/">Maya</a>
+            
+              <a href="/categories/Maya/collection/">collection</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MAYA/">MAYA</a>
+            
+              <a href="/tags/SUM/">SUM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/10/12/script/python/cv2/%E4%BD%BF%E7%94%A8cv2%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%8C%B9%E9%85%8D/">使用cv2进行图像匹配</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/12/script/python/cv2/%E4%BD%BF%E7%94%A8cv2%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%8C%B9%E9%85%8D/">
+          
+          
+            
+          
+          &emsp;&emsp;本节介绍cv2在python中的安装，及其读取、显示、保存图片功能用法。
+🔻 安装cv2&emsp;&emsp;利用pip3 install 安装
+pip3 install opencv-python
+
+&emsp;&emsp;安装成功：
+
+😮 题外话 Begin
+&emsp;&emsp;为什么我使用pip安装时候是使用国内镜像呢？其实只需要配置一个文件即可实现默认使用
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-12 17:38" pubdate>
+              2020-10-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/SCRIPT/">SCRIPT</a>
+            
+              <a href="/categories/SCRIPT/cv2/">cv2</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/SCRIPT/">SCRIPT</a>
+            
+              <a href="/tags/PYTHON/">PYTHON</a>
+            
+              <a href="/tags/cv2/">cv2</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Life\'s too short to not live wild.&nbsp;",
+      ],
+      cursorChar: "🍉",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

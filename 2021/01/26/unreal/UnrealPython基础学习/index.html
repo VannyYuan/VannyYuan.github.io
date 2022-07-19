@@ -1,0 +1,1630 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>UnrealPython基础学习 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-01-26 14:40" pubdate>
+      2021年1月26日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.4k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">UnrealPython基础学习</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;🛎 在 UE4 中使用 Python 开发入门。</p>
+<p>&emsp;&emsp;视频学习链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1b4411r7kX?p=9">虚幻引擎使用Python开发</a></p>
+<h2 id="L1-在-UE4-中配置-Python"><a href="#L1-在-UE4-中配置-Python" class="headerlink" title="L1 在 UE4 中配置 Python"></a>L1 在 UE4 中配置 Python</h2><h3 id="加载插件"><a href="#加载插件" class="headerlink" title="加载插件"></a>加载插件</h3><p>&emsp;&emsp;从菜单 “Edit - Plugins” 进入插件管理，从左侧列表找到 “Scripting”。勾选 Python Editor Script Plugin 后重启引擎。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L1_1.png" srcset="/img/loading.gif"></p>
+<h3 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h3><p>&emsp;&emsp;从菜单 “Edit - Project Settings” 进入项目设置，从左侧列表找到 “Python”。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L1_2.png" srcset="/img/loading.gif"></p>
+<ul>
+<li>Startup Scripts: 指定 UE4 打开时运行的脚本文件。</li>
+<li>Additional Paths: UE4 可以读取到 Python 脚本的路径。</li>
+</ul>
+<h3 id="Unreal-Python-API"><a href="#Unreal-Python-API" class="headerlink" title="Unreal Python API"></a>Unreal Python API</h3><p>Unreal Python <a target="_blank" rel="noopener" href="https://docs.unrealengine.com/en-US/PythonAPI/index.html">API 文档</a></p>
+<h2 id="L2-使用-Python-导入资产"><a href="#L2-使用-Python-导入资产" class="headerlink" title="L2 使用 Python 导入资产"></a>L2 使用 Python 导入资产</h2><h3 id="Example1-导入贴图和音频"><a href="#Example1-导入贴图和音频" class="headerlink" title="Example1 导入贴图和音频"></a>Example1 导入贴图和音频</h3><p>AssetFunction_1.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_1 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.importMyAssets()</span>
+
+asset_folder = <span class="hljs-string">&#x27;D:/ue4/test/asset&#x27;</span>
+texture_jpg = os.path.join(asset_folder, <span class="hljs-string">&#x27;dear.jpg&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+sound_mp3 = os.path.join(asset_folder, <span class="hljs-string">&#x27;easy.mp3&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">importMyAssets</span>():</span>
+    texture_task = bulidImportTask(texture_jpg, <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>)
+    sound_task = bulidImportTask(sound_mp3, <span class="hljs-string">&#x27;/Game/MyAsset/Sounds&#x27;</span>)
+    executeImportTasks([texture_task, sound_task])
+
+<span class="hljs-comment"># ! 设置导入资产属性</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bulidImportTask</span>(<span class="hljs-params">filename, destination_path</span>):</span>
+    task = unreal.AssetImportTask()
+    task.set_editor_property(<span class="hljs-string">&#x27;automated&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_name&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_path&#x27;</span>, destination_path)
+    task.set_editor_property(<span class="hljs-string">&#x27;filename&#x27;</span>, filename)
+    task.set_editor_property(<span class="hljs-string">&#x27;replace_existing&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;save&#x27;</span>, <span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">return</span> task
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeImportTasks</span>(<span class="hljs-params">tasks</span>):</span>
+    unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks(tasks)
+    <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> tasks:
+        <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> task.get_editor_property(<span class="hljs-string">&#x27;imported_object_paths&#x27;</span>):
+            <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Imported &#123;&#125;&#x27;</span>.format(path)</code></pre></div>
+
+<h3 id="Example2-导入fbx"><a href="#Example2-导入fbx" class="headerlink" title="Example2 导入fbx"></a>Example2 导入fbx</h3><p>AssetFunction_2.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_2 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.importMyAssets()</span>
+
+asset_folder = <span class="hljs-string">&#x27;D:/ue4/test/asset&#x27;</span>
+static_mesh_fbx = os.path.join(asset_folder, <span class="hljs-string">&#x27;static_fbx.fbx&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+skeletal_mesh_fbx = os.path.join(asset_folder, <span class="hljs-string">&#x27;skeletal_fbx.fbx&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">importMyAssets</span>():</span>
+    <span class="hljs-comment"># ! 静态网格</span>
+    static_mesh_task = bulidImportTask(static_mesh_fbx, <span class="hljs-string">&#x27;/Game/MyAsset/StaticMeshes&#x27;</span>, buildStaticMeshImportOptions())
+    <span class="hljs-comment"># ! 带骨骼的网格</span>
+    skeletal_mesh_task = bulidImportTask(skeletal_mesh_fbx, <span class="hljs-string">&#x27;/Game/MyAsset/SkeletalMeshes&#x27;</span>, buildSkeletalMeshImportOptions())
+    executeImportTasks([static_mesh_task, skeletal_mesh_task])
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bulidImportTask</span>(<span class="hljs-params">filename, destination_path, options=None</span>):</span>
+    task = unreal.AssetImportTask()
+    task.set_editor_property(<span class="hljs-string">&#x27;automated&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_name&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;destination_path&#x27;</span>, destination_path)
+    task.set_editor_property(<span class="hljs-string">&#x27;filename&#x27;</span>, filename)
+    task.set_editor_property(<span class="hljs-string">&#x27;replace_existing&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;save&#x27;</span>, <span class="hljs-literal">True</span>)
+    task.set_editor_property(<span class="hljs-string">&#x27;options&#x27;</span>, options)
+    <span class="hljs-keyword">return</span> task
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeImportTasks</span>(<span class="hljs-params">tasks</span>):</span>
+    unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks(tasks)
+    <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> tasks:
+        <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> task.get_editor_property(<span class="hljs-string">&#x27;imported_object_paths&#x27;</span>):
+            <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Imported &#123;&#125;&#x27;</span>.format(path)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildStaticMeshImportOptions</span>():</span>
+    options = unreal.FbxImportUI()
+    <span class="hljs-comment"># unreal.FbxImportUI</span>
+    options.set_editor_property(<span class="hljs-string">&#x27;import_mesh&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_textures&#x27;</span>, <span class="hljs-literal">False</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_materials&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_as_skeletal&#x27;</span>, <span class="hljs-literal">False</span>) <span class="hljs-comment"># Static Mesh</span>
+    <span class="hljs-comment"># unreal.FbxMeshImportData</span>
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_translation&#x27;</span>, unreal.Vector(<span class="hljs-number">50.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>))
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_rotation&#x27;</span>, unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">110.0</span>, <span class="hljs-number">0.0</span>))
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_uniform_scale&#x27;</span>, <span class="hljs-number">1.0</span>)
+    <span class="hljs-comment"># unreal.FbxStaticMeshImportData</span>
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;combine_meshes&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;generate_lightmap_u_vs&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.static_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;auto_generate_collision&#x27;</span>, <span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">return</span> options
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildSkeletalMeshImportOptions</span>():</span>
+    options = unreal.FbxImportUI()
+    <span class="hljs-comment"># unreal.FbxImportUI</span>
+    options.set_editor_property(<span class="hljs-string">&#x27;import_mesh&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_textures&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_materials&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.set_editor_property(<span class="hljs-string">&#x27;import_as_skeletal&#x27;</span>, <span class="hljs-literal">True</span>) <span class="hljs-comment"># Skeletal Mesh</span>
+    <span class="hljs-comment"># unreal.FbxMeshImportData</span>
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_translation&#x27;</span>, unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>))
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_rotation&#x27;</span>, unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>))
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_uniform_scale&#x27;</span>, <span class="hljs-number">1.0</span>)
+    <span class="hljs-comment"># unreal.FbxSkeletalMeshImportData</span>
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;import_morph_targets&#x27;</span>, <span class="hljs-literal">True</span>)
+    options.skeletal_mesh_import_data.set_editor_property(<span class="hljs-string">&#x27;update_skeleton_reference_pose&#x27;</span>, <span class="hljs-literal">False</span>)
+    <span class="hljs-keyword">return</span> options</code></pre></div>
+
+<h3 id="Example3-创建、复制、删除、重命名资产和文件夹"><a href="#Example3-创建、复制、删除、重命名资产和文件夹" class="headerlink" title="Example3 创建、复制、删除、重命名资产和文件夹"></a>Example3 创建、复制、删除、重命名资产和文件夹</h3><p>AssetFunction_3.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_3 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.createDirectory()</span>
+
+<span class="hljs-comment"># ! 创建文件夹 ~/MyNewDirectory</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createDirectory</span>():</span>
+    unreal.EditorAssetLibrary.make_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory&#x27;</span>)
+
+<span class="hljs-comment"># ! 复制文件夹 ~/MyNewDirectory -&gt; ~/MyNewDirectory_Duplicated</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">duplicateDirectory</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorAssetLibrary.duplicate_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory_Duplicated&#x27;</span>)
+
+<span class="hljs-comment"># ! 删除文件夹 ~/MyNewDirectory</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteDirectory</span>():</span>
+    unreal.EditorAssetLibrary.delete_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory&#x27;</span>)
+
+<span class="hljs-comment"># ! 重命名文件夹 ~/MyNewDirectory_Duplicated -&gt; ~/MyNewDirectory_Renamed</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">renameDirectory</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorAssetLibrary.rename_directory(<span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/MyNewDirectory_Renamed&#x27;</span>)
+
+<span class="hljs-comment"># ! 复制资产 ~/dear -&gt; ~/dear_Duplicated</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">duplicateAsset</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorAssetLibrary.duplicate_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>)
+
+<span class="hljs-comment"># ! 删除资产 ~/dear</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteAsset</span>():</span>
+    unreal.EditorAssetLibrary.delete_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>)
+
+<span class="hljs-comment"># ! 判断资产是否存在</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">assetExist</span>():</span>
+    <span class="hljs-keyword">print</span> unreal.EditorAssetLibrary.does_asset_exist(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>)
+    <span class="hljs-keyword">print</span> unreal.EditorAssetLibrary.does_asset_exist(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>)
+
+<span class="hljs-comment"># ! 重命名资产 ~/dear_Duplicated -&gt; ~/dear_Renamed</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">renameAsset</span>():</span>
+    unreal.EditorAssetLibrary.rename_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>)
+
+<span class="hljs-comment"># ! 显示复制资产提示框 ~/dear_Renamed -&gt; ~/dear_Duplicated</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">duplicateAssetDialog</span>(<span class="hljs-params">show_dialog=True</span>):</span>
+    <span class="hljs-keyword">if</span> show_dialog:
+        unreal.AssetToolsHelpers.get_asset_tools().duplicate_asset_with_dialog(<span class="hljs-string">&#x27;dear_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>))
+    <span class="hljs-keyword">else</span>:
+        unreal.AssetToolsHelpers.get_asset_tools().duplicate_asset(<span class="hljs-string">&#x27;dear_Duplicated&#x27;</span>, <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>))
+
+<span class="hljs-comment"># ! 显示重命名提示框 </span>
+<span class="hljs-comment"># ! ~/dear_Renamed -&gt; ~/dear_Renamed_2</span>
+<span class="hljs-comment"># ! ~/dear_Duplicated -&gt; ~/dear_Duplicated_Renamed</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">renameAssetDialog</span>(<span class="hljs-params">show_dialog=True</span>):</span>
+    first_renmae_data = unreal.AssetRenameData(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Renamed&#x27;</span>), <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, <span class="hljs-string">&#x27;dear_Renamed_2&#x27;</span>)
+    second_rename_data = unreal.AssetRenameData(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear_Duplicated&#x27;</span>), <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>, <span class="hljs-string">&#x27;dear_Duplicated_Renamed&#x27;</span>)
+    <span class="hljs-keyword">if</span> show_dialog:
+        unreal.AssetToolsHelpers.get_asset_tools().rename_assets_with_dialog([first_renmae_data, second_rename_data])
+    <span class="hljs-keyword">else</span>:
+        unreal.AssetToolsHelpers.get_asset_tools().rename_assets([first_renmae_data, second_rename_data])</code></pre></div>
+
+<h2 id="L3-使用-Python-调用-C-函数"><a href="#L3-使用-Python-调用-C-函数" class="headerlink" title="L3 使用 Python 调用 C++ 函数"></a>L3 使用 Python 调用 C++ 函数</h2><p>&emsp;&emsp;可以通过公开蓝图类的方式使 Python 可以访问 C++ 的函数。</p>
+<h3 id="创建蓝图C-类"><a href="#创建蓝图C-类" class="headerlink" title="创建蓝图C++类"></a>创建蓝图C++类</h3><ol>
+<li>首先，创建一个继承蓝图函数库的C++类，命名为“ ZFunction ”，创建成功后会自动打开 Visual Studio。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L3_1.png" srcset="/img/loading.gif"></li>
+<li>修改 .h 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;ZFunction.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UZFunction</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+
+<span class="hljs-keyword">public</span>:
+    UFUNCTION(BlueprintCallable)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CalledFromPython</span><span class="hljs-params">(FString InputString)</span></span>;
+&#125;;</code></pre></div></li>
+<li>修改 .cpp 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;ZFunction.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UZFunction::CalledFromPython</span><span class="hljs-params">(FString InputString)</span> </span>&#123;
+    UE_LOG(LogTemp, Error, TEXT(<span class="hljs-string">&quot;%s&quot;</span>), *InputString);
+&#125;</code></pre></div>
+<h3 id="遍历函数和类"><a href="#遍历函数和类" class="headerlink" title="遍历函数和类"></a>遍历函数和类</h3>&emsp;&emsp;查看 UE4 中所有函数和类：<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> sorted(dir(unreal)):
+	<span class="hljs-keyword">print</span> x</code></pre></div>
+&emsp;&emsp;查看类中所含方法，可以看到我们创建的 ‘called_from_python’ 方法在其中。<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> sorted(dir(unreal.ZFunction)):
+	<span class="hljs-keyword">print</span> x</code></pre></div>
+
+</li>
+</ol>
+<h3 id="调用-C-方法"><a href="#调用-C-方法" class="headerlink" title="调用 C++ 方法"></a>调用 C++ 方法</h3><div class="hljs"><pre><code class="hljs python">unreal.ZFunction.called_from_python(<span class="hljs-string">&#x27;haha&#x27;</span>)</code></pre></div>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L3_2.png" srcset="/img/loading.gif"></p>
+<h2 id="L4-修改文件夹颜色"><a href="#L4-修改文件夹颜色" class="headerlink" title="L4 修改文件夹颜色"></a>L4 修改文件夹颜色</h2><h3 id="定义类和方法"><a href="#定义类和方法" class="headerlink" title="定义类和方法"></a>定义类和方法</h3><ol>
+<li>创建一个继承蓝图函数库的C++类，命名为“ CppLib ”<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_1.png" srcset="/img/loading.gif"></li>
+<li>修改 .h 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+    
+<span class="hljs-keyword">public</span>:
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFolderColor</span><span class="hljs-params">(FString FolderPath, FLinearColor Color)</span></span>;
+&#125;;</code></pre></div></li>
+<li>修改 .cpp 文件   <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>  <span class="hljs-meta-string">&quot;Runtime/Core/Public/Misc/ConfigCacheIni.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::setFolderColor</span><span class="hljs-params">(FString FolderPath, FLinearColor Color)</span> </span>&#123;
+    GConfig-&gt;SetString(TEXT(<span class="hljs-string">&quot;PathColor&quot;</span>), *FolderPath, *Color.ToString(), GEditorPerProjectIni);
+&#125;</code></pre></div></li>
+<li>在 UE4 中点击重新编译。</li>
+</ol>
+<h3 id="在蓝图中设置文件夹颜色"><a href="#在蓝图中设置文件夹颜色" class="headerlink" title="在蓝图中设置文件夹颜色"></a>在蓝图中设置文件夹颜色</h3><ol>
+<li>创建蓝图类“Folder”。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_2.png" srcset="/img/loading.gif"></li>
+<li>编辑事件节点，编译。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_3.png" srcset="/img/loading.gif"><br>其中，自定义事件节点勾选“Call In Editor”，该事件会显示在属性编辑器上。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_4.png" srcset="/img/loading.gif"></li>
+<li>在场景中创建“Folder”，点击其属性中的“Set Folder Color”<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_5.png" srcset="/img/loading.gif"></li>
+<li>创建 “/Game/MyAsset/EXFolder”，可以看到颜色为蓝色，而对已经存在的文件夹颜色修改需要重启后才能看到效果。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_6.png" srcset="/img/loading.gif"></li>
+</ol>
+<h3 id="在Python中创建颜色文件夹"><a href="#在Python中创建颜色文件夹" class="headerlink" title="在Python中创建颜色文件夹"></a>在Python中创建颜色文件夹</h3><p>AssetFunction_4.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_4 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.generateColoredDirectories()</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generateColoredDirectories</span>():</span>
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">40</span>, <span class="hljs-number">80</span>):
+        dir_path = <span class="hljs-string">&#x27;/Game/MyAsset/MyColorFolder/&#x27;</span> + str(x)
+        linear_color = getGradientColor(x)
+        unreal.CppLib.set_folder_color(dir_path, linear_color)
+        unreal.EditorAssetLibrary.make_directory(dir_path)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getGradientColor</span>(<span class="hljs-params">x</span>):</span>
+    x = float(x) / <span class="hljs-number">100</span>
+    <span class="hljs-keyword">return</span> unreal.LinearColor(x, <span class="hljs-number">1</span>-x, <span class="hljs-number">1</span>-x, <span class="hljs-number">1</span>)</code></pre></div>
+
+<p>&emsp;&emsp;在 UE4 运行后，会创建颜色不同的文件夹。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L4_7.png" srcset="/img/loading.gif"></p>
+<h2 id="L5-打开和关闭资产"><a href="#L5-打开和关闭资产" class="headerlink" title="L5 打开和关闭资产"></a>L5 打开和关闭资产</h2><p>&emsp;&emsp;Python只能打开资产，如果要实现关闭资产，需要添加 C++ 类增加功能来实现效果。</p>
+<ol>
+<li><p>添加 build.cs 依赖<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L5_1.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>CppLib .h 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+    
+<span class="hljs-keyword">public</span>:
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CloseEditorForAssets</span><span class="hljs-params">(TArray&lt;UObject*&gt; Assets)</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;UObject*&gt; <span class="hljs-title">GetAssetsOpenedInEditor</span><span class="hljs-params">()</span></span>;
+&#125;;
+</code></pre></div>
+</li>
+<li><p>CppLib .cpp 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/UnrealEd/Public/Subsystems/AssetEditorSubsystem.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::CloseEditorForAssets</span><span class="hljs-params">(TArray&lt;UObject*&gt; Assets)</span> </span>&#123;
+    UAssetEditorSubsystem* AssetEditorSubsystem = GEditor-&gt;GetEditorSubsystem&lt;UAssetEditorSubsystem&gt;();
+    <span class="hljs-keyword">for</span> (UObject* Asset : Assets) &#123;
+        AssetEditorSubsystem-&gt;CloseAllEditorsForAsset(Asset);
+    &#125;
+&#125;
+
+<span class="hljs-function">TArray&lt;UObject*&gt; <span class="hljs-title">UCppLib::GetAssetsOpenedInEditor</span><span class="hljs-params">()</span> </span>&#123;
+    UAssetEditorSubsystem* AssetEditorSubsystem = GEditor-&gt;GetEditorSubsystem&lt;UAssetEditorSubsystem&gt;();
+    TArray&lt;UObject*&gt; EditedAssets = AssetEditorSubsystem-&gt;GetAllEditedAssets();
+        <span class="hljs-keyword">return</span> EditedAssets;
+&#125;</code></pre></div>
+<p> 注：教程上用的是 FAssetEditorManager ，但由于版本更新已经不适用，需要替换成 UAssetEditorSubsystem 。</p>
+</li>
+<li><p>AssetFunction_5.py 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># ! 加载资产</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">openAssets</span>():</span>
+    assets = [
+        unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>),
+        unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Sounds/easy&#x27;</span>),
+        unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/StaticMeshes/static_fbx&#x27;</span>)
+    ]
+    unreal.AssetToolsHelpers.get_asset_tools().open_editor_for_assets(assets)
+
+<span class="hljs-comment"># ! 获取已经打开的资产列表</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAllOpenedAssets</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_assets_opened_in_editor()
+
+<span class="hljs-comment"># ! 关闭所有打开的资产</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">closeAssets</span>():</span>
+    assets = getAllOpenedAssets()
+    unreal.CppLib.close_editor_for_assets(assets)</code></pre></div>
+</li>
+<li><p>在 UE4 中调试代码   </p>
+ <div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> AssetFunction_5 <span class="hljs-keyword">as</span> af
+reload(af)
+<span class="hljs-keyword">print</span> af.getAllOpenedAssets()
+af.closeAssets()</code></pre></div>
+<p> 打印出已经打开的资产窗口，以及关闭所有资产窗口。<br> <img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L5_2.png" srcset="/img/loading.gif"></p>
+</li>
+</ol>
+<h2 id="L6-选择内容浏览器中的资产"><a href="#L6-选择内容浏览器中的资产" class="headerlink" title="L6 选择内容浏览器中的资产"></a>L6 选择内容浏览器中的资产</h2><h3 id="利用-Python-选择指定资产"><a href="#利用-Python-选择指定资产" class="headerlink" title="利用 Python 选择指定资产"></a>利用 Python 选择指定资产</h3><p>AssetFunction_6.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># import AssetFunction_6 as af</span>
+<span class="hljs-comment"># reload(af)</span>
+<span class="hljs-comment"># af.showAssetsInContentBrowser()</span>
+
+<span class="hljs-comment"># ! 选择指定资产</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">showAssetsInContentBrowser</span>():</span>
+    paths = [
+        <span class="hljs-string">&#x27;/Game/MyAsset/Sounds/easy&#x27;</span>,
+        <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>
+    ]
+    unreal.EditorAssetLibrary.sync_browser_to_objects(paths)</code></pre></div>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_1.png" srcset="/img/loading.gif"></p>
+<h3 id="利用-C-和-Python-设置选择资产和文件夹"><a href="#利用-C-和-Python-设置选择资产和文件夹" class="headerlink" title="利用 C++ 和 Python 设置选择资产和文件夹"></a>利用 C++ 和 Python 设置选择资产和文件夹</h3><ol>
+<li><p>添加 build.cs 依赖<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_2.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>CppLib .h 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* </span>
+<span class="hljs-comment">*/</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+    GENERATED_BODY()
+    
+<span class="hljs-keyword">public</span>:
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;FString&gt; <span class="hljs-title">GetSelectedAssets</span><span class="hljs-params">()</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;FString&gt; <span class="hljs-title">GetSelectedFolders</span><span class="hljs-params">()</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetSelectedAssets</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span></span>;
+
+    UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetSelectedFolders</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span></span>;
+&#125;;
+</code></pre></div></li>
+<li><p>CppLib .cpp 文件代码  </p>
+ <div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/ContentBrowser/Public/ContentBrowserModule.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/ContentBrowser/Private/SContentBrowser.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Runtime/AssetRegistry/Public/AssetRegistryModule.h&quot;</span></span>
+
+<span class="hljs-function">TArray&lt;FString&gt; <span class="hljs-title">UCppLib::GetSelectedAssets</span><span class="hljs-params">()</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    <span class="hljs-comment">// get selected assets</span>
+    TArray&lt;FAssetData&gt; SelectedAssets;
+    ContentBrowserModule.Get().GetSelectedAssets(SelectedAssets);
+    <span class="hljs-comment">// convert assets to string</span>
+    TArray&lt;FString&gt; Result;
+    <span class="hljs-keyword">for</span> (FAssetData&amp; AssetData : SelectedAssets) &#123;
+        Result.Add(AssetData.PackageName.ToString());
+    &#125;
+    <span class="hljs-keyword">return</span> Result;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::SetSelectedAssets</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    FAssetRegistryModule&amp; AssetRegistryModule = FModuleManager::LoadModuleChecked&lt;FAssetRegistryModule&gt;(<span class="hljs-string">&quot;AssetRegistry&quot;</span>);
+    <span class="hljs-comment">// convert the string to FName</span>
+    TArray&lt;FName&gt; PathsName;
+    <span class="hljs-keyword">for</span> (FString Path : Paths) &#123;
+        PathsName.Add(*Path);
+    &#125;
+    FARFilter AssetFilter;
+    AssetFilter.PackageNames = PathsName;
+    <span class="hljs-comment">// Find the assets</span>
+    TArray&lt;FAssetData&gt; AssetDatas;
+    AssetRegistryModule.Get().GetAssets(AssetFilter, AssetDatas);
+    <span class="hljs-comment">// Ask the ContentBrowser to select them Different to python, the folder levels is also selected.</span>
+    ContentBrowserModule.Get().SyncBrowserToAssets(AssetDatas);
+&#125;
+
+<span class="hljs-function">TArray&lt;FString&gt; <span class="hljs-title">UCppLib::GetSelectedFolders</span><span class="hljs-params">()</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    TArray&lt;FString&gt; SelectedFolders;
+    ContentBrowserModule.Get().GetSelectedFolders(SelectedFolders);
+    <span class="hljs-keyword">return</span> SelectedFolders;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::SetSelectedFolders</span><span class="hljs-params">(TArray&lt;FString&gt; Paths)</span> </span>&#123;
+    FContentBrowserModule&amp; ContentBrowserModule = FModuleManager::LoadModuleChecked&lt;FContentBrowserModule&gt;(<span class="hljs-string">&quot;ContentBrowser&quot;</span>);
+    TArray&lt;FString&gt; SelectedFolders;
+    ContentBrowserModule.Get().SyncBrowserToFolders(Paths);
+&#125;</code></pre></div>
+</li>
+<li><p>Python 调用 C++ 测试运行  </p>
+ <div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># ! 调用 C++ 命令设置选择文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedAssets</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_selected_assets(paths)
+
+<span class="hljs-comment"># ! 调用 C++ 命令设置选择文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setSelectedAssets</span>():</span>
+    paths = [
+        <span class="hljs-string">&#x27;/Game/MyAsset/Sounds/easy&#x27;</span>,
+        <span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>
+    ]
+    <span class="hljs-keyword">return</span> unreal.CppLib.set_selected_assets(paths)
+
+<span class="hljs-comment"># ! 调用 C++ 命令获取选择文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedFolders</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_selected_folders()
+
+<span class="hljs-comment"># ! 调用 C++ 命令设置文件夹</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setSelectedFolders</span>():</span>
+    paths = [
+        <span class="hljs-string">&#x27;/Game/MyAsset/Sounds&#x27;</span>,
+        <span class="hljs-string">&#x27;/Game/MyAsset/Textures&#x27;</span>
+    ]
+    <span class="hljs-keyword">return</span> unreal.CppLib.set_selected_folders(paths)</code></pre></div>
+
+</li>
+</ol>
+<p>&emsp;&emsp;⚠ 令人奇怪的是，在 UE4 中编译测试可以实现我们想要的效果，但是在Visual Studio中却会报错：<code>无法打开源文件 &quot;SAssetSearchBox.h&quot;12    </code>。然鹅在VS2017有小伙伴测试没有报错，不知道是不是版本的问题。</p>
+<p>&emsp;&emsp;为了解决这个问题，我重新新建了一个项目，把代码重新编译，仍然不通过。我在VS 2019 的项目设置 VC++ 目录的包含目录中添加了一个新路径，在 bulid.cs 文件 <em>PublicDependencyModuleNames.AddRange()</em> 中添加”EditorWidgets”，重新生成项目，成功！😄</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_3.png" srcset="/img/loading.gif"></p>
+<p>&emsp;&emsp;该路径是通过 C++ Api SAssetSearchBox 中找到的。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L6_4.png" srcset="/img/loading.gif"></p>
+<h2 id="L7-显示进度条"><a href="#L7-显示进度条" class="headerlink" title="L7 显示进度条"></a>L7 显示进度条</h2><p>&emsp;&emsp;该部分实现效果为：在 UE4 中显示进度条框并执行相对应任务。</p>
+<p>&emsp;&emsp;教程中可以完全使用 Python 来实现该功能，但实际测试时发现，当前版本某些方法已经弃用或找不到 Python 接口，如 unreal.EditorCppLib.begin_spawn_actor() 和 unreal.GameplayStatics.finish_spawning_actor()。因此还是结合 C++、Blueprint 以及 Python 实现。</p>
+<p>EditorFunction_1.py</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> time
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeSlowTask</span>():</span>
+    quantity_steps_in_slow_task = <span class="hljs-number">10</span>
+    <span class="hljs-keyword">with</span> unreal.ScopedSlowTask(quantity_steps_in_slow_task, <span class="hljs-string">&#x27;My Slow Task Text ...&#x27;</span>) <span class="hljs-keyword">as</span> slow_task:
+        slow_task.make_dialog(<span class="hljs-literal">True</span>)
+        <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(quantity_steps_in_slow_task):
+            <span class="hljs-keyword">if</span> slow_task.should_cancel():
+                <span class="hljs-keyword">break</span>
+            slow_task.enter_progress_frame(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;My Slow Task Text ...&#x27;</span> + str(x) + <span class="hljs-string">&#x27; / &#x27;</span> + str(quantity_steps_in_slow_task))
+            <span class="hljs-comment"># Execute slow logic</span>
+            deferredSpawnActor()
+            time.sleep(<span class="hljs-number">1</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deferredSpawnActor</span>():</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    <span class="hljs-comment"># ! blueprint actor</span>
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class(<span class="hljs-string">&#x27;/Game/BluePrint/bp_actor&#x27;</span>)
+    actor_location = unreal.Vector(random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">2000.0</span>), random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">2000.0</span>), <span class="hljs-number">0.0</span>)
+    actor_rotation = unreal.Rotator(random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">360.0</span>), random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">360.0</span>), random.uniform(<span class="hljs-number">0.0</span>, <span class="hljs-number">360.0</span>))
+    actor_scale = unreal.Vector(random.uniform(<span class="hljs-number">0.1</span>, <span class="hljs-number">2.0</span>), random.uniform(<span class="hljs-number">0.1</span>, <span class="hljs-number">2.0</span>), random.uniform(<span class="hljs-number">0.1</span>, <span class="hljs-number">2.0</span>))
+    actor_transform = unreal.Transform(actor_location, actor_rotation, actor_scale)
+    <span class="hljs-comment"># ! &quot;GameplayStatics.begin_spawning_actor_from_class()&quot; is deprecated. Use BeginDeferredActorSpawnFromClass instead.</span>
+    <span class="hljs-comment"># actor = unreal.GameplayStatics.begin_spawning_actor_from_class(world, actor_class, actor_transform)</span>
+    <span class="hljs-comment"># unreal.GameplayStatics.finish_spawning_actor(actor, actor_transform)</span>
+    actor = unreal.EditorCppLib.begin_spawn_actor(world, actor_class, actor_transform)
+    unreal.EditorCppLib.finish_spawn_actor(actor, actor_transform)</code></pre></div>
+
+<p>EditorCppLib.h</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;CoreMinimal.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;EditorCppLib.generated.h&quot;</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * </span>
+<span class="hljs-comment"> */</span>
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SCRIPT_PROJ_API</span> <span class="hljs-title">UEditorCppLib</span> :</span> <span class="hljs-keyword">public</span> UBlueprintFunctionLibrary
+&#123;
+	GENERATED_BODY()
+	
+<span class="hljs-keyword">public</span>:
+
+	UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+		<span class="hljs-function"><span class="hljs-keyword">static</span> AActor* <span class="hljs-title">BeginSpawnActor</span><span class="hljs-params">(<span class="hljs-keyword">const</span> UObject* WorldContextObj,TSubclassOf &lt; AActor &gt; ActorClass, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span></span>;
+
+	UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+		<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">FinishSpawnActor</span><span class="hljs-params">(AActor* MyActor, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span></span>;
+&#125;;</code></pre></div>
+<p>EditorCppLib.cpp</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;EditorCppLib.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Runtime/Engine/Classes/Kismet/GameplayStatics.h&quot;</span></span>
+
+<span class="hljs-function">AActor* <span class="hljs-title">UEditorCppLib::BeginSpawnActor</span><span class="hljs-params">(<span class="hljs-keyword">const</span> UObject* WorldContextObj, TSubclassOf &lt; AActor &gt; ActorClass, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> UGameplayStatics::BeginDeferredActorSpawnFromClass(WorldContextObj, ActorClass, SpawnTransform);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UEditorCppLib::FinishSpawnActor</span><span class="hljs-params">(AActor* MyActor, <span class="hljs-keyword">const</span> FTransform&amp; SpawnTransform)</span> </span>&#123;
+    UGameplayStatics::FinishSpawningActor(MyActor, SpawnTransform);
+&#125;</code></pre></div>
+
+<p>&emsp;&emsp;在 C++ API 中可以查到函数需要的参数及类型。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L7_1.png" srcset="/img/loading.gif"></p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L7_2.png" srcset="/img/loading.gif"></p>
+<h2 id="L8-获取物体属性"><a href="#L8-获取物体属性" class="headerlink" title="L8 获取物体属性"></a>L8 获取物体属性</h2><p>&emsp;&emsp;利用 C++ 获取类的所有属性名，再用 Python 获取属性值。</p>
+<p>CppLib.h文件</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> TArray&lt;FString&gt; <span class="hljs-title">GetAllProperties</span><span class="hljs-params">(UClass* Class)</span></span>;</code></pre></div>
+
+<p>CppLib.cpp文件</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-function">TArray&lt;FString&gt; <span class="hljs-title">UCppLib::GetAllProperties</span><span class="hljs-params">(UClass* Class)</span> </span>&#123;
+    TArray&lt;FString&gt; Ret;
+    <span class="hljs-keyword">if</span> (Class != <span class="hljs-literal">nullptr</span>) &#123;
+        <span class="hljs-keyword">for</span> (TFieldIterator&lt;UProperty&gt; It(Class); It; ++It) &#123;
+            UProperty* Property = *It;
+            <span class="hljs-keyword">if</span> (Property-&gt;HasAnyPropertyFlags(EPropertyFlags::CPF_Edit)) &#123;
+                Ret.Add(Property-&gt;GetName());
+            &#125;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> Ret;
+&#125;</code></pre></div>
+
+<p>PythonHelpers.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAllProperties</span>(<span class="hljs-params">object_class</span>):</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_all_properties(object_class)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">printAllProperties</span>():</span>
+    obj = unreal.Actor()
+    object_class = obj.get_class()
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> getAllProperties(object_class):
+        name = x
+        <span class="hljs-keyword">while</span> len(name) &lt; <span class="hljs-number">50</span>:
+            name = <span class="hljs-string">&#x27; &#x27;</span> + name
+        <span class="hljs-keyword">print</span> name + <span class="hljs-string">&#x27;:&#x27;</span> + str(obj.get_editor_property(x))</code></pre></div>
+
+<p>效果展示：</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L8_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L9-运行-Cmd"><a href="#L9-运行-Cmd" class="headerlink" title="L9 运行 Cmd"></a>L9 运行 Cmd</h2><p>&emsp;&emsp;使用 Python 和 C++ 在 UE4 中运行 Cmd 指令。</p>
+<p>CppLib.h文件</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ExecuteConsoleCommand</span><span class="hljs-params">(FString ConsoleCommand)</span></span>;</code></pre></div>
+
+<p>CppLib.cpp文件</p>
+<p>需要在cs文件中添加依赖项 “UnrealEd” -&gt; PublicDependencyModuleNames）</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Editor/UnrealEd/Public/Editor.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::ExecuteConsoleCommand</span><span class="hljs-params">(FString ConsoleCommand)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (GEditor) &#123;
+        UWorld* World = GEditor-&gt;GetEditorWorldContext().World();
+        <span class="hljs-keyword">if</span> (World) &#123;
+            GEditor-&gt;Exec(World, *ConsoleCommand, *GLog);
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+
+<p>EditorFunction_2.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeConsoleCommand</span>():</span>
+    console_commands = [<span class="hljs-string">&#x27;r.ScreenPercentage 0.1&#x27;</span>, <span class="hljs-string">&#x27;r.Color.Max 6&#x27;</span>, <span class="hljs-string">&#x27;stat fps&#x27;</span>, <span class="hljs-string">&#x27;stat unit&#x27;</span>]
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> console_commands:
+        unreal.CppLib.execute_console_command(x)</code></pre></div>
+
+<p>运行效果：<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L9_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L10-在场景中实例化-Actor"><a href="#L10-在场景中实例化-Actor" class="headerlink" title="L10 在场景中实例化 Actor"></a>L10 在场景中实例化 Actor</h2><p>&emsp;&emsp;在 Python 中可以使用 <code>unreal.EditorLevelLibrary.spawn_actor_from_class(actor_class, actor_location, actor_rotation)</code> 进行实例化 Actor 。</p>
+<p>WorldFunctions.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">spawnActor</span>():</span>
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class(<span class="hljs-string">&#x27;/Game/BluePrint/MyActor&#x27;</span>)
+    actor_location = unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    actor_rotation = unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    unreal.EditorLevelLibrary.spawn_actor_from_class(actor_class, actor_location, actor_rotation)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deferredSpawnActor</span>():</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    actor_class = unreal.EditorAssetLibrary.load_blueprint_class(<span class="hljs-string">&#x27;/Game/BluePrint/MyActor&#x27;</span>)
+    actor_location = unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    actor_rotation = unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>)
+    actor_scale = unreal.Vector(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>)
+
+    actor_transform = unreal.Transform(actor_location, actor_rotation, actor_scale)
+    actor = unreal.EditorCppLib.begin_spawn_actor(world, actor_class, actor_transform)
+    actor_tags = actor.get_editor_property(<span class="hljs-string">&#x27;tags&#x27;</span>)
+    actor_tags.append(<span class="hljs-string">&#x27;My Python Tag&#x27;</span>)
+    actor.set_editor_property(<span class="hljs-string">&#x27;tag&#x27;</span>, actor_tags)
+    unreal.EditorCppLib.finish_spawn_actor(actor, actor_transform)</code></pre></div>
+
+<p>&emsp;&emsp;为了更直观看到实例化过程，我们可以对蓝图 Actor 进行编辑并对节点连接，使得在实例化时会打印出内容。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L10_1.png" srcset="/img/loading.gif"></p>
+<p>在 UE4 中运行效果：</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L10_2.png" srcset="/img/loading.gif"></p>
+<p>可以看到，使用 unreal.EditorLevelLibrary.spawn_actor_from_class() 时，虽然只创建了一次物体但实例化了两次，而后面的方法只实例化了一次。</p>
+<h2 id="L11-类型转换"><a href="#L11-类型转换" class="headerlink" title="L11 类型转换"></a>L11 类型转换</h2><p>&emsp;&emsp;如果使用 Python 进行类型转换，转换不支持的类型时会引起崩溃，可以用 C++ 进行类型转换判断。</p>
+<p>PythonHelpers_2.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tryCast</span>():</span>
+    <span class="hljs-comment"># ! this run crash use python</span>
+    <span class="hljs-comment"># if unreal.Actor.cast(unreal.load_asset(&#x27;/Game/MyAsset/Textures/dear&#x27;)):   </span>
+    <span class="hljs-keyword">if</span> unreal.Texture2D.cast(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>)):
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Succeeded&#x27;</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Failed&#x27;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">castObject</span>():</span>
+    <span class="hljs-comment"># ! this will not crash user C++</span>
+    <span class="hljs-keyword">if</span> cast(unreal.load_asset(<span class="hljs-string">&#x27;/Game/MyAsset/Textures/dear&#x27;</span>), unreal.Actor):
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Succeeded&#x27;</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;Cast Failed&#x27;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cast</span>(<span class="hljs-params">object_to_cast, object_class</span>):</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">return</span> object_class.cast(object_to_cast)
+    <span class="hljs-keyword">except</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span></code></pre></div>
+
+
+<h2 id="L12-获取世界中的指定Actor"><a href="#L12-获取世界中的指定Actor" class="headerlink" title="L12 获取世界中的指定Actor"></a>L12 获取世界中的指定Actor</h2><p>&emsp;&emsp;有三种方法筛选Actor：</p>
+<ul>
+<li>获取选择的Actor：unreal.EditorLevelLibrary.get_selected_level_actors()</li>
+<li>通过类型获取： unreal.GameplayStatics.get_all_actors_of_class()</li>
+<li>通过 tag 获取： unreal.GameplayStatics.get_all_actors_of_class()</li>
+</ul>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedActors</span>():</span>
+    <span class="hljs-comment"># ! Selected</span>
+    selected_actors = unreal.EditorLevelLibrary.get_selected_level_actors()
+    <span class="hljs-keyword">return</span> selected_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getClassActors</span>(<span class="hljs-params">actor_class</span>):</span>
+    <span class="hljs-comment"># ! Class</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    class_actors = unreal.GameplayStatics.get_all_actors_of_class(world, actor_class)
+    <span class="hljs-keyword">return</span> class_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getTagActors</span>(<span class="hljs-params">actor_tag</span>):</span>
+    <span class="hljs-comment"># ! Tag</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    tag_actors = unreal.GameplayStatics.get_all_actors_with_tag(world, actor_tag)
+    <span class="hljs-keyword">return</span> tag_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAllActors</span>():</span>
+    <span class="hljs-comment"># ! All</span>
+    world = unreal.EditorLevelLibrary.get_editor_world()
+    all_actors = unreal.GameplayStatics.get_all_actors_of_class(world, unreal.Actor)
+    <span class="hljs-keyword">return</span> all_actors
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sortActors</span>(<span class="hljs-params">use_selection = False, actor_class = None, actor_tag = None</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;如果有指定，则筛选指定 Actors。否则返回全部 Actors</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-comment"># ! return all actors</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> use_selection <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> actor_class <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> actor_tag:
+        <span class="hljs-keyword">return</span> getAllActors()
+
+    <span class="hljs-comment"># ! get sort actors</span>
+    selected_actors, class_actors, tag_actors = [], [], []
+    <span class="hljs-keyword">if</span> use_selection:
+        selected_actors = list(getSelectedActors())
+    <span class="hljs-keyword">if</span> actor_class:
+        class_actors = list(getClassActors(actor_class))
+    <span class="hljs-keyword">if</span> actor_tag:
+        tag_actors = list(getTagActors(actor_tag))
+
+    final_actors = selected_actors + class_actors + tag_actors
+    <span class="hljs-keyword">for</span> actor <span class="hljs-keyword">in</span> final_actors:
+        <span class="hljs-keyword">if</span> use_selection <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> selected_actors:
+            <span class="hljs-keyword">pass</span>
+        <span class="hljs-keyword">else</span>:
+            final_actors.remove(actor)
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">if</span> actor_class <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> class_actors:
+            <span class="hljs-keyword">pass</span>
+        <span class="hljs-keyword">else</span>:
+            final_actors.remove(actor)
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">if</span> actor_tag <span class="hljs-keyword">and</span> actor <span class="hljs-keyword">in</span> tag_actors:
+            <span class="hljs-keyword">pass</span>
+        <span class="hljs-keyword">else</span>:
+            final_actors.remove(actor)
+            <span class="hljs-keyword">continue</span>
+    <span class="hljs-keyword">if</span> final_actors:
+        <span class="hljs-keyword">return</span> final_actors
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> getAllActors()
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cast</span>(<span class="hljs-params">object_to_cast, object_class</span>):</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">return</span> object_class.cast(object_to_cast)
+    <span class="hljs-keyword">except</span>:
+        <span class="hljs-keyword">return</span> getAllActors()</code></pre></div>
+
+<p>&emsp;&emsp;写这个的时候，发现获取出来的 Actors 存储都是用的 数组 array，虽然方法有些和列表 List 相同，但是使用起来效果不一样，最终打印结果数组显示和数组内元素显示有差异。</p>
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L12_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L13-使用-Qt-进行界面开发"><a href="#L13-使用-Qt-进行界面开发" class="headerlink" title="L13 使用 Qt 进行界面开发"></a>L13 使用 Qt 进行界面开发</h2><p>&emsp;&emsp;在 UE 中一样可以使用Qt Designer进行界面开发。<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L13_1.png" srcset="/img/loading.gif"></p>
+<p>主函数 QtFunctions</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> sys
+sys.path.append(<span class="hljs-string">&#x27;C:/Python27/Lib/site-packages&#x27;</span>)
+
+<span class="hljs-keyword">from</span> PySide <span class="hljs-keyword">import</span> QtGui
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__QtAppTick__</span>(<span class="hljs-params">delta_seconds</span>):</span>
+    <span class="hljs-keyword">for</span> window <span class="hljs-keyword">in</span> opened_windows:
+        window.eventTick(delta_seconds)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__QtAppQuit__</span>():</span>
+    unreal.unregister_slate_post_tick_callback(tick_handle)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__QtWindowClosed__</span>(<span class="hljs-params">window=None</span>):</span>
+    <span class="hljs-keyword">if</span> window <span class="hljs-keyword">in</span> opened_windows:
+        opened_windows.remove(window)
+
+unreal_app = QtGui.QApplication.instance()
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> unreal_app:
+    unreal_app = QtGui.QApplication(sys.argv)
+    tick_handle = unreal.register_slate_post_tick_callback(__QtAppTick__)
+    unreal_app.aboutToQuit.connect(__QtAppQuit__)
+    existing_windows = &#123;&#125;
+    opened_windows = []
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">spawnQtWindow</span>(<span class="hljs-params">desired_window_class=None</span>):</span>
+    window = existing_windows.get(desired_window_class, <span class="hljs-literal">None</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> window:
+        window = desired_window_class()
+        existing_windows[desired_window_class] = window
+        window.aboutToClose = __QtWindowClosed__
+    <span class="hljs-keyword">if</span> window <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> opened_windows:
+        opened_windows.append(window)
+    window.show()
+    window.activateWindow()</code></pre></div>
+
+<p>实现位移函数 QtWindowOne</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+sys.path.append(<span class="hljs-string">&#x27;C:/Python27/Lib/site-packages&#x27;</span>)
+
+<span class="hljs-keyword">from</span> PySide.QtGui <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">from</span> PySide <span class="hljs-keyword">import</span> QtUiTools
+
+WINDOW_NAME = <span class="hljs-string">&#x27;Qt Window One&#x27;</span>
+UI_FILE_FULLNAME = os.path.join(os.path.dirname(__file__), <span class="hljs-string">&#x27;ui&#x27;</span>, <span class="hljs-string">&#x27;window_move.ui&#x27;</span>).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QtWindowOne</span>(<span class="hljs-params">QWidget</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, parent=None</span>):</span>
+        super(QtWindowOne, self).__init__(parent)
+        self.aboutToClose = <span class="hljs-literal">None</span>
+        self.widget = QtUiTools.QUiLoader().load(UI_FILE_FULLNAME)
+        self.widget.setParent(self)
+        self.setWindowTitle(WINDOW_NAME)
+        self.setGeometry(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>, self.widget.width(),self.widget.height())
+        self.initialiseWidget()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">clossEvent</span>(<span class="hljs-params">self, event</span>):</span>  
+        <span class="hljs-keyword">if</span> self.aboutToClose:
+            self.aboutToClose(self)
+        event.accept()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eventTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+        self.myTick(delta_seconds)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialiseWidget</span>(<span class="hljs-params">self</span>):</span>
+        self.time_while_this_window_is_open = <span class="hljs-number">0.0</span>
+        self.random_actor = <span class="hljs-literal">None</span>
+        self.random_actor_is_going_up = <span class="hljs-literal">True</span>
+        self.widget.pushButton.clicked.connect(self.moveRandomActorInScene)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">moveRandomActorInScene</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">import</span> random
+        <span class="hljs-keyword">import</span> WorldFunctions_2
+        all_actors = WorldFunctions_2.sortActors(use_selection=<span class="hljs-literal">False</span>, actor_class=unreal.StaticMeshActor, actor_tag=<span class="hljs-literal">None</span>)
+        rand = random.randrange(<span class="hljs-number">0</span>, len(all_actors))
+        self.random_actor = all_actors[rand]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+        self.time_while_this_window_is_open += delta_seconds
+        self.widget.label.setText(<span class="hljs-string">&quot;&#123;&#125; Seconds&quot;</span>.format(self.time_while_this_window_is_open))
+        <span class="hljs-keyword">if</span> self.random_actor:
+            actor_location = self.random_actor.get_actor_location()
+            speed = <span class="hljs-number">300.0</span> * delta_seconds
+            <span class="hljs-keyword">if</span> self.random_actor_is_going_up:
+                <span class="hljs-keyword">if</span> actor_location.z &gt; <span class="hljs-number">1000.0</span>:
+                    self.random_actor_is_going_up = <span class="hljs-literal">False</span>
+            <span class="hljs-keyword">else</span>:
+                speed = -speed
+                <span class="hljs-keyword">if</span> actor_location.z &lt; <span class="hljs-number">0.0</span>:
+                    self.random_actor_is_going_up = <span class="hljs-literal">True</span>
+            self.random_actor.add_actor_world_offset(unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, speed), <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>)</code></pre></div>
+
+<p>实现旋转函数（部分） QtWindowTwo</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+    self.time_while_this_window_is_open += delta_seconds
+    self.widget.label.setText(<span class="hljs-string">&quot;&#123;&#125; Seconds&quot;</span>.format(self.time_while_this_window_is_open))
+    <span class="hljs-keyword">if</span> self.random_actor:
+        speed = <span class="hljs-number">90.0</span> * delta_seconds
+        self.random_actor.add_actor_world_rotation(unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, speed), <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>)</code></pre></div>
+
+<p>实现缩放函数（部分） QtWindowThree</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myTick</span>(<span class="hljs-params">self, delta_seconds</span>):</span>
+    self.time_while_this_window_is_open += delta_seconds
+    self.widget.label.setText(<span class="hljs-string">&quot;&#123;&#125; Seconds&quot;</span>.format(self.time_while_this_window_is_open))
+    <span class="hljs-keyword">if</span> self.random_actor:
+        actor_scale = self.random_actor.get_actor_scale3d()
+        speed = <span class="hljs-number">3.0</span> * delta_seconds
+        <span class="hljs-keyword">if</span> self.random_actor_is_going_up:
+            <span class="hljs-keyword">if</span> actor_scale.z &gt; <span class="hljs-number">2.0</span>:
+                self.random_actor_is_going_up = <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">else</span>:
+            speed = -speed
+            <span class="hljs-keyword">if</span> actor_scale.z &lt; <span class="hljs-number">0.5</span>:
+                self.random_actor_is_going_up = <span class="hljs-literal">True</span>
+        self.random_actor.set_actor_scale3d(unreal.Vector(actor_scale.x + speed, actor_scale.y + speed, actor_scale.z + speed))</code></pre></div>
+
+<h2 id="L14-git-代码"><a href="#L14-git-代码" class="headerlink" title="L14 git 代码"></a>L14 git 代码</h2><p>&emsp;&emsp;emmm，学习到这里，才看到作者把代码放到 git 上了。-&gt; <a target="_blank" rel="noopener" href="https://github.com/AlexQuevillon/UnrealPythonLibrary">UnrealPythonLibrary</a></p>
+<p>&emsp;&emsp;不用全部自己手打可以节省更多时间！</p>
+<p>&emsp;&emsp;不过有些代码自己还会做一些修改，自己的代码也放到 git上了 -&gt; <a target="_blank" rel="noopener" href="https://github.com/VannyYuan/UnrealPythonStudy">UnrealPythonStudy</a></p>
+<h2 id="L15-在世界中选择和取消选择物体"><a href="#L15-在世界中选择和取消选择物体" class="headerlink" title="L15 在世界中选择和取消选择物体"></a>L15 在世界中选择和取消选择物体</h2><p>获取选择物体：unreal.EditorLevelLibrary.get_selected_level_actors()</p>
+<p>设置选择物体：unreal.EditorLevelLibrary.set_selected_level_actors(actors_to_select)</p>
+<p>WorldFunctions_3.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+<span class="hljs-comment"># return: obj List unreal.Actor : The selected actors in the world</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSelectedActors</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.EditorLevelLibrary.get_selected_level_actors()
+
+<span class="hljs-comment"># Note: Will always clear the selection before selecting.</span>
+<span class="hljs-comment"># actors_to_select: obj List unreal.Actor : The actors to select.</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">selectActors</span>(<span class="hljs-params">actors_to_select=[]</span>):</span>
+    unreal.EditorLevelLibrary.set_selected_level_actors(actors_to_select)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">selectActors_EXAMPLE</span>():</span>
+    <span class="hljs-keyword">import</span> WorldFunctions_2
+    all_actors = WorldFunctions_2.sortActors()
+    actors_to_select = []
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(len(all_actors)):
+        <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span>:
+            actors_to_select.append(all_actors[x])
+    selectActors(actors_to_select)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">clearActorSelection_EXAMPLE</span>():</span>
+    selectActors()</code></pre></div>
+
+<h2 id="L16-在视口中聚焦物体"><a href="#L16-在视口中聚焦物体" class="headerlink" title="L16 在视口中聚焦物体"></a>L16 在视口中聚焦物体</h2><p>&emsp;&emsp;可以实现在全部/活跃视口中聚焦指定物体。</p>
+<p>EditorFunction_3.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> random
+
+<span class="hljs-comment"># active_viewport_only: bool : If True, will only affect the active viewport</span>
+<span class="hljs-comment"># actor: obj unreal.Actor : The actor you want to snap to</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">focusViewportOnActor</span>(<span class="hljs-params">active_viewport_only=True, actor=None</span>):</span>
+    <span class="hljs-comment"># ! focus command</span>
+    command = <span class="hljs-string">&#x27;CAMERA ALIGN&#x27;</span>
+    <span class="hljs-keyword">if</span> active_viewport_only:
+        command += <span class="hljs-string">&#x27; ACTIVEVIEWPORTONLY&#x27;</span>
+    <span class="hljs-keyword">if</span> actor:
+        command += <span class="hljs-string">&#x27; NAME=&#x27;</span> + actor.get_name()
+    unreal.CppLib.execute_console_command(command)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">focusAllViewportsOnSelectedActors_EXAMPLE</span>():</span>
+    focusViewportOnActor(<span class="hljs-literal">False</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">focusActiveViewportOnRandomActor_EXAMPLE</span>():</span>
+    actors_in_world = unreal.GameplayStatics.get_all_actors_of_class(unreal.EditorLevelLibrary.get_editor_world(), unreal.Actor)
+    random_actor_in_world = actors_in_world[random.randrange(len(actors_in_world))]
+    focusViewportOnActor(<span class="hljs-literal">True</span>, random_actor_in_world)</code></pre></div>
+
+<h2 id="L17-移动、旋转视口"><a href="#L17-移动、旋转视口" class="headerlink" title="L17 移动、旋转视口"></a>L17 移动、旋转视口</h2><p>&emsp;&emsp;结合 C++ 和 snapViewport 实现。</p>
+<p>C++ .h 文件（部分）</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetViewportLocationAndRotation</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ViewportIndex, FVector Location, FRotator Rotation)</span></span>;
+
+UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">GetActiveViewportIndex</span><span class="hljs-params">()</span></span>;</code></pre></div>
+
+<p>C++ .cpp 文件（部分）</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::SetViewportLocationAndRotation</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ViewportIndex, FVector Location, FRotator Rotation)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (GEditor != <span class="hljs-literal">nullptr</span> &amp;&amp; ViewportIndex &lt; GEditor-&gt;GetLevelViewportClients().Num()) &#123;
+        FLevelEditorViewportClient* LevelViewportClient = GEditor-&gt;GetLevelViewportClients()[ViewportIndex];
+        <span class="hljs-keyword">if</span> (LevelViewportClient != <span class="hljs-literal">nullptr</span>) &#123;
+            LevelViewportClient-&gt;SetViewLocation(Location);
+            LevelViewportClient-&gt;SetViewRotation(Rotation);
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">UCppLib::GetActiveViewportIndex</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">int</span> Index = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span> (GEditor != <span class="hljs-literal">nullptr</span> &amp;&amp; GCurrentLevelEditingViewportClient != <span class="hljs-literal">nullptr</span>) &#123;
+        GEditor-&gt;GetLevelViewportClients().Find(GCurrentLevelEditingViewportClient, Index);
+    &#125;
+    <span class="hljs-keyword">return</span> Index;
+&#125;</code></pre></div>
+
+<p>Python EditorFunction_4.py 文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+<span class="hljs-keyword">import</span> unreal
+<span class="hljs-keyword">import</span> random
+
+<span class="hljs-comment"># return: int : The index of the active viewport</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getActiveViewportIndex</span>():</span>
+    <span class="hljs-keyword">return</span> unreal.CppLib.get_active_viewport_index()
+
+<span class="hljs-comment"># viewport_index: int : The index of the viewport you want to affect</span>
+<span class="hljs-comment"># location: obj unreal.Vector : The viewport location</span>
+<span class="hljs-comment"># rotation: obj unreal.Rotator : The viewport rotation</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setViewportLocationAndRotation</span>(<span class="hljs-params">viewport_index=<span class="hljs-number">1</span>, location=unreal.Vector(<span class="hljs-params"></span>), rotation=unreal.Rotator(<span class="hljs-params"></span>)</span>):</span>
+    unreal.CppLib.set_viewport_location_and_rotation(viewport_index, location, rotation)
+
+<span class="hljs-comment"># viewport_index: int : The index of the viewport you want to affect</span>
+<span class="hljs-comment"># actor: obj unreal.Actor : The actor you want to snap to</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">snapViewportToActor</span>(<span class="hljs-params">viewport_index=<span class="hljs-number">1</span>, actor=None</span>):</span>
+    setViewportLocationAndRotation(viewport_index, actor.get_actor_location(), actor.get_actor_rotation())
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setViewportLocationAndRotation_EXAMPLE</span>():</span>
+    viewport_index = getActiveViewportIndex()
+    setViewportLocationAndRotation(viewport_index, unreal.Vector(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>), unreal.Rotator(<span class="hljs-number">0.0</span>, <span class="hljs-number">90.0</span>, <span class="hljs-number">0.0</span>))
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">snapViewportToActor_EXAMPLE</span>():</span>
+    actors_in_world = unreal.GameplayStatics.get_all_actors_of_class(unreal.EditorLevelLibrary.get_editor_world(), unreal.Actor)
+    random_actor_in_world = actors_in_world[random.randrange(len(actors_in_world))]
+    viewport_index = getActiveViewportIndex()
+    snapViewportToActor(viewport_index, random_actor_in_world)</code></pre></div>
+
+<h2 id="L18-创建-generic-资产"><a href="#L18-创建-generic-资产" class="headerlink" title="L18 创建 generic 资产"></a>L18 创建 generic 资产</h2><p>AssetFunction_7.py文件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span>
+
+<span class="hljs-keyword">import</span> unreal
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createGenericAsset</span>(<span class="hljs-params">asset_path=<span class="hljs-string">&#x27;&#x27;</span>, unique_name=True, asset_class=None, asset_factory=None</span>):</span>
+    <span class="hljs-keyword">if</span> unique_name:
+        asset_path, asset_name = unreal.AssetToolsHelpers.get_asset_tools().create_unique_asset_name(base_package_name=asset_path, suffix=<span class="hljs-string">&#x27;&#x27;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> unreal.EditorAssetLibrary.does_asset_exist(asset_path=asset_path):
+        path = asset_path.rsplit(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]
+        name = asset_path.rsplit(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">1</span>)[<span class="hljs-number">1</span>]
+        <span class="hljs-keyword">return</span> unreal.AssetToolsHelpers.get_asset_tools().create_asset(asset_name=name, package_path=path, asset_class=asset_class, factory=asset_factory)
+    <span class="hljs-keyword">return</span> unreal.load_asset(asset_path)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createGenericAsset_EXAMPLE</span>():</span>
+    base_path = <span class="hljs-string">&#x27;/Game/MyAsset/GenericAssets/&#x27;</span>
+    generic_assets = [
+        [base_path + <span class="hljs-string">&#x27;sequence&#x27;</span>,        unreal.LevelSequence,  unreal.LevelSequenceFactoryNew()],
+        [base_path + <span class="hljs-string">&#x27;material&#x27;</span>,        unreal.Material,       unreal.MaterialFactoryNew()],
+        [base_path + <span class="hljs-string">&#x27;world&#x27;</span>,           unreal.World,          unreal.WorldFactory()],
+        [base_path + <span class="hljs-string">&#x27;particle_system&#x27;</span>, unreal.ParticleSystem, unreal.ParticleSystemFactoryNew()],
+        [base_path + <span class="hljs-string">&#x27;paper_flipbook&#x27;</span>,  unreal.PaperFlipbook,  unreal.PaperFlipbookFactory()],
+        [base_path + <span class="hljs-string">&#x27;data_table&#x27;</span>,      unreal.DataTable,      unreal.DataTableFactory()], <span class="hljs-comment"># Will not work</span>
+    ]
+    <span class="hljs-keyword">for</span> asset <span class="hljs-keyword">in</span> generic_assets:
+        <span class="hljs-keyword">print</span> createGenericAsset(asset[<span class="hljs-number">0</span>], <span class="hljs-literal">True</span>, asset[<span class="hljs-number">1</span>], asset[<span class="hljs-number">2</span>])</code></pre></div>
+
+
+<p><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L18_1.png" srcset="/img/loading.gif"></p>
+<h2 id="L19-添加动画序列"><a href="#L19-添加动画序列" class="headerlink" title="L19 添加动画序列"></a>L19 添加动画序列</h2><p>pass</p>
+<h2 id="L20-利用-Blueprint-运行Python代码"><a href="#L20-利用-Blueprint-运行Python代码" class="headerlink" title="L20 利用 Blueprint 运行Python代码"></a>L20 利用 Blueprint 运行Python代码</h2><p>&emsp;&emsp;原理和利用 Blueprint 运行 cmd 代码相同。</p>
+<p>build.cs 加上 “Python”, “PythonScriptPlugin”</p>
+<p>C++ .h（部分）</p>
+<div class="hljs"><pre><code class="hljs C++">UFUNCTION(BlueprintCallable, Category = <span class="hljs-string">&quot;Unreal Python&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ExecutePythonScript</span><span class="hljs-params">(FString PythonScript)</span></span>;</code></pre></div>
+
+<p>C++ .cpp（部分）</p>
+<div class="hljs"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;../Plugins/Experimental/PythonScriptPlugin/Source/PythonScriptPlugin/Private/PythonScriptPlugin.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UCppLib::ExecutePythonScript</span><span class="hljs-params">(FString PythonScript)</span> </span>&#123;
+    FPythonScriptPlugin::Get()-&gt;ExecPythonCommand(*PythonScript);
+&#125;</code></pre></div>
+
+<p>蓝图节点<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L20_1.png" srcset="/img/loading.gif"></p>
+<p>点击事件<br><img src="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/L20_2.png" srcset="/img/loading.gif"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Unreal/">Unreal</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/UE/">UE</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/05/unreal/Unreal%E6%9D%90%E8%B4%A8%E6%9B%BF%E6%8D%A2%E6%8F%92%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Unreal材质替换插件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">
+                        <span class="hidden-mobile">Maya开发实践课（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "UnrealPython基础学习&nbsp;",
+      ],
+      cursorChar: "🐾",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

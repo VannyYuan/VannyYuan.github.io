@@ -1,0 +1,1176 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>Maya开发实践课（一） - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-10-30 18:22" pubdate>
+      2020年10月30日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.8k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Maya开发实践课（一）</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="L0-初识帮助文档"><a href="#L0-初识帮助文档" class="headerlink" title="L0 初识帮助文档"></a>L0 初识帮助文档</h2><ul>
+<li>Maya脚本编辑器</li>
+<li>Maya帮助文档的查阅方法</li>
+<li>Mel与Python写法区别</li>
+</ul>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L0_prac.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.cmds <span class="hljs-keyword">as</span> cmds
+cmds.circle()
+cmds.circle(r=<span class="hljs-number">2</span>)
+cmds.circle(r=<span class="hljs-number">2</span>,nr=(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>))
+
+cmds.curve(d=<span class="hljs-number">1</span>,p=[(<span class="hljs-number">-2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-2</span>),(<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-2</span>),(<span class="hljs-number">-2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">3</span>),(<span class="hljs-number">-2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-2</span>)])</code></pre></div>
+
+
+<h2 id="L1-获取场景内操作对象"><a href="#L1-获取场景内操作对象" class="headerlink" title="L1 获取场景内操作对象"></a>L1 获取场景内操作对象</h2><ol>
+<li><p>什么时候用到获取操作对象？</p>
+<ol>
+<li>当我们需要对物体进行操作时</li>
+<li>给物体分组、分类</li>
+</ol>
+</li>
+<li><p>可以通过什么途径获取对象？</p>
+<ol>
+<li>通过对象名字</li>
+<li>按照类型找到一类物体</li>
+<li>通过UUID找到固定对象（maya中名字可能重复又，但UUID是唯一的）</li>
+</ol>
+</li>
+</ol>
+<h3 id="ls-获取对象"><a href="#ls-获取对象" class="headerlink" title="ls 获取对象"></a>ls 获取对象</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cmds.ls()</td>
+<td>列举场景内的所有节点</td>
+</tr>
+<tr>
+<td>cmds.ls(sl=1)</td>
+<td>列举选择的节点</td>
+</tr>
+<tr>
+<td>cmds.ls(typ=’mesh’)</td>
+<td>列举所有类型为’mesh’的节点在python中，type是可以看一个实例或变量的类型，在maya中为了避免冲突，因此使用typ简称</td>
+</tr>
+<tr>
+<td>cmds.ls(typ=(‘mesh’,’nurbsCurve’))</td>
+<td>使用元组同时列举多重类型的物体</td>
+</tr>
+<tr>
+<td>cmds.ls(typ=’mesh’,long=1)</td>
+<td>使用long参数列举出长名</td>
+</tr>
+<tr>
+<td>cmds.ls(et=’transform’)</td>
+<td>列举不含骨骼和其他从transform拓展而来的transform类型节点</td>
+</tr>
+<tr>
+<td>cmds.ls(ext=’transform’)</td>
+<td>列举除了transform节点以外的其他节点</td>
+</tr>
+<tr>
+<td>cmds.ls(‘*_cn_*‘)</td>
+<td>列举名字中含有’<em>cn</em>‘的所有节点，*代表无数个字符，?代表一个字符</td>
+</tr>
+<tr>
+<td>cmds.ls(‘具体uuid数值’)</td>
+<td>获取具体uuid的物体</td>
+</tr>
+</tbody></table>
+<ul>
+<li>ls命令详解<br> <img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L1_command.png" srcset="/img/loading.gif"></li>
+</ul>
+<h3 id="rename-更改节点名字命令"><a href="#rename-更改节点名字命令" class="headerlink" title="rename 更改节点名字命令"></a>rename 更改节点名字命令</h3><p>使用方法：</p>
+<div class="hljs"><pre><code class="hljs python">cmds.rename(oldName,newName)</code></pre></div>
+<p>返回类型：</p>
+<p>&emsp;&emsp;节点新名称</p>
+<h3 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L1_prac.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python">cam_sh = cmds.ls(cameras=<span class="hljs-number">1</span>)
+f_sh = list(set(cmds.ls(shapes=<span class="hljs-number">1</span>)).difference(set(cam_sh)))
+<span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> f_sh:
+        new_name = <span class="hljs-string">&#x27;nurbs_&#123;&#125;&#x27;</span>.format(f)
+        cmds.rename(f,new_name)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L1_prac1.png" srcset="/img/loading.gif"> <img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L1_prac2.png" srcset="/img/loading.gif"></p>
+<h2 id="L2-获取、改变场景内层级关系"><a href="#L2-获取、改变场景内层级关系" class="headerlink" title="L2 获取、改变场景内层级关系"></a>L2 获取、改变场景内层级关系</h2><ol>
+<li>为什么要处理层级关系？<ol>
+<li>规范文件层级</li>
+<li>便于工具识别</li>
+<li>便于人工整理</li>
+</ol>
+</li>
+</ol>
+<h3 id="listRelatives命令示例"><a href="#listRelatives命令示例" class="headerlink" title="listRelatives命令示例"></a>listRelatives命令示例</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cmds.listRelatives(‘Mery_grp’,p=1)</td>
+<td>获取’Mery_grp’的父层级物体 p-parent</td>
+</tr>
+<tr>
+<td>cmds.listRelatives(‘Mery_grp’,c=1)</td>
+<td>获取’Mery_grp’的子层级物体 c-children</td>
+</tr>
+<tr>
+<td>cmds.listRelatives(‘Mery_grp’,ad=1)</td>
+<td>获取’Mery_grp’的所有子物体 ad-allDescendents</td>
+</tr>
+<tr>
+<td>cmds.listRelatives(‘Mery_grp’,ad=1,typ=’joint’)</td>
+<td>获取’Mery_grp’的所有类型为骨骼的子物体</td>
+</tr>
+<tr>
+<td>cmds.listRelatives(‘Mery_grp’,ad=1,f=1)</td>
+<td>获取’Mery_grp’的所有子物体的长名 f-fullPath</td>
+</tr>
+<tr>
+<td>cmds.parent(‘pSphere1’,’Mery_grp’)</td>
+<td>把’pSphere1’物体放到’Mery_grp’层级下</td>
+</tr>
+<tr>
+<td>cmds.parent(‘pSphere1’,world=1)</td>
+<td>把’pSphere1’物体放到世界层级下</td>
+</tr>
+<tr>
+<td>cmds.group(cmd.ls(sl=1),name=’ball_grp’)</td>
+<td>把选择的物体打组，组名为’ball_grp’</td>
+</tr>
+</tbody></table>
+<h3 id="listRelatives命令参数说明"><a href="#listRelatives命令参数说明" class="headerlink" title="listRelatives命令参数说明"></a>listRelatives命令参数说明</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L2_command1.png" srcset="/img/loading.gif"></p>
+<h3 id="parent命令参数说明"><a href="#parent命令参数说明" class="headerlink" title="parent命令参数说明"></a>parent命令参数说明</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L2_command2.png" srcset="/img/loading.gif"></p>
+<h3 id="group命令参数说明"><a href="#group命令参数说明" class="headerlink" title="group命令参数说明"></a>group命令参数说明</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L2_command3.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h3><p>根据物体类型，给物体分组。</p>
+<div class="hljs"><pre><code class="hljs python">dag_objs = cmds.ls(dagObjects=<span class="hljs-number">1</span>,shapes=<span class="hljs-number">1</span>)
+cam_objs = [<span class="hljs-string">u&#x27;frontShape&#x27;</span>, <span class="hljs-string">u&#x27;perspShape&#x27;</span>, <span class="hljs-string">u&#x27;sideShape&#x27;</span>, <span class="hljs-string">u&#x27;topShape&#x27;</span>]
+sort_objs = list(set(dag_objs).difference(set(cam_objs)))
+
+<span class="hljs-keyword">for</span> obj <span class="hljs-keyword">in</span> sort_objs:
+        typ_name = cmds.nodeType(obj)
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> cmds.objExists(typ_name):
+                cmds.group(name=typ_name,empty=<span class="hljs-number">1</span>,world=<span class="hljs-number">1</span>)
+        cmds.parent(cmds.listRelatives(obj,parent=<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>],typ_name)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L2_prac1.png" srcset="/img/loading.gif"></p>
+<h2 id="L3-获取、更改物体位置"><a href="#L3-获取、更改物体位置" class="headerlink" title="L3 获取、更改物体位置"></a>L3 获取、更改物体位置</h2><ul>
+<li>变换属性：移动、旋转、缩放</li>
+<li>自身坐标与世界坐标</li>
+</ul>
+<h3 id="命令示例"><a href="#命令示例" class="headerlink" title="命令示例"></a>命令示例</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cmds.move(0,1,0,’pCube1’,r=1)</td>
+<td>‘pCube1’物体向Y轴移动1单位 r-relative(自身坐标)</td>
+</tr>
+<tr>
+<td>cmds.move(0,1,0,’pCube1’,a=1)</td>
+<td>‘pCube1’物体移动到(0,1,0)位置 a-absolute(世界坐标)</td>
+</tr>
+<tr>
+<td>cmds.rotate(0,10,0,’pCube1’,r=1)</td>
+<td>‘pCube1’物体向Y轴旋转10度 r-relative(自身坐标)</td>
+</tr>
+<tr>
+<td>cmds.rotate(0,10,0,’pCube1’,a=1)</td>
+<td>‘pCube1’物体Y轴旋转到10度 a-absolute(世界坐标)</td>
+</tr>
+<tr>
+<td>cmds.scale(1,5,1,’pCube1’,r=1)</td>
+<td>‘pCube1’物体Y轴方向放大5倍 r-relative(自身坐标)</td>
+</tr>
+<tr>
+<td>cmds.scale(1,1,1,’pCube1’,a=1)</td>
+<td>‘pCube1’物体恢复默认缩放状态 a-absolute(世界坐标)</td>
+</tr>
+</tbody></table>
+<h3 id="利用xform传递位移、旋转、缩放信息（自身坐标）"><a href="#利用xform传递位移、旋转、缩放信息（自身坐标）" class="headerlink" title="利用xform传递位移、旋转、缩放信息（自身坐标）"></a>利用xform传递位移、旋转、缩放信息（自身坐标）</h3><div class="hljs"><pre><code class="hljs python">loc_tx = cmds.xform(<span class="hljs-string">&#x27;locator1&#x27;</span>,q=<span class="hljs-number">1</span>,t=<span class="hljs-number">1</span>)
+cmds.xform(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,t=loc_tx)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L3_1.gif" srcset="/img/loading.gif"></p>
+<h3 id="利用xform传递位移、旋转、缩放信息（世界坐标）"><a href="#利用xform传递位移、旋转、缩放信息（世界坐标）" class="headerlink" title="利用xform传递位移、旋转、缩放信息（世界坐标）"></a>利用xform传递位移、旋转、缩放信息（世界坐标）</h3><div class="hljs"><pre><code class="hljs python">loc_tx = cmds.xform(<span class="hljs-string">&#x27;locator1&#x27;</span>,q=<span class="hljs-number">1</span>,t=<span class="hljs-number">1</span>)
+cmds.xform(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,t=loc_tx,ws=<span class="hljs-number">1</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L3_2.gif" srcset="/img/loading.gif"></p>
+<h3 id="xform命令参数说明"><a href="#xform命令参数说明" class="headerlink" title="xform命令参数说明"></a>xform命令参数说明</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L3_command.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-3"><a href="#练习-3" class="headerlink" title="练习"></a>练习</h3><p>使用 xform 匹配两个角色的pose信息</p>
+<p>思路：同一个角色reference两次，给一个角色摆好pose之后，让另一个角色进行pose的匹配。</p>
+<div class="hljs"><pre><code class="hljs python">sel1,sel2 = cmds.ls(sl=<span class="hljs-number">1</span>)
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+sel1_ns = pm.PyNode(sel1).namespace()
+sel2_ns = pm.PyNode(sel2).namespace()
+<span class="hljs-keyword">for</span> n_curve <span class="hljs-keyword">in</span> cmds.listRelatives(sel1,allDescendents=<span class="hljs-number">1</span>,typ=<span class="hljs-string">&#x27;nurbsCurve&#x27;</span>,fullPath=<span class="hljs-number">1</span>):
+        n_curve = cmds.listRelatives(n_curve,parent=<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]
+        n_tx = cmds.xform(n_curve,q=<span class="hljs-number">1</span>,translation=<span class="hljs-number">1</span>)
+        n_ro = cmds.xform(n_curve,q=<span class="hljs-number">1</span>,rotation=<span class="hljs-number">1</span>)
+
+        cmds.xform(n_curve.replace(sel1_ns,sel2_ns),translation=n_tx,rotation=n_ro)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L3_3.gif" srcset="/img/loading.gif"></p>
+<h2 id="L4-从无到有创建节点"><a href="#L4-从无到有创建节点" class="headerlink" title="L4 从无到有创建节点"></a>L4 从无到有创建节点</h2><h3 id="创建一个球体"><a href="#创建一个球体" class="headerlink" title="创建一个球体"></a>创建一个球体</h3><div class="hljs"><pre><code class="hljs python">improt maya.cmds <span class="hljs-keyword">as</span> cmds
+cmds.polySphere()
+cmds.polySphere(r=<span class="hljs-number">2</span>,sx=<span class="hljs-number">10</span>,sy=<span class="hljs-number">5</span>)</code></pre></div>
+
+<h3 id="创建一个圆环"><a href="#创建一个圆环" class="headerlink" title="创建一个圆环"></a>创建一个圆环</h3><div class="hljs"><pre><code class="hljs python">cmds.circle()
+cmds.circle(r=<span class="hljs-number">10</span>,s=<span class="hljs-number">20</span>,nr=(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>))</code></pre></div>
+
+<h3 id="创建一条曲线"><a href="#创建一条曲线" class="headerlink" title="创建一条曲线"></a>创建一条曲线</h3><div class="hljs"><pre><code class="hljs python">cmds.curve(d=<span class="hljs-number">1</span>,p=[[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]]</code></pre></div>
+
+<h3 id="创建骨骼"><a href="#创建骨骼" class="headerlink" title="创建骨骼"></a>创建骨骼</h3><div class="hljs"><pre><code class="hljs python">cmds.joint(p=(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>))
+<span class="hljs-comment"># ! 如果选择了物体，会在物体层级下创建骨骼</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+    cmds.joint(p=(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,i))</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L4_1.png" srcset="/img/loading.gif"><br><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L4_2.png" srcset="/img/loading.gif"></p>
+<h3 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h3><div class="hljs"><pre><code class="hljs python">cmds.createNode(<span class="hljs-string">&#x27;joint&#x27;</span>)
+<span class="hljs-comment"># ! 使用这种方式创建骨骼不会自动修正层级</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+    cmds.createNode(<span class="hljs-string">&#x27;joint&#x27;</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L4_3.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># !当类型为mesh时，mesh为0个点，0个线，0个面，是一个空的节点</span>
+cmds.createNode(<span class="hljs-string">&#x27;mesh&#x27;</span>)
+<span class="hljs-comment"># ! 创建颜色融合节点</span>
+cmds.createNode(<span class="hljs-string">&#x27;blendColors&#x27;</span>)
+<span class="hljs-comment"># ! 创建乘除节点</span>
+cmds.createNode(<span class="hljs-string">&#x27;mutiplyDivide&#x27;</span>)</code></pre></div>
+
+<h3 id="createNode命令参数说明"><a href="#createNode命令参数说明" class="headerlink" title="createNode命令参数说明"></a>createNode命令参数说明</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L4_4.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-4"><a href="#练习-4" class="headerlink" title="练习"></a>练习</h3><p>自己用细分段数为1的曲线画一个图案，然后转换成代码实现。</p>
+<p>mel生成的命令</p>
+<div class="hljs"><pre><code class="hljs mel"><span class="hljs-keyword">curve</span> -d <span class="hljs-number">3</span> -p <span class="hljs-number">-0.839395</span> <span class="hljs-number">1.792949</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.604013</span> <span class="hljs-number">1.974062</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.133248</span> <span class="hljs-number">2.336288</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.251516</span> <span class="hljs-number">2.03705</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.21112</span> <span class="hljs-number">1.72368</span> <span class="hljs-number">0</span> -p <span class="hljs-number">2.002488</span> <span class="hljs-number">1.503595</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.456035</span> <span class="hljs-number">1.327409</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.480586</span> <span class="hljs-number">0.560018</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.928836</span> <span class="hljs-number">0.340742</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.158852</span> <span class="hljs-number">0.0512701</span> <span class="hljs-number">0</span> -p <span class="hljs-number">2.1789</span> <span class="hljs-number">-0.666696</span> <span class="hljs-number">0</span> -p <span class="hljs-number">2.57546</span> <span class="hljs-number">-1.21213</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.419647</span> <span class="hljs-number">-1.938615</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.294912</span> <span class="hljs-number">-2.516338</span> <span class="hljs-number">0</span> -p <span class="hljs-number">0.935117</span> <span class="hljs-number">-2.299332</span> <span class="hljs-number">0</span> -p <span class="hljs-number">0.80681</span> <span class="hljs-number">-1.944977</span> <span class="hljs-number">0</span> -p <span class="hljs-number">1.035179</span> <span class="hljs-number">-2.048344</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.636392</span> <span class="hljs-number">-1.989231</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.108525</span> <span class="hljs-number">-2.525225</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.335772</span> <span class="hljs-number">-2.213165</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.163381</span> <span class="hljs-number">-1.797263</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.739298</span> <span class="hljs-number">-0.549653</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.835217</span> <span class="hljs-number">-1.121078</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.762025</span> <span class="hljs-number">-1.211135</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.456917</span> <span class="hljs-number">0.20401</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.560278</span> <span class="hljs-number">-0.28985</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.613106</span> <span class="hljs-number">0.270444</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.005203</span> <span class="hljs-number">0.537676</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.175259</span> <span class="hljs-number">1.567658</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.344683</span> <span class="hljs-number">1.048434</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-1.463913</span> <span class="hljs-number">2.256511</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.736987</span> <span class="hljs-number">1.650197</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.823166</span> <span class="hljs-number">1.709551</span> <span class="hljs-number">0</span> -p <span class="hljs-number">-0.866256</span> <span class="hljs-number">1.739227</span> <span class="hljs-number">0</span> -k <span class="hljs-number">0</span> -k <span class="hljs-number">0</span> -k <span class="hljs-number">0</span> -k <span class="hljs-number">1</span> -k <span class="hljs-number">2</span> -k <span class="hljs-number">3</span> -k <span class="hljs-number">4</span> -k <span class="hljs-number">5</span> -k <span class="hljs-number">6</span> -k <span class="hljs-number">7</span> -k <span class="hljs-number">8</span> -k <span class="hljs-number">9</span> -k <span class="hljs-number">10</span> -k <span class="hljs-number">11</span> -k <span class="hljs-number">12</span> -k <span class="hljs-number">13</span> -k <span class="hljs-number">14</span> -k <span class="hljs-number">15</span> -k <span class="hljs-number">16</span> -k <span class="hljs-number">17</span> -k <span class="hljs-number">18</span> -k <span class="hljs-number">19</span> -k <span class="hljs-number">20</span> -k <span class="hljs-number">21</span> -k <span class="hljs-number">22</span> -k <span class="hljs-number">23</span> -k <span class="hljs-number">24</span> -k <span class="hljs-number">25</span> -k <span class="hljs-number">26</span> -k <span class="hljs-number">27</span> -k <span class="hljs-number">28</span> -k <span class="hljs-number">29</span> -k <span class="hljs-number">30</span> -k <span class="hljs-number">31</span> -k <span class="hljs-number">31</span> -k <span class="hljs-number">31</span> ;</code></pre></div>
+
+<p>转成代码实现</p>
+<div class="hljs"><pre><code class="hljs python">point_script = <span class="hljs-string">&#x27; -p -0.839395 1.792949 0 -p -0.604013 1.974062 0 -p -0.133248 2.336288 0 -p 1.251516 2.03705 0 -p 1.21112 1.72368 0 -p 2.002488 1.503595 0 -p 1.456035 1.327409 0 -p 1.480586 0.560018 0 -p 1.928836 0.340742 0 -p 1.158852 0.0512701 0 -p 2.1789 -0.666696 0 -p 2.57546 -1.21213 0 -p 1.419647 -1.938615 0 -p 1.294912 -2.516338 0 -p 0.935117 -2.299332 0 -p 0.80681 -1.944977 0 -p 1.035179 -2.048344 0 -p -0.636392 -1.989231 0 -p -1.108525 -2.525225 0 -p -1.335772 -2.213165 0 -p -1.163381 -1.797263 0 -p -0.739298 -0.549653 0 -p -0.835217 -1.121078 0 -p -1.762025 -1.211135 0 -p -0.456917 0.20401 0 -p -0.560278 -0.28985 0 -p -1.613106 0.270444 0 -p -1.005203 0.537676 0 -p -1.175259 1.567658 0 -p -1.344683 1.048434 0 -p -1.463913 2.256511 0 -p -0.736987 1.650197 0 -p -0.823166 1.709551 0 -p -0.866256 1.739227 0&#x27;</span>
+knot_script = <span class="hljs-string">&#x27; -k 0 -k 0 -k 0 -k 1 -k 2 -k 3 -k 4 -k 5 -k 6 -k 7 -k 8 -k 9 -k 10 -k 11 -k 12 -k 13 -k 14 -k 15 -k 16 -k 17 -k 18 -k 19 -k 20 -k 21 -k 22 -k 23 -k 24 -k 25 -k 26 -k 27 -k 28 -k 29 -k 30 -k 31 -k 31 -k 31&#x27;</span>
+point_list = point_script.split(<span class="hljs-string">&#x27; -p &#x27;</span>)
+knot_list = knot_script.split(<span class="hljs-string">&#x27; -k &#x27;</span>)
+xyz_list = []
+k_list = []
+<span class="hljs-keyword">for</span> point <span class="hljs-keyword">in</span> point_list:
+        <span class="hljs-keyword">if</span> point == <span class="hljs-string">&#x27;&#x27;</span>:
+                <span class="hljs-keyword">continue</span>
+        (x,y,z) = point.split(<span class="hljs-string">&#x27; &#x27;</span>)
+        xyz_list.append((x,y,z))
+<span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> knot_list:
+        <span class="hljs-keyword">if</span> k == <span class="hljs-string">&#x27;&#x27;</span>:
+                <span class="hljs-keyword">continue</span>
+        k_list.append(int(k))
+cmds.curve(d=<span class="hljs-number">3</span>,p=xyz_list,k=k_list)</code></pre></div>
+
+<p>修改（k是不需要的）：</p>
+<div class="hljs"><pre><code class="hljs python">point_script = <span class="hljs-string">&#x27; -p -0.839395 1.792949 0 -p -0.604013 1.974062 0 -p -0.133248 2.336288 0 -p 1.251516 2.03705 0 -p 1.21112 1.72368 0 -p 2.002488 1.503595 0 -p 1.456035 1.327409 0 -p 1.480586 0.560018 0 -p 1.928836 0.340742 0 -p 1.158852 0.0512701 0 -p 2.1789 -0.666696 0 -p 2.57546 -1.21213 0 -p 1.419647 -1.938615 0 -p 1.294912 -2.516338 0 -p 0.935117 -2.299332 0 -p 0.80681 -1.944977 0 -p 1.035179 -2.048344 0 -p -0.636392 -1.989231 0 -p -1.108525 -2.525225 0 -p -1.335772 -2.213165 0 -p -1.163381 -1.797263 0 -p -0.739298 -0.549653 0 -p -0.835217 -1.121078 0 -p -1.762025 -1.211135 0 -p -0.456917 0.20401 0 -p -0.560278 -0.28985 0 -p -1.613106 0.270444 0 -p -1.005203 0.537676 0 -p -1.175259 1.567658 0 -p -1.344683 1.048434 0 -p -1.463913 2.256511 0 -p -0.736987 1.650197 0 -p -0.823166 1.709551 0 -p -0.866256 1.739227 0&#x27;</span>
+point_list = point_script.split(<span class="hljs-string">&#x27; -p &#x27;</span>)
+xyz_list = []
+<span class="hljs-keyword">for</span> point <span class="hljs-keyword">in</span> point_list:
+        <span class="hljs-keyword">if</span> point == <span class="hljs-string">&#x27;&#x27;</span>:
+                <span class="hljs-keyword">continue</span>
+        (x,y,z) = point.split(<span class="hljs-string">&#x27; &#x27;</span>)
+        xyz_list.append((x,y,z))
+cmds.curve(d=<span class="hljs-number">3</span>,p=xyz_list)</code></pre></div>
+
+<h2 id="L5-节点类型和属性的获取"><a href="#L5-节点类型和属性的获取" class="headerlink" title="L5 节点类型和属性的获取"></a>L5 节点类型和属性的获取</h2><h3 id="获取选择物体的类型nodeType"><a href="#获取选择物体的类型nodeType" class="headerlink" title="获取选择物体的类型nodeType"></a>获取选择物体的类型nodeType</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.cmds <span class="hljs-keyword">as</span> cmds
+sel = cmds.ls(sl=<span class="hljs-literal">True</span>)[<span class="hljs-number">0</span>]
+<span class="hljs-keyword">print</span> cmds.nodeType(sel)</code></pre></div>
+
+<h3 id="获取物体所有属性listAttr"><a href="#获取物体所有属性listAttr" class="headerlink" title="获取物体所有属性listAttr"></a>获取物体所有属性listAttr</h3><div class="hljs"><pre><code class="hljs python">cmds.listAttr(<span class="hljs-string">&#x27;pCube1&#x27;</span>)</code></pre></div>
+
+<h3 id="获取物体可k帧属性"><a href="#获取物体可k帧属性" class="headerlink" title="获取物体可k帧属性"></a>获取物体可k帧属性</h3><div class="hljs"><pre><code class="hljs python">cmds.listAttr(<span class="hljs-string">&#x27;pCube1&#x27;</span>,k=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h3 id="获取物体自定义属性"><a href="#获取物体自定义属性" class="headerlink" title="获取物体自定义属性"></a>获取物体自定义属性</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">for</span> attr <span class="hljs-keyword">in</span> cmds.listAttr(box, k=<span class="hljs-literal">True</span>):
+   _at = <span class="hljs-string">&#x27;&#123;0&#125;.&#123;1&#125;&#x27;</span>.format(box, attr)</code></pre></div>
+<p>        </p>
+<h3 id="查询属性getAttr"><a href="#查询属性getAttr" class="headerlink" title="查询属性getAttr"></a>查询属性getAttr</h3><div class="hljs"><pre><code class="hljs python">cmds.getAttr(_at)</code></pre></div>
+
+<h3 id="修改属性setAttr"><a href="#修改属性setAttr" class="headerlink" title="修改属性setAttr"></a>修改属性setAttr</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># ! 当设置的属性值为字符串时，需要添加字符串类型</span>
+cmds.setAttr(_at, <span class="hljs-number">1</span>)
+cmds.setAttr(_at, <span class="hljs-string">&#x27;1&#x27;</span>, typ=<span class="hljs-string">&#x27;string&#x27;</span>)
+cmds.setAttr(_at, <span class="hljs-string">&#x27;1&#x27;</span>, typ=<span class="hljs-string">&#x27;string&#x27;</span>, l=<span class="hljs-number">1</span>)</code></pre></div>
+
+<h3 id="练习-5"><a href="#练习-5" class="headerlink" title="练习"></a>练习</h3><p>获取选择物体的节点类型和属性信息，存储到文件里。</p>
+<p><font color="orange">把一个场景内需要的物体，导出成一个json文件，比如渲染设置、摄像机信息之类的，存储到文件里，然后从另一个文件里，导入这些属性进行状态的复制。</font></p>
+<p>输出属性</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> json
+
+node_name = <span class="hljs-string">&#x27;rmanGlobals&#x27;</span>
+all_attrs = cmds.listAttr(node_name, hasData=<span class="hljs-number">1</span>, output=<span class="hljs-number">1</span>)
+
+save_file = os.path.join(<span class="hljs-string">r&#x27;D:\td_tech\node_info&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#125;.json&#x27;</span>.format(node_name))
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(os.path.dirname(save_file)):
+        os.makedirs(os.path.dirname(save_file))
+
+attr_dict = &#123;&#125;
+<span class="hljs-keyword">for</span> attr <span class="hljs-keyword">in</span> all_attrs:
+        attr_name = <span class="hljs-string">&#x27;&#123;0&#125;.&#123;1&#125;&#x27;</span>.format(node_name, attr)
+        attr_value = str(cmds.getAttr(<span class="hljs-string">&#x27;&#123;0&#125;.&#123;1&#125;&#x27;</span>.format(node_name, attr)))
+        attr_dict[attr_name] = attr_value
+
+<span class="hljs-keyword">with</span> open(save_file, <span class="hljs-string">&#x27;w+&#x27;</span>) <span class="hljs-keyword">as</span> json_file:
+        json_str = json.dumps(attr_dict, indent=<span class="hljs-number">4</span>)
+        json_file.write(json_str)</code></pre></div>
+
+<p>导入属性（属性类型问题未解决）</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> json
+
+node_name = <span class="hljs-string">&#x27;rmanGlobals&#x27;</span>
+
+save_file = os.path.join(<span class="hljs-string">r&#x27;D:\td_tech\node_info&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#125;.json&#x27;</span>.format(node_name))
+<span class="hljs-keyword">with</span> open(save_file, <span class="hljs-string">&#x27;r+&#x27;</span>) <span class="hljs-keyword">as</span> json_file:
+        json_dict = json.load(json_file)
+        <span class="hljs-keyword">for</span> attr_name, attr_value <span class="hljs-keyword">in</span> json_dict.items():
+                attr_type = cmds.getAttr(attr_name, type=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h2 id="L6-节点及其属性的断开和连接"><a href="#L6-节点及其属性的断开和连接" class="headerlink" title="L6 节点及其属性的断开和连接"></a>L6 节点及其属性的断开和连接</h2><p><font color="orange">每一个场景资产，都是通过节点之间连接形成网络</font></p>
+<p>打开属性连接编辑器：Windows-General Editors-Connection Editor</p>
+<p>左边为输出属性物体，右边为输入属性物体</p>
+<h3 id="获取物体的transform节点属性"><a href="#获取物体的transform节点属性" class="headerlink" title="获取物体的transform节点属性"></a>获取物体的transform节点属性</h3><p>查看transform节点的帮助文档，只要属性类型是一致的就可以连接</p>
+<h3 id="连接属性connectAttr"><a href="#连接属性connectAttr" class="headerlink" title="连接属性connectAttr"></a>连接属性connectAttr</h3><div class="hljs"><pre><code class="hljs python">cmds.connectAttr(<span class="hljs-string">&#x27;pCube1.t&#x27;</span>,<span class="hljs-string">&#x27;pSphere1.t&#x27;</span>)
+cmds.connectAttr(<span class="hljs-string">&#x27;pCube1.ry&#x27;</span>,<span class="hljs-string">&#x27;pSphere1.ry&#x27;</span>)
+<span class="hljs-comment"># ! 当属性已经被连上，则需要断开再重新连，使用-force 可以强制连接</span>
+cmds.connectAttr(<span class="hljs-string">&#x27;pCube2.t&#x27;</span>,<span class="hljs-string">&#x27;pSphere1.t&#x27;</span>)
+
+<span class="hljs-comment"># ! 一个多边形的形状取决于它的outMesh和inMesh</span>
+cmds.connectAttr(<span class="hljs-string">&#x27;pCube1.outMesh&#x27;</span>, <span class="hljs-string">&#x27;pSphere1.inMesh&#x27;</span>, f=<span class="hljs-number">1</span>)</code></pre></div>
+
+<h3 id="断开属性disconnectAttr"><a href="#断开属性disconnectAttr" class="headerlink" title="断开属性disconnectAttr"></a>断开属性disconnectAttr</h3><div class="hljs"><pre><code class="hljs python">cmds.disconnectAttr(<span class="hljs-string">&#x27;pCube1.outMesh&#x27;</span>, <span class="hljs-string">&#x27;pSphere1.inMesh&#x27;</span>, f=<span class="hljs-number">1</span>)</code></pre></div>
+
+<h3 id="练习-6"><a href="#练习-6" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L6_1.png" srcset="/img/loading.gif"></p>
+<p>通过创建节点并连接网络，通过调节blendColors参数改变球体的颜色</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># create nodes</span>
+lamA = cmds.shadingNode(<span class="hljs-string">&#x27;lambert&#x27;</span>,asShader=<span class="hljs-literal">True</span>)
+lamB = cmds.shadingNode(<span class="hljs-string">&#x27;lambert&#x27;</span>,asShader=<span class="hljs-literal">True</span>)
+lamC = cmds.shadingNode(<span class="hljs-string">&#x27;lambert&#x27;</span>,asShader=<span class="hljs-literal">True</span>)
+bleColor = cmds.shadingNode(<span class="hljs-string">&#x27;blendColors&#x27;</span>,asUtility=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># connect attr</span>
+cmds.connectAttr(<span class="hljs-string">&#x27;&#123;&#125;.outColor&#x27;</span>.format(lamA),<span class="hljs-string">&#x27;&#123;&#125;.color1&#x27;</span>.format(bleColor))
+cmds.connectAttr(<span class="hljs-string">&#x27;&#123;&#125;.outColor&#x27;</span>.format(lamB),<span class="hljs-string">&#x27;&#123;&#125;.color2&#x27;</span>.format(bleColor))
+cmds.connectAttr(<span class="hljs-string">&#x27;&#123;&#125;.output&#x27;</span>.format(bleColor),<span class="hljs-string">&#x27;&#123;&#125;.color&#x27;</span>.format(lamC))</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L6_2.png" srcset="/img/loading.gif"></p>
+<h2 id="L7-轻松获取节点连接关系"><a href="#L7-轻松获取节点连接关系" class="headerlink" title="L7 轻松获取节点连接关系"></a>L7 轻松获取节点连接关系</h2><h3 id="listConnectins"><a href="#listConnectins" class="headerlink" title="listConnectins()"></a>listConnectins()</h3><p>输入对象是一个节点</p>
+<div class="hljs"><pre><code class="hljs python">lamA = cmds.shadingNode(<span class="hljs-string">&#x27;lambert&#x27;</span>,asShader=<span class="hljs-literal">True</span>)
+lamB = cmds.shadingNode(<span class="hljs-string">&#x27;lambert&#x27;</span>,asShader=<span class="hljs-literal">True</span>)
+lamC = cmds.shadingNode(<span class="hljs-string">&#x27;lambert&#x27;</span>,asShader=<span class="hljs-literal">True</span>)
+bleColor = cmds.shadingNode(<span class="hljs-string">&#x27;blendColors&#x27;</span>,asUtility=<span class="hljs-literal">True</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_1.png" srcset="/img/loading.gif"></p>
+<h4 id="获取所有连接节点"><a href="#获取所有连接节点" class="headerlink" title="获取所有连接节点"></a>获取所有连接节点</h4><div class="hljs"><pre><code class="hljs python">cmds.listConnections(bleColor)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_2.png" srcset="/img/loading.gif"></p>
+<h4 id="只获取上游节点"><a href="#只获取上游节点" class="headerlink" title="只获取上游节点"></a>只获取上游节点</h4><div class="hljs"><pre><code class="hljs python">cmds.listConnections(bleColor,s=<span class="hljs-literal">True</span>,d=<span class="hljs-literal">False</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_3.png" srcset="/img/loading.gif"></p>
+<h4 id="获取连接节点属性以及属性名"><a href="#获取连接节点属性以及属性名" class="headerlink" title="获取连接节点属性以及属性名"></a>获取连接节点属性以及属性名</h4><div class="hljs"><pre><code class="hljs python">cmds.listConnections(bleColor,s=<span class="hljs-literal">True</span>,d=<span class="hljs-literal">False</span>,p=<span class="hljs-literal">True</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_4.png" srcset="/img/loading.gif"></p>
+<h4 id="以类型过滤连接节点"><a href="#以类型过滤连接节点" class="headerlink" title="以类型过滤连接节点"></a>以类型过滤连接节点</h4><div class="hljs"><pre><code class="hljs python">cmds.listConnections(bleColor,type=<span class="hljs-string">&#x27;lambert&#x27;</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_5.png" srcset="/img/loading.gif"></p>
+<h3 id="connectionInfo"><a href="#connectionInfo" class="headerlink" title="connectionInfo()"></a>connectionInfo()</h3><p>输入对象是一个节点的属性</p>
+<h4 id="获取输入属性"><a href="#获取输入属性" class="headerlink" title="获取输入属性"></a>获取输入属性</h4><div class="hljs"><pre><code class="hljs python">cmds.connectionInfo(<span class="hljs-string">&#x27;&#123;&#125;.color1&#x27;</span>.format(bleColor),sfd=<span class="hljs-literal">True</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_6.png" srcset="/img/loading.gif"></p>
+<h4 id="获取输出属性"><a href="#获取输出属性" class="headerlink" title="获取输出属性"></a>获取输出属性</h4><div class="hljs"><pre><code class="hljs python">cmds.connectionInfo(<span class="hljs-string">&#x27;&#123;&#125;.output&#x27;</span>.format(bleColor),dfs=<span class="hljs-literal">True</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_7.png" srcset="/img/loading.gif"></p>
+<h4 id="判断是否为Sources输出的源"><a href="#判断是否为Sources输出的源" class="headerlink" title="判断是否为Sources输出的源"></a>判断是否为Sources输出的源</h4><div class="hljs"><pre><code class="hljs python">cmds.connectionInfo(<span class="hljs-string">&#x27;&#123;&#125;.output&#x27;</span>.format(bleColor),isSource=<span class="hljs-literal">True</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_8.png" srcset="/img/loading.gif"></p>
+<h4 id="判断是否为Destination被连接"><a href="#判断是否为Destination被连接" class="headerlink" title="判断是否为Destination被连接"></a>判断是否为Destination被连接</h4><div class="hljs"><pre><code class="hljs python">cmds.connectionInfo(<span class="hljs-string">&#x27;&#123;&#125;.output&#x27;</span>.format(bleColor),isDestination=<span class="hljs-literal">True</span>)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L7_9.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-7"><a href="#练习-7" class="headerlink" title="练习"></a>练习</h3><p>获取一个动画角色控制器的关键帧连接信息，连接到另一个相同的角色。</p>
+<h2 id="L8-几种物体的约束关系"><a href="#L8-几种物体的约束关系" class="headerlink" title="L8 几种物体的约束关系"></a>L8 几种物体的约束关系</h2><p>用命令创建约束:</p>
+<p>&emsp;&emsp;常见的约束有父子约束、点约束、旋转约束、缩放约束、目标约束以及极向量约束。</p>
+<h3 id="点约束"><a href="#点约束" class="headerlink" title="点约束"></a>点约束</h3><div class="hljs"><pre><code class="hljs python">cmds.pointConstraint(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,<span class="hljs-string">&#x27;pSphere2&#x27;</span>)
+<span class="hljs-comment"># ! 保持相对位移：</span>
+cmds.pointConstraint(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,<span class="hljs-string">&#x27;pSphere2&#x27;</span>,mo=<span class="hljs-literal">True</span>)
+<span class="hljs-comment"># ! 修改约束节点名称</span>
+cmds.pointConstraint(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,<span class="hljs-string">&#x27;pSphere2&#x27;</span>,mo=<span class="hljs-literal">True</span>,name=<span class="hljs-string">&#x27;ball&#x27;</span>)
+<span class="hljs-comment"># ! 查询约束节点名</span>
+cmds.pointConstraint(<span class="hljs-string">&#x27;pSphere2&#x27;</span>,q=<span class="hljs-literal">True</span>,name=<span class="hljs-literal">True</span>)
+<span class="hljs-comment"># ! 查询约束权重</span>
+cmds.pointConstraint(<span class="hljs-string">&#x27;pSphere2&#x27;</span>,q=<span class="hljs-literal">True</span>,wal=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h3 id="旋转约束"><a href="#旋转约束" class="headerlink" title="旋转约束"></a>旋转约束</h3><div class="hljs"><pre><code class="hljs python">cmds.orientConstraint(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,<span class="hljs-string">&#x27;pSphere2)</span></code></pre></div>
+
+<h3 id="父子约束"><a href="#父子约束" class="headerlink" title="父子约束"></a>父子约束</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># ! 绑定时，需要先把控制器和骨骼的轴向一致，再进行约束</span>
+jnt = <span class="hljs-string">&#x27;joint1&#x27;</span>
+ctl = <span class="hljs-string">&#x27;ctl&#x27;</span>
+ctg = <span class="hljs-string">&#x27;ctl_grp&#x27;</span>
+cmds.delete(cmds.parentConstraint(jnt,ctg))
+cmds.parentConstraint(ctl,jnt)</code></pre></div>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L8_1.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-8"><a href="#练习-8" class="headerlink" title="练习"></a>练习</h3><p>创建一个脚本，根据选择的物体创建控制器并对其约束</p>
+<div class="hljs"><pre><code class="hljs python">sel = cmds.ls(sl=<span class="hljs-number">1</span>)
+<span class="hljs-keyword">if</span> len(sel) == <span class="hljs-number">1</span>:
+        sel_obj = sel[<span class="hljs-number">0</span>]
+        obj_t = cmds.xform(sel_obj,q=<span class="hljs-number">1</span>,t=<span class="hljs-number">1</span>)
+        obj_ro = cmds.xform(sel_obj,q=<span class="hljs-number">1</span>,ro=<span class="hljs-number">1</span>)
+        ctl = cmds.circle(name=<span class="hljs-string">&#x27;ctl&#x27;</span>,c=obj_t,nr=obj_ro)
+        cmds.parentConstraint(ctl,sel_obj,mo=<span class="hljs-number">1</span>)
+<span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;please select one obj&#x27;</span></code></pre></div>
+
+<h2 id="L9-创建和获取关键帧信息"><a href="#L9-创建和获取关键帧信息" class="headerlink" title="L9 创建和获取关键帧信息"></a>L9 创建和获取关键帧信息</h2><p>设置关键帧快捷键：在时间轴上按s。</p>
+<h3 id="设置、创建关键帧setKeyframe"><a href="#设置、创建关键帧setKeyframe" class="headerlink" title="设置、创建关键帧setKeyframe()"></a>设置、创建关键帧setKeyframe()</h3><div class="hljs"><pre><code class="hljs python">cmds.setKeyframe()
+<span class="hljs-comment"># ! 不选中物体</span>
+cmds.setKeyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>)
+<span class="hljs-comment"># ! 添加属性设置关键帧</span>
+cmds.setKeyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,at=<span class="hljs-string">&#x27;tx&#x27;</span>)
+cmds.setKeyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,at=[<span class="hljs-string">&#x27;tx&#x27;</span>,<span class="hljs-string">&#x27;ty&#x27;</span>,<span class="hljs-string">&#x27;r&#x27;</span>])
+<span class="hljs-comment"># !设置数值</span>
+cmds.setKeyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,at=[<span class="hljs-string">&#x27;tx&#x27;</span>,<span class="hljs-string">&#x27;ty&#x27;</span>,<span class="hljs-string">&#x27;r&#x27;</span>],v=<span class="hljs-number">10</span>)</code></pre></div>
+
+<h3 id="案例：让球转圈"><a href="#案例：让球转圈" class="headerlink" title="案例：让球转圈"></a>案例：让球转圈</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math
+<span class="hljs-keyword">import</span> maya.cmds <span class="hljs-keyword">as</span> cmds
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,<span class="hljs-number">360</span>):
+        x = math.sin(i * math.pi/<span class="hljs-number">180</span>) * <span class="hljs-number">10</span>
+        z = math.cos(i * math.pi/<span class="hljs-number">180</span>) * <span class="hljs-number">10</span>
+        
+        cmds.setKeyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, at=<span class="hljs-string">&#x27;tx&#x27;</span>, t=i, v=x)
+        cmds.setKeyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, at=<span class="hljs-string">&#x27;tz&#x27;</span>, t=i, v=z)</code></pre></div>
+
+<h3 id="获取关键帧keyframe"><a href="#获取关键帧keyframe" class="headerlink" title="获取关键帧keyframe()"></a>获取关键帧keyframe()</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># ! 查询帧</span>
+cmds.keyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, q=<span class="hljs-literal">True</span>, tc=<span class="hljs-literal">True</span>)
+<span class="hljs-comment"># ! 查询属性</span>
+cmds.keyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, q=<span class="hljs-literal">True</span>, vc=<span class="hljs-literal">True</span>)
+<span class="hljs-comment"># ! 属性过滤</span>
+cmds.keyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, at=<span class="hljs-string">&#x27;ty&#x27;</span>, q=<span class="hljs-literal">True</span>, tc=<span class="hljs-literal">True</span>)
+cmds.keyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, at=<span class="hljs-string">&#x27;ty&#x27;</span>, q=<span class="hljs-literal">True</span>, vc=<span class="hljs-literal">True</span>)
+<span class="hljs-comment"># ! 编辑属性</span>
+frame_tc = cmds.keyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, at=<span class="hljs-string">&#x27;ty&#x27;</span>, q=<span class="hljs-literal">True</span>, tc=<span class="hljs-literal">True</span>)
+cmds.keyframe(<span class="hljs-string">&#x27;pSphere1&#x27;</span>,  <span class="hljs-comment"># 编辑的物体</span>
+               at=<span class="hljs-string">&#x27;ty&#x27;</span>,   <span class="hljs-comment"># 编辑的属性</span>
+               e=<span class="hljs-literal">True</span>,    <span class="hljs-comment"># 编辑模式</span>
+               time=(min(frame_tc), max(frame_tc)),     <span class="hljs-comment"># 编辑的时间范围</span>
+               tc=<span class="hljs-number">5</span>,     <span class="hljs-comment"># 关键帧变化，正数往右，负数往左</span>
+               r=<span class="hljs-literal">True</span>    <span class="hljs-comment"># 相对变化</span></code></pre></div>
+
+<h3 id="练习-9"><a href="#练习-9" class="headerlink" title="练习"></a>练习</h3><p>给一个物体从1到200逐渐创建关键帧，实现随机抖动效果。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> random
+sel = cmds.ls(sl=<span class="hljs-number">1</span>)
+<span class="hljs-keyword">if</span> len(sel) == <span class="hljs-number">1</span>:
+        sel_obj = sel[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">201</span>):
+                rand_x = random.uniform(<span class="hljs-number">-20</span>,<span class="hljs-number">20</span>)
+                rand_y = random.uniform(<span class="hljs-number">-20</span>,<span class="hljs-number">20</span>)
+                rand_z = random.uniform(<span class="hljs-number">-20</span>,<span class="hljs-number">20</span>)
+                cmds.setKeyframe(sel_obj, at=<span class="hljs-string">&#x27;tx&#x27;</span>, t=i, v=rand_x)
+                cmds.setKeyframe(sel_obj, at=<span class="hljs-string">&#x27;ty&#x27;</span>, t=i, v=rand_y)
+                cmds.setKeyframe(sel_obj, at=<span class="hljs-string">&#x27;tz&#x27;</span>, t=i, v=rand_z)
+<span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;please select one obj&#x27;</span></code></pre></div>
+
+<h2 id="L10-文件输入输出以及reference处理"><a href="#L10-文件输入输出以及reference处理" class="headerlink" title="L10 文件输入输出以及reference处理"></a>L10 文件输入输出以及reference处理</h2><h3 id="file"><a href="#file" class="headerlink" title="file()"></a>file()</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># ! 新建场景</span>
+cmds.file(new=<span class="hljs-literal">True</span>,f=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># ! 保存场景</span>
+cmds.file(rename=<span class="hljs-string">&quot;D:/td_tech/test.ma&quot;</span>)
+cmds.file(save=<span class="hljs-literal">True</span>,typ=<span class="hljs-string">&quot;mayaAscii&quot;</span>)
+
+<span class="hljs-comment"># ! 打开文件</span>
+cmds.file(<span class="hljs-string">&quot;D:/td_tech/test.ma&quot;</span>,o=<span class="hljs-literal">True</span>,force=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># ! 获取场景名称</span>
+cmds.file(q=<span class="hljs-literal">True</span>,sn=<span class="hljs-literal">True</span>)
+cmds.file(q=<span class="hljs-literal">True</span>,sn=<span class="hljs-literal">True</span>,shn=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># ! 导出物体</span>
+cmds.file(<span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>,exportAll=<span class="hljs-literal">True</span>,typ=<span class="hljs-string">&quot;mayaAscii&quot;</span>)
+cmds.file(<span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>,exportSelected=<span class="hljs-literal">True</span>,typ=<span class="hljs-string">&quot;mayaAscii&quot;</span>)
+
+<span class="hljs-comment"># ! 导入物体</span>
+cmds.file(<span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>,i=<span class="hljs-literal">True</span>,ns=<span class="hljs-string">&#x27;ball&#x27;</span>)
+
+<span class="hljs-comment"># ! 参考文件</span>
+cmds.file(<span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>,r=<span class="hljs-literal">True</span>,ns=<span class="hljs-string">&#x27;ball&#x27;</span>)
+
+<span class="hljs-comment"># ! 查询参考文件</span>
+cmds.file(q=<span class="hljs-literal">True</span>,r=<span class="hljs-literal">True</span>)
+cmds.file(<span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>,q=<span class="hljs-literal">True</span>,r=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h3 id="referenceQuery"><a href="#referenceQuery" class="headerlink" title="referenceQuery()"></a>referenceQuery()</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># ! 参考文件节点查询</span>
+cmds.referenceQuery(<span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>,n=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># ! 参考节点文件查询</span>
+cmds.referenceQuery(<span class="hljs-string">&#x27;ball1:pSphere1&#x27;</span>,f=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># ! 查询参考是否加载</span>
+cmds.referenceQuery(<span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>,isLoaded=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h3 id="练习-10"><a href="#练习-10" class="headerlink" title="练习"></a>练习</h3><p>利用循环实现批量reference功能。</p>
+<div class="hljs"><pre><code class="hljs python">ref_file = <span class="hljs-string">&quot;D:/td_tech/export.ma&quot;</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,<span class="hljs-number">5</span>):
+        cmds.file(ref_file,r=<span class="hljs-literal">True</span>,ns=<span class="hljs-string">&#x27;ball&#123;&#125;&#x27;</span>.format(i))</code></pre></div>
+
+
+<h2 id="L11-Maya-窗口与控件编程"><a href="#L11-Maya-窗口与控件编程" class="headerlink" title="L11 Maya 窗口与控件编程"></a>L11 Maya 窗口与控件编程</h2><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L11_1.png" srcset="/img/loading.gif"></p>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L11_2.png" srcset="/img/loading.gif"></p>
+<h3 id="创建窗口"><a href="#创建窗口" class="headerlink" title="创建窗口"></a>创建窗口</h3><div class="hljs"><pre><code class="hljs python">wnd = cmds.window()</code></pre></div>
+
+<h3 id="显示窗口"><a href="#显示窗口" class="headerlink" title="显示窗口"></a>显示窗口</h3><div class="hljs"><pre><code class="hljs python">cmds.showWindow(wnd)</code></pre></div>
+
+<h3 id="添加窗口属性"><a href="#添加窗口属性" class="headerlink" title="添加窗口属性"></a>添加窗口属性</h3><div class="hljs"><pre><code class="hljs python">wnd = cmds.window(w=<span class="hljs-number">600</span>,h=<span class="hljs-number">800</span>,t=<span class="hljs-string">&#x27;main_window&#x27;</span>)</code></pre></div>
+
+<h3 id="定义变量避免窗口重复创建，并恢复默认窗口设置"><a href="#定义变量避免窗口重复创建，并恢复默认窗口设置" class="headerlink" title="定义变量避免窗口重复创建，并恢复默认窗口设置"></a>定义变量避免窗口重复创建，并恢复默认窗口设置</h3><div class="hljs"><pre><code class="hljs python">wnd_name = <span class="hljs-string">&#x27;my_win&#x27;</span>
+<span class="hljs-keyword">if</span> cmds.window(wnd_name,q=<span class="hljs-literal">True</span>,exists=<span class="hljs-literal">True</span>):
+        cmds.deleteUI(wnd_name,wnd=<span class="hljs-literal">True</span>)
+<span class="hljs-keyword">if</span> cmds.windowPref(wnd_name,q=<span class="hljs-literal">True</span>,exists=<span class="hljs-literal">True</span>):
+        cmds.windowPref(wnd_name,r=<span class="hljs-literal">True</span>)
+wnd = cmds.window(wnd_name,w=<span class="hljs-number">600</span>,h=<span class="hljs-number">800</span>,t=<span class="hljs-string">&#x27;main_window&#x27;</span>)
+cmds.showWindow(wnd)</code></pre></div>
+
+<h3 id="创建layout和按钮"><a href="#创建layout和按钮" class="headerlink" title="创建layout和按钮"></a>创建layout和按钮</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L11_3.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-11"><a href="#练习-11" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L11_4.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create_ball</span>(<span class="hljs-params">*args</span>):</span>
+        num = cmds.textField(num_text,q=<span class="hljs-number">1</span>,tx=<span class="hljs-number">1</span>)
+        ra = cmds.textField(ra_text,q=<span class="hljs-number">1</span>,tx=<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,int(num)):
+                cmds.polySphere(r=ra)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+        wnd_name = <span class="hljs-string">&#x27;my_win&#x27;</span>
+        <span class="hljs-keyword">if</span> cmds.window(wnd_name,q=<span class="hljs-literal">True</span>,exists=<span class="hljs-literal">True</span>):
+                cmds.deleteUI(wnd_name,wnd=<span class="hljs-literal">True</span>)
+        <span class="hljs-keyword">if</span> cmds.windowPref(wnd_name,q=<span class="hljs-literal">True</span>,exists=<span class="hljs-literal">True</span>):
+                cmds.windowPref(wnd_name,r=<span class="hljs-literal">True</span>)
+                
+        wnd = cmds.window(wnd_name,w=<span class="hljs-number">300</span>,h=<span class="hljs-number">50</span>,t=<span class="hljs-string">&#x27;main_window&#x27;</span>)
+        cmds.gridLayout(numberOfColumns=<span class="hljs-number">2</span>,numberOfRows=<span class="hljs-number">2</span>,cellWidthHeight=(<span class="hljs-number">150</span>, <span class="hljs-number">30</span>))
+        cmds.text(label=<span class="hljs-string">&#x27;num&#x27;</span>)
+        num_text = cmds.textField()
+        cmds.text(label=<span class="hljs-string">&#x27;ra&#x27;</span>)
+        ra_text = cmds.textField()
+
+        cmds.button(l=<span class="hljs-string">&#x27;create&#x27;</span>,c=create_ball)
+        cmds.showWindow(wnd)</code></pre></div>
+
+
+<h2 id="L12-Maya中的视图与相机操作"><a href="#L12-Maya中的视图与相机操作" class="headerlink" title="L12 Maya中的视图与相机操作"></a>L12 Maya中的视图与相机操作</h2><h3 id="getPanel"><a href="#getPanel" class="headerlink" title="getPanel()"></a>getPanel()</h3><h4 id="获取所有视图"><a href="#获取所有视图" class="headerlink" title="获取所有视图"></a>获取所有视图</h4><div class="hljs"><pre><code class="hljs python">cmds.getPanel(all=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h4 id="只获取显示的视图"><a href="#只获取显示的视图" class="headerlink" title="只获取显示的视图"></a>只获取显示的视图</h4><div class="hljs"><pre><code class="hljs python">cmds.getPanel(vis=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h4 id="通过视图类型返回视图"><a href="#通过视图类型返回视图" class="headerlink" title="通过视图类型返回视图"></a>通过视图类型返回视图</h4><div class="hljs"><pre><code class="hljs python">cmds.getPanel(typ=<span class="hljs-string">&#x27;outlinerPanel&#x27;</span>)</code></pre></div>
+
+<h4 id="返回当前激活视图"><a href="#返回当前激活视图" class="headerlink" title="返回当前激活视图"></a>返回当前激活视图</h4><div class="hljs"><pre><code class="hljs python">cmds.getPanel(withFocus=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h3 id="modelPanel"><a href="#modelPanel" class="headerlink" title="modelPanel()"></a>modelPanel()</h3><h4 id="查询当前视图摄像机"><a href="#查询当前视图摄像机" class="headerlink" title="查询当前视图摄像机"></a>查询当前视图摄像机</h4><div class="hljs"><pre><code class="hljs python">cmds.modelPanel(<span class="hljs-string">&#x27;modelPanel4&#x27;</span>,q=<span class="hljs-literal">True</span>,cam=<span class="hljs-literal">True</span>)
+cmds.modelEditor(<span class="hljs-string">&#x27;modelPanel4&#x27;</span>,q=<span class="hljs-literal">True</span>,cam=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h4 id="编辑当前视图摄像机"><a href="#编辑当前视图摄像机" class="headerlink" title="编辑当前视图摄像机"></a>编辑当前视图摄像机</h4><div class="hljs"><pre><code class="hljs python">cmds.modelPanel(<span class="hljs-string">&#x27;modelPanel4&#x27;</span>,e=<span class="hljs-literal">True</span>,cam=<span class="hljs-string">&#x27;front&#x27;</span>)</code></pre></div>
+
+<h4 id="裁剪视图"><a href="#裁剪视图" class="headerlink" title="裁剪视图"></a>裁剪视图</h4><div class="hljs"><pre><code class="hljs python">cmds.modelPanel(<span class="hljs-string">&#x27;modelPanel4&#x27;</span>,e=<span class="hljs-literal">True</span>,tearOff=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h4 id="编辑视图显示的内容"><a href="#编辑视图显示的内容" class="headerlink" title="编辑视图显示的内容"></a>编辑视图显示的内容</h4><div class="hljs"><pre><code class="hljs python">cmds.modelEditor(<span class="hljs-string">&#x27;modelPanel2&#x27;</span>,e=<span class="hljs-literal">True</span>,joints=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h3 id="练习-12"><a href="#练习-12" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L12_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">playblast_polygon</span>():</span>
+        my_cam = cmds.camera(p=[<span class="hljs-string">&#x27;8&#x27;</span>,<span class="hljs-string">&#x27;36&#x27;</span>,<span class="hljs-string">&#x27;33&#x27;</span>],rot=[<span class="hljs-string">&#x27;-42&#x27;</span>,<span class="hljs-string">&#x27;10&#x27;</span>,<span class="hljs-string">&#x27;0&#x27;</span>])
+        my_ball = cmds.polySphere()
+        cmds.circle(center=(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))
+        cmds.setKeyframe(my_ball,at=<span class="hljs-string">&#x27;translateX&#x27;</span>,v=<span class="hljs-number">10</span>,t=<span class="hljs-number">10</span>)
+        cmds.setKeyframe(my_ball,at=<span class="hljs-string">&#x27;translateX&#x27;</span>,v=<span class="hljs-number">5</span>,t=<span class="hljs-number">20</span>)
+        cmds.modelPanel(my_panel,e=<span class="hljs-literal">True</span>,cam=my_cam[<span class="hljs-number">0</span>])
+        cmds.modelEditor(my_panel,e=<span class="hljs-literal">True</span>,alo=<span class="hljs-literal">False</span>,polymeshes=<span class="hljs-literal">True</span>)
+        cmds.refresh()
+        cmds.playblast(st=<span class="hljs-number">1</span>,et=<span class="hljs-number">30</span>)
+        
+
+playblast_polygon()</code></pre></div>
+
+<h2 id="L13-Maya-中的事件触发"><a href="#L13-Maya-中的事件触发" class="headerlink" title="L13 Maya 中的事件触发"></a>L13 Maya 中的事件触发</h2><h3 id="时间轴变化触发事件"><a href="#时间轴变化触发事件" class="headerlink" title="时间轴变化触发事件"></a>时间轴变化触发事件</h3><div class="hljs"><pre><code class="hljs python">job_id = cmds.scriptJob(tc=<span class="hljs-string">&#x27;print &quot;change&quot;&#x27;</span>)
+cmds.scriptJob(kill=job_id)</code></pre></div>
+
+<h3 id="属性变化触发事件"><a href="#属性变化触发事件" class="headerlink" title="属性变化触发事件"></a>属性变化触发事件</h3><div class="hljs"><pre><code class="hljs python">job_id = cmds.scriptJob(attributeChange=(<span class="hljs-string">&#x27;pSphere1.tx&#x27;</span>,<span class="hljs-string">&#x27;print &quot;123&quot;&#x27;</span>))</code></pre></div>
+
+<h3 id="删除所有任务"><a href="#删除所有任务" class="headerlink" title="删除所有任务"></a>删除所有任务</h3><div class="hljs"><pre><code class="hljs python">cmds.scriptJob(killAll=<span class="hljs-literal">True</span>)</code></pre></div>
+
+<h3 id="其他属性更改"><a href="#其他属性更改" class="headerlink" title="其他属性更改"></a>其他属性更改</h3><div class="hljs"><pre><code class="hljs python">cmds.scriptJob(nodeDeleted=(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, <span class="hljs-string">&#x27;print &quot;ball delete&quot;&#x27;</span>))
+cmds.scriptJob(nodeNameChanged=(<span class="hljs-string">&#x27;pSphere1&#x27;</span>, <span class="hljs-string">&#x27;print &quot;ball rename&quot;&#x27;</span>))</code></pre></div>
+
+<h3 id="防止killAll全部删除"><a href="#防止killAll全部删除" class="headerlink" title="防止killAll全部删除"></a>防止killAll全部删除</h3><p>只有在maya关闭才会删除</p>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L13_1.png" srcset="/img/loading.gif"></p>
+<h3 id="跟踪条件"><a href="#跟踪条件" class="headerlink" title="跟踪条件"></a>跟踪条件</h3><p>自动k帧是否打开</p>
+<div class="hljs"><pre><code class="hljs python">cmds.scriptJob(conditionTure=(<span class="hljs-string">&#x27;autoKeyFrameState&#x27;</span>, <span class="hljs-string">&#x27;print &quot;auto key enable&quot;&#x27;</span>))
+cmds.scriptJob(conditionFalse=(<span class="hljs-string">&#x27;autoKeyFrameState&#x27;</span>, <span class="hljs-string">&#x27;print &quot;auto key disable&quot;&#x27;</span>))</code></pre></div>
+
+<p>是否有物体被选择</p>
+<div class="hljs"><pre><code class="hljs python">cmds.scriptJob(conditionTrue=(<span class="hljs-string">&#x27;Something Selected&#x27;</span>, <span class="hljs-string">&#x27;print &quot;selected&quot;&#x27;</span>))</code></pre></div>
+
+<p>传入方法</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func</span>():</span>
+    <span class="hljs-keyword">print</span> cmds.ls(sl=<span class="hljs-literal">True</span>)
+
+cmds.scriptJob(conditionTrue=(<span class="hljs-string">&#x27;Something Selected&#x27;</span>, func))</code></pre></div>
+
+<h3 id="练习-13"><a href="#练习-13" class="headerlink" title="练习"></a>练习</h3><p>利用 scriptJob 创建一个属性变化影响另一个属性变化。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">ball_tx_change</span>():</span>
+        new_tx = cmds.getAttr(<span class="hljs-string">&#x27;pCube1.tx&#x27;</span>)
+        cmds.setAttr(<span class="hljs-string">&#x27;pSphere1.tx&#x27;</span>,new_tx)
+        
+job_id = cmds.scriptJob(attributeChange=(<span class="hljs-string">&#x27;pCube1.tx&#x27;</span>,ball_tx_change))
+cmds.scriptJob(kill=job_id)</code></pre></div>
+
+<h2 id="L14-基础部分总结"><a href="#L14-基础部分总结" class="headerlink" title="L14 基础部分总结"></a>L14 基础部分总结</h2><p>Maya帮助文档</p>
+<p>Maya命令反馈</p>
+<p>mel whatIs</p>
+<p><img src="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/L14_1.png" srcset="/img/loading.gif"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Maya/">Maya</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/">Maya开发实践课</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SCRIPT/">SCRIPT</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Maya开发实践课（二）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/29/script/%E5%9C%A8Hugo%E4%B8%AD%E4%BD%BF%E7%94%A8css%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/">
+                        <span class="hidden-mobile">在Hugo中使用css自定义图片位置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Maya开发实践课（一）&nbsp;",
+      ],
+      cursorChar: "🔥",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

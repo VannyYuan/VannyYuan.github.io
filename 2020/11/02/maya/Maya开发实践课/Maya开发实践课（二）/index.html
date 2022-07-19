@@ -1,0 +1,1101 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>Maya开发实践课（二） - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-11-02 12:31" pubdate>
+      2020年11月2日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Maya开发实践课（二）</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="L15-走进-PyMEL-编程"><a href="#L15-走进-PyMEL-编程" class="headerlink" title="L15 走进 PyMEL 编程"></a>L15 走进 PyMEL 编程</h2><h3 id="什么是PyMel"><a href="#什么是PyMel" class="headerlink" title="什么是PyMel"></a>什么是PyMel</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L15_1.png" srcset="/img/loading.gif"></p>
+<h3 id="了解PyNode"><a href="#了解PyNode" class="headerlink" title="了解PyNode"></a>了解PyNode</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L15_2.png" srcset="/img/loading.gif"></p>
+<h3 id="pynode转化"><a href="#pynode转化" class="headerlink" title="pynode转化"></a>pynode转化</h3><div class="hljs"><pre><code class="hljs python">node = pm.PyNode(<span class="hljs-string">&#x27;pSphere1&#x27;</span>)
+
+<span class="hljs-comment"># ! 查询方法</span>
+dir(node)
+
+<span class="hljs-comment"># ! 查询属性</span>
+dir(node.attr())</code></pre></div>
+
+<h3 id="连接属性"><a href="#连接属性" class="headerlink" title="连接属性"></a>连接属性</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.cmds <span class="hljs-keyword">as</span> cmds
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+ball = pm.PyNode(<span class="hljs-string">&#x27;ball&#x27;</span>)
+ball_tx = ball.attr(<span class="hljs-string">&#x27;tx&#x27;</span>)
+
+box = pm.PyNode(<span class="hljs-string">&#x27;pCube1&#x27;</span>)
+box_tx = box.attr(<span class="hljs-string">&#x27;tx&#x27;</span>)
+
+ball_tx &gt;&gt; box.tx</code></pre></div>
+
+<h3 id="断开连接"><a href="#断开连接" class="headerlink" title="断开连接"></a>断开连接</h3><div class="hljs"><pre><code class="hljs python">ball_tx //  box_tx</code></pre></div>
+
+<h3 id="使用API方法"><a href="#使用API方法" class="headerlink" title="使用API方法"></a>使用API方法</h3><div class="hljs"><pre><code class="hljs python">ball = pm.PyNode(<span class="hljs-string">&#x27;ball)</span>
+<span class="hljs-string">baii.__apiobject__()</span></code></pre></div>
+
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>使用PyMEl实现原来融合节点的连接。</p>
+<div class="hljs"><pre><code class="hljs pyrhon">
+import pymel.core as pm
+
+lam_A &#x3D; pm.createNode(&#39;lambert&#39;)
+lam_B &#x3D; pm.createNode(&#39;lambert&#39;)
+lam_C &#x3D; pm.createNode(&#39;lambert&#39;)
+bc &#x3D; pm.createNode(&#39;blendColors&#39;)
+
+lam_A.outColor &gt;&gt; bc.color1
+lam_B.outColor &gt;&gt; bc.color2
+bc.output.connect(lam_C.color)</code></pre></div>
+
+<h2 id="L16-为-Maya-安装第三方-Python-包"><a href="#L16-为-Maya-安装第三方-Python-包" class="headerlink" title="L16 为 Maya 安装第三方 Python 包"></a>L16 为 Maya 安装第三方 Python 包</h2><ol>
+<li>拷贝安装</li>
+<li>pip安装</li>
+<li>编译安装</li>
+</ol>
+<h3 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h3><p>给Maya安装yaml模块和numpy模块。</p>
+<p><strong>Numpy</strong></p>
+<p>官方文档</p>
+<p><a target="_blank" rel="noopener" href="https://numpy.org/install/#python-numpy-install-guide">https://numpy.org/install/#python-numpy-install-guide</a></p>
+<p>简介</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/numpy/numpy-tutorial.html">https://www.runoob.com/numpy/numpy-tutorial.html</a></p>
+<p>python安装</p>
+<p>python -m pip install numpy</p>
+<p>maya安装</p>
+<ol>
+<li><p>下载wheel<br><a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple/numpy/">https://pypi.tuna.tsinghua.edu.cn/simple/numpy/</a></p>
+</li>
+<li><p>安装<br>mayapy -m pip install C:\Users\Administrator\Desktop\numpy-1.14.0rc1-cp27-none-win_amd64.whl</p>
+</li>
+</ol>
+<p><strong>yaml</strong></p>
+<p>python安装</p>
+<p>python -m pip install pyyaml</p>
+<p>maya安装</p>
+<ol>
+<li><p>下载wheel<br><a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple/pyyml/">https://pypi.tuna.tsinghua.edu.cn/simple/pyyml/</a></p>
+</li>
+<li><p>安装<br>mayapy -m pip install C:\Users\Administrator\Desktop\pyyml-0.0.2-py2.py3-none-any.whl</p>
+</li>
+</ol>
+<h2 id="L17-自定义-Maya-环境变量"><a href="#L17-自定义-Maya-环境变量" class="headerlink" title="L17 自定义 Maya 环境变量"></a>L17 自定义 Maya 环境变量</h2><h3 id="为什么自定义软件环境"><a href="#为什么自定义软件环境" class="headerlink" title="为什么自定义软件环境"></a>为什么自定义软件环境</h3><ol>
+<li>统一管理</li>
+<li>快速部署</li>
+<li>方便切换</li>
+</ol>
+<p>&emsp;&emsp;环境变量的用户变量会覆盖系统变量。</p>
+<h3 id="cmd设置环境变量"><a href="#cmd设置环境变量" class="headerlink" title="cmd设置环境变量"></a>cmd设置环境变量</h3><div class="hljs"><pre><code class="hljs cmd"><span class="hljs-built_in">set</span> MAYA_DISABLE_CLIC_IPM=<span class="hljs-number">1</span></code></pre></div>
+
+<h3 id="python设置环境变量"><a href="#python设置环境变量" class="headerlink" title="python设置环境变量"></a>python设置环境变量</h3><ol>
+<li>查询<div class="hljs"><pre><code class="hljs python">os.environ</code></pre></div></li>
+<li>设置<div class="hljs"><pre><code class="hljs python">_env = os.environ.copy()
+_env[<span class="hljs-string">&#x27;XXX_ENV&#x27;</span>] = <span class="hljs-string">&#x27;hello&#x27;</span>
+<span class="hljs-keyword">import</span> subprocess
+subprocess.Popen(<span class="hljs-string">&quot;C:/Program Files/Autodesk/Maya2017/bin/maya.exe&quot;</span>,env=_env)</code></pre></div>
+
+</li>
+</ol>
+<h3 id="常用环境变量"><a href="#常用环境变量" class="headerlink" title="常用环境变量"></a>常用环境变量</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L17_1.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h3><p>使用Yaml编写一个环境配置文件，读取里面内容使用subprocess启动软件。</p>
+<p>写入yaml</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> yaml
+
+yaml_str = <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">name: yaml_env</span>
+<span class="hljs-string">date: 20200716</span>
+<span class="hljs-string">version: [&#x27;maya2018&#x27;,&#x27;maya2019&#x27;]</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+yaml_data = yaml.load(yaml_str, Loader=yaml.SafeLoader)
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">&#x27;D:/td_tech/yaml_test/yaml_write.yaml&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:
+        yaml.dump(yaml_data, f)</code></pre></div>
+
+<p>启动软件</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> yaml
+<span class="hljs-keyword">import</span> subprocess
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">&#x27;D:/td_tech/yaml_test/yaml_write.yaml&#x27;</span>, <span class="hljs-string">&#x27;r+&#x27;</span>) <span class="hljs-keyword">as</span> f:
+        data = yaml.load(f, Loader=yaml.Loader)
+
+_env = os.environ.copy()
+
+<span class="hljs-keyword">for</span> (key,value) <span class="hljs-keyword">in</span> data.items():
+        _env[key] = str(value)
+
+
+subprocess.Popen(<span class="hljs-string">&quot;C:/Program Files/Autodesk/Maya2018/bin/maya.exe&quot;</span>,env=_env)</code></pre></div>
+<p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L17_2.png" srcset="/img/loading.gif"></p>
+<h2 id="L18-Maya-API-基本类型介绍"><a href="#L18-Maya-API-基本类型介绍" class="headerlink" title="L18 Maya API 基本类型介绍"></a>L18 Maya API 基本类型介绍</h2><h3 id="Maya-API基本结构"><a href="#Maya-API基本结构" class="headerlink" title="Maya API基本结构"></a>Maya API基本结构</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L18_1.png" srcset="/img/loading.gif"></p>
+<h3 id="API语言支持"><a href="#API语言支持" class="headerlink" title="API语言支持"></a>API语言支持</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L18_2.png" srcset="/img/loading.gif"></p>
+<ol>
+<li><p>API编译的插件后缀：</p>
+<p> Linux：.so</p>
+<p> Windows: .mll</p>
+<p> Mac OS X：.bundle</p>
+<p> 通用性插件：.py</p>
+</li>
+<li><p>API内置库：</p>
+<p> OpenMaya 基本的操作工具类</p>
+<p> OpenMayaUI 界面工具类</p>
+<p> OpenMayaAnim 动画工具类</p>
+<p> OpenMayaFX 特效工具类</p>
+<p> OpenMayaRender 渲染工具类</p>
+</li>
+<li><p>API命名规则</p>
+</li>
+</ol>
+<p>M classes - 基本的数据类型</p>
+<p>MFn - Function 函数工具类型</p>
+<p>MIt - Iterator 迭代器类型</p>
+<p>MPx - 代理类型，拓展Maya功能需要继承的类</p>
+<h3 id="DependencyNode、-DagNode"><a href="#DependencyNode、-DagNode" class="headerlink" title="DependencyNode、 DagNode"></a>DependencyNode、 DagNode</h3><p>DependencyNode：Maya最基本的节点类型</p>
+<p>DagNode：Maya带有层级的节点类型</p>
+<p>DagNode由DependencyNode继承而来，DagNode有层级关系继承。</p>
+<h3 id="MObject"><a href="#MObject" class="headerlink" title="MObject"></a>MObject</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L18_3.png" srcset="/img/loading.gif"></p>
+<h3 id="查询API帮助文档-API1-0"><a href="#查询API帮助文档-API1-0" class="headerlink" title="查询API帮助文档 API1.0"></a>查询API帮助文档 API1.0</h3><p>MObject() 相当于python的<strong>init</strong>()，可以用于实例化对象</p>
+<p>静态方法static Mobject：在没有实例化节点之前就能使用</p>
+<p>析构函数~Mobject()：变量在销毁的时候执行的操作</p>
+<h3 id="通过Pymel创建Mobject"><a href="#通过Pymel创建Mobject" class="headerlink" title="通过Pymel创建Mobject"></a>通过Pymel创建Mobject</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+ball_node = pm.PyNode(<span class="hljs-string">&#x27;pSphere1&#x27;</span>)
+ball_api_node = ball_node.__apimobject__()
+
+<span class="hljs-comment"># 通过pymel转化的MObject已经有了对象</span>
+<span class="hljs-keyword">print</span> ball_api_node.isNull() <span class="hljs-comment"># True</span>
+<span class="hljs-comment"># 通过OpenMaya直接创建的MObject是空的</span>
+<span class="hljs-keyword">print</span> OpenMaya.MObject().isNull() <span class="hljs-comment"># False</span>
+
+<span class="hljs-comment"># 查询api类型</span>
+<span class="hljs-keyword">print</span> ball_api_node.apiType() <span class="hljs-comment"># 110</span>
+<span class="hljs-keyword">print</span> ball_api_node.apiTypeStr() <span class="hljs-comment"># kTransform</span>
+ballshape_api_node = pm.PyNode(<span class="hljs-string">&#x27;pSphereShape1&#x27;</span>).__apimobject__()
+<span class="hljs-keyword">print</span> ballshape_api_node.apiType() <span class="hljs-comment"># 296</span>
+<span class="hljs-keyword">print</span> ballshape_api_node.apiTypeStr() <span class="hljs-comment"># kMesh</span>
+
+<span class="hljs-comment"># 使用 == != 判断两个物体是否相等</span>
+<span class="hljs-keyword">print</span> ball_api_node == ballshape_api_node <span class="hljs-comment"># False</span>
+<span class="hljs-comment"># 使用 = 直接赋值</span>
+ballshape_api_node = ball_api_node
+<span class="hljs-keyword">print</span> ballshape_api_node.apiTypeStr()</code></pre></div>
+
+<h3 id="DagPath"><a href="#DagPath" class="headerlink" title="DagPath"></a>DagPath</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L18_4.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># 创建一个空的MDagPath</span>
+ball_dag_path = OpenMaya.MDagPath()
+<span class="hljs-comment"># 建立DagPath联系</span>
+OpenMaya.MDagPath.getAPathTo(ball_api_node,ball_dag_path)
+<span class="hljs-comment"># 获取DagPath名字</span>
+<span class="hljs-keyword">print</span> ball_dag_path.fullPathName() <span class="hljs-comment"># |pSphere1</span>
+<span class="hljs-keyword">print</span> ball_dag_path.partialPathName() <span class="hljs-comment"># pSphere1</span>
+<span class="hljs-comment"># 判断是否显示</span>
+<span class="hljs-keyword">print</span> ball_dag_path.isVisible() <span class="hljs-comment"># True</span>
+<span class="hljs-comment"># 通过MDagPath获取API类型</span>
+<span class="hljs-keyword">print</span> ball_dag_path.apiType() <span class="hljs-comment"># 110</span>
+<span class="hljs-comment"># 通过MDagPath返回MObject</span>
+<span class="hljs-keyword">print</span> ball_dag_path.node() <span class="hljs-comment"># &lt;maya.OpenMaya.MObject; proxy of &lt;Swig Object of type &#x27;MObject *&#x27; at 0x0000014894705F90&gt;</span></code></pre></div>
+
+<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>既然Maya已经提供了cmds这个编程的接口，为什么还要提供OpenMaya的呢？</p>
+<h2 id="L19-Maya-API的三种基本类型"><a href="#L19-Maya-API的三种基本类型" class="headerlink" title="L19 Maya API的三种基本类型"></a>L19 Maya API的三种基本类型</h2><h3 id="MFn"><a href="#MFn" class="headerlink" title="MFn"></a>MFn</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L19_1.png" srcset="/img/loading.gif"></p>
+<p>MFnDependencyNode：处理任何节点的普通方法</p>
+<p>MFnDagNode：处理大纲物体的常用方法<br>MFnMesh：处理多边形操作</p>
+<p>普通MFn记录Maya内所有节点的类型，MObject中的apiType返回的就是MFn列表的索引值</p>
+<p>其他的有MFnSet、MFnMesh等等。</p>
+<h3 id="MIt"><a href="#MIt" class="headerlink" title="MIt"></a>MIt</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L19_2.png" srcset="/img/loading.gif"></p>
+<p>MitDag：处理大纲层级所有物体</p>
+<p>MitCurveCV：处理曲线的点</p>
+<p>MitMeshEdge：多边形的线的循环</p>
+<p>MitMeshFaceVertex：处理多边形面点</p>
+<p>MitMeshPolygon：处理多边形面</p>
+<p>MitMeshVertex：处理多边形点</p>
+<p>MitSelectionList：处理列表中的任何物体</p>
+<p>MitDependencyGraph：通过一个节点寻找上下游所有节点</p>
+<p>MitDependencyNodes：过滤场景内的任何节点</p>
+<h3 id="MPx"><a href="#MPx" class="headerlink" title="MPx"></a>MPx</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L19_3.png" srcset="/img/loading.gif"></p>
+<p>用于编写maya没有的物体</p>
+<p>MpxCommand：编写一个命令</p>
+<p>MPxNode：编写一个节点</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L19_4.png" srcset="/img/loading.gif"></p>
+<h2 id="L20-Maya-API中基本容器的使用"><a href="#L20-Maya-API中基本容器的使用" class="headerlink" title="L20 Maya API中基本容器的使用"></a>L20 Maya API中基本容器的使用</h2><h3 id="MSelectionList"><a href="#MSelectionList" class="headerlink" title="MSelectionList"></a>MSelectionList</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L20_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+<span class="hljs-comment"># 创建一个空的MSelectionList</span>
+<span class="hljs-comment"># &lt;maya.OpenMaya.MSelectionList; proxy of &lt;Swig Object of type &#x27;MSelectionList *&#x27; at 0x0000014894705780&gt; &gt; </span>
+lst = OpenMaya.MSelectionList()
+<span class="hljs-keyword">print</span> lst.isEmpty() <span class="hljs-comment"># True</span>
+
+<span class="hljs-comment"># 添加物体</span>
+lst.add(<span class="hljs-string">&#x27;pSphere1&#x27;</span>)
+<span class="hljs-comment"># 查询个数</span>
+lst.length() <span class="hljs-comment"># 1</span>
+<span class="hljs-comment"># 添加所有的球体</span>
+lst.add(<span class="hljs-string">&#x27;pSphere*&#x27;</span>)
+lst.length() <span class="hljs-comment"># 2</span>
+
+<span class="hljs-comment"># 合并两个列表</span>
+b_lst = OpenMaya.MSelectionList()
+b_lst.add(<span class="hljs-string">&#x27;pCube?&#x27;</span>)
+lst.merge(b_lst)
+
+<span class="hljs-keyword">print</span> lst.length() <span class="hljs-comment"># 3</span></code></pre></div>
+
+<h3 id="MItSelectionList"><a href="#MItSelectionList" class="headerlink" title="MItSelectionList"></a>MItSelectionList</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L20_2.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+sel_lst = OpenMaya.MSelectionList()
+sel_lst.add(<span class="hljs-string">&#x27;pSphere?&#x27;</span>)
+
+<span class="hljs-comment"># 返回列表每一个物体的长名</span>
+dag_path = OpenMaya.MDagPath()
+lst_iter = OpenMaya.MItSelectionList(sel_lst)
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> lst_iter.isDone():
+        lst_iter.getDagPath(dag_path)
+        <span class="hljs-keyword">print</span> dag_path.fullPathName()
+        
+        lst_iter.next()</code></pre></div>
+
+<h3 id="练习-3"><a href="#练习-3" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L20_3.png" srcset="/img/loading.gif"></p>
+<p>通配符</p>
+<p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L20_4.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.cmds <span class="hljs-keyword">as</span> cmds
+<span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+
+<span class="hljs-comment"># create 10,000 balls</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">10000</span>):
+        cmds.polySphere()
+
+<span class="hljs-comment"># cmds</span>
+start_time = datetime.now()
+sel_lst = cmds.ls(sl=<span class="hljs-literal">True</span>)
+<span class="hljs-keyword">for</span> sel <span class="hljs-keyword">in</span> sel_lst:
+        <span class="hljs-keyword">pass</span>
+end_time = datetime.now()
+<span class="hljs-comment"># 36000</span>
+cmds_time = (end_time - start_time)
+
+<span class="hljs-comment"># OpenMaya</span>
+sel_lst = OpenMaya.MSelectionList()
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">10000</span>):
+        sel_lst.add(<span class="hljs-string">&#x27;pSphere&#123;&#125;&#x27;</span>.format(i))
+iter_lst = OpenMaya.MItSelectionList(sel_lst)
+dag_path = OpenMaya.MDagPath()
+
+start_time = datetime.now()
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> iter_lst.isDone():
+        iter_lst.getDagPath(dag_path)
+        iter_lst.next()
+end_time = datetime.now()
+<span class="hljs-comment"># 28000</span>
+OpenMaya_time = (end_time - start_time)
+
+<span class="hljs-comment"># Mel</span></code></pre></div>
+
+
+<h2 id="L21-Maya-API-的全局操作方法-MGlobal"><a href="#L21-Maya-API-的全局操作方法-MGlobal" class="headerlink" title="L21 Maya API 的全局操作方法 - MGlobal"></a>L21 Maya API 的全局操作方法 - MGlobal</h2><h3 id="MGlobal"><a href="#MGlobal" class="headerlink" title="MGlobal"></a>MGlobal</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L21_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya
+<span class="hljs-keyword">from</span> maya.OpenMaya <span class="hljs-keyword">import</span> MGlobal
+
+<span class="hljs-keyword">print</span> MGlobal.mayaVersion()
+<span class="hljs-comment"># 2018</span>
+<span class="hljs-keyword">print</span> MGlobal.apiVersion()
+<span class="hljs-comment"># 20180500</span>
+
+<span class="hljs-comment"># 把选择的物体传入sel列表</span>
+sel = OpenMaya.MSelectionList()
+OpenMaya.MGlobal.getActiveSelectionList(sel)
+<span class="hljs-keyword">print</span> sel.length()
+
+<span class="hljs-comment"># 选择sel列表的物体</span>
+OpenMaya.MGlobal.setActiveSelectionList(sel)
+
+<span class="hljs-comment"># 执行python或mel命令</span>
+MGlobal.executeCommand(<span class="hljs-string">&#x27;ls -sl&#x27;</span>)
+MGlobal.executeCommand(<span class="hljs-string">&#x27;createNode &quot;joint&quot;&#x27;</span>)
+<span class="hljs-comment"># MGlobal.executePythonCommand(&#x27;cmds.createNode(&quot;joint&quot;)&#x27;)</span>
+
+MGlobal.isYAxisUp()
+<span class="hljs-comment"># True</span>
+
+MGlobal.displayInfo(<span class="hljs-string">&#x27;info ..&#x27;</span>)
+MGlobal.displayWarning(<span class="hljs-string">&#x27;warning ..&#x27;</span>)
+MGlobal.displayError(<span class="hljs-string">&#x27;error ..&#x27;</span>)
+
+<span class="hljs-comment"># 设置当前帧</span>
+MGlobal.viewFrame(<span class="hljs-number">30</span>)</code></pre></div>
+
+<h3 id="MGlobal常用方法"><a href="#MGlobal常用方法" class="headerlink" title="MGlobal常用方法"></a>MGlobal常用方法</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L21_2.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-4"><a href="#练习-4" class="headerlink" title="练习"></a>练习</h3><p>尝试使用MGlobal选择屏幕某一块区域的物体。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">from</span> maya.OpenMaya <span class="hljs-keyword">import</span> MGlobal
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+MGlobal.selectFromScreen(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1920</span>,<span class="hljs-number">1080</span>,MGlobal.kAddToList,MGlobal.kSurfaceSelectMethod)</code></pre></div>
+
+<h2 id="L22-Maya-API-的文件操作-MFileIO"><a href="#L22-Maya-API-的文件操作-MFileIO" class="headerlink" title="L22 Maya API 的文件操作 MFileIO"></a>L22 Maya API 的文件操作 MFileIO</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya
+<span class="hljs-keyword">from</span> maya.OpenMaya <span class="hljs-keyword">import</span> MFileIO
+
+<span class="hljs-keyword">print</span> MFileIO.currentFile()
+<span class="hljs-comment"># D:/test/test/test.ma</span>
+
+MFileIO.setCurrentFile(<span class="hljs-string">&#x27;D:/test/test_1.ma&#x27;</span>)
+<span class="hljs-keyword">print</span> MFileIO.currentFile()
+<span class="hljs-comment"># D:/test/test_1.ma</span>
+
+<span class="hljs-keyword">print</span> MFileIO.fileType()
+<span class="hljs-comment"># u&#x27;mayaAscii&#x27;</span>
+
+lst = list()
+MFileIO.getFileTypes(lst)
+<span class="hljs-keyword">print</span> lst
+<span class="hljs-comment"># [u&#x27;mayaAscii&#x27;, u&#x27;mayaBinary&#x27;, u&#x27;mel&#x27;, u&#x27;OBJ&#x27;, u&#x27;directory&#x27;, u&#x27;plug-in&#x27;, u&#x27;audio&#x27;, u&#x27;move&#x27;, u&#x27;EPS&#x27;, u&#x27;Adobe(R) Illustrator(R)&#x27;, u&#x27;image&#x27;, u&#x27;fluidCache&#x27;, u&#x27;editMA&#x27;, u&#x27;editMB&#x27;, u&#x27;Alembic&#x27;, u&#x27;RIB&#x27;]</span>
+
+<span class="hljs-comment"># 新建场景</span>
+MFileIO.newFile(<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># 保存场景</span>
+MFileIO.saveAs(<span class="hljs-string">&#x27;D:/test/test/ball.ma&#x27;</span>, <span class="hljs-string">&#x27;mayaAscii&#x27;</span>)
+MFileIO.save()
+</code></pre></div>
+
+<h3 id="MFileIO-常用方法"><a href="#MFileIO-常用方法" class="headerlink" title="MFileIO 常用方法"></a>MFileIO 常用方法</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L22_1.png" srcset="/img/loading.gif"><br><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L22_2.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-5"><a href="#练习-5" class="headerlink" title="练习"></a>练习</h3><p>列出场景内所有的材质shadingGroup节点，并使用API导出为文件。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+sg_lst = pm.ls(type=<span class="hljs-string">&#x27;shadingEngine&#x27;</span>)
+lst = OpenMaya.MSelectionList()
+
+<span class="hljs-comment"># 列出所有sg节点</span>
+<span class="hljs-keyword">for</span> sg <span class="hljs-keyword">in</span> sg_lst:
+        sg_mobj = sg.__apimobject__()
+        lst.add(sg_mobj)
+
+<span class="hljs-comment"># 选择所有sg节点</span>
+OpenMaya.MGlobal.setActiveSelectionList(lst)
+
+<span class="hljs-comment"># 导出选择的节点</span>
+OpenMaya.MFileIO.exportSelected(<span class="hljs-string">&#x27;D:/test/sg_test.ma&#x27;</span>)</code></pre></div>
+
+<h2 id="L23-Maya-API-中的节点迭代器和函数类"><a href="#L23-Maya-API-中的节点迭代器和函数类" class="headerlink" title="L23 Maya API 中的节点迭代器和函数类"></a>L23 Maya API 中的节点迭代器和函数类</h2><h3 id="MFnDependencyNode"><a href="#MFnDependencyNode" class="headerlink" title="MFnDependencyNode"></a>MFnDependencyNode</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L23_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+mfn = OpenMaya.MFnDependencyNode(pm.ls(sl=<span class="hljs-literal">True</span>)[<span class="hljs-number">0</span>].__apimobject__())
+<span class="hljs-keyword">print</span> mfn.typeName()
+<span class="hljs-comment"># transform</span>
+<span class="hljs-keyword">print</span> mfn.name()
+<span class="hljs-comment"># pCylinder1</span>
+mfn.setName(<span class="hljs-string">&#x27;new_pCylinder&#x27;</span>)
+<span class="hljs-keyword">print</span> mfn.name()
+<span class="hljs-comment"># new_pCylinder</span>
+mfn.attributeCount()
+<span class="hljs-comment"># 249</span>
+
+iterator = OpenMaya.MItDependencyNodes(OpenMaya.MFn.kMesh)
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> iterator.isDone():
+        <span class="hljs-keyword">print</span> OpenMaya.MFnDependencyNode(iterator.thisNode()).name()
+        <span class="hljs-keyword">print</span> OpenMaya.MFnDependencyNode(iterator.item()).name()
+        iterator.next()
+</code></pre></div>
+
+<h3 id="练习-6"><a href="#练习-6" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L23_2.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+mit = OpenMaya.MItDependencyNodes(OpenMaya.MFn.kMesh)
+sh_sg_connects = &#123;&#125;
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> mit.isDone():
+        mfn = OpenMaya.MFnDependencyNode(mit.item())
+        plug_array = OpenMaya.MPlugArray()
+        mfn.getConnections(plug_array)
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(plug_array.length()):
+                des_array = OpenMaya.MPlugArray()
+                plug_array[i].destinations(des_array)
+                <span class="hljs-keyword">if</span> des_array.length():
+                        <span class="hljs-keyword">if</span> des_array[<span class="hljs-number">0</span>].node().apiTypeStr() == <span class="hljs-string">&#x27;kShadingEngine&#x27;</span>:
+                                sh_sg_connects[mfn.name()] = des_array[<span class="hljs-number">0</span>].name().split(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">0</span>]
+        mit.next()
+
+<span class="hljs-keyword">for</span> (key,value) <span class="hljs-keyword">in</span> sh_sg_connects.items():
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;&#123;&#125; connected to &#123;&#125;&#x27;</span>.format(key,value)</code></pre></div>
+
+<h2 id="L24-Maya-API-层级迭代器与物体函数类"><a href="#L24-Maya-API-层级迭代器与物体函数类" class="headerlink" title="L24 Maya API 层级迭代器与物体函数类"></a>L24 Maya API 层级迭代器与物体函数类</h2><h3 id="MFnDagNode"><a href="#MFnDagNode" class="headerlink" title="MFnDagNode"></a>MFnDagNode</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L24_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python">
+<span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+mfn = OpenMaya.MFnDagNode(pm.PyNode(<span class="hljs-string">&#x27;pSphere1&#x27;</span>).__apimobject__())
+<span class="hljs-keyword">print</span> mfn.partialPathName()
+<span class="hljs-comment"># pSphere1</span>
+<span class="hljs-keyword">print</span> mfn.fullPathName()
+<span class="hljs-comment"># |pSphere1</span>
+<span class="hljs-keyword">print</span> mfn.childCount()
+<span class="hljs-comment"># 1</span>
+
+iterator = OpenMaya.MItDag()
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> iterator.isDone():
+        <span class="hljs-keyword">print</span> iterator.partialPathName()
+
+        iterator.next()</code></pre></div>
+
+<h3 id="练习-7"><a href="#练习-7" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L24_2.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+<span class="hljs-comment"># 选择所有mesh</span>
+mit = OpenMaya.MItDag(OpenMaya.MItDag.kDepthFirst,OpenMaya.MFn.kMesh)
+sel_lst = OpenMaya.MSelectionList()
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> mit.isDone():
+        m_dag = OpenMaya.MFnDagNode(mit.item())
+        sel_lst.add(m_dag.fullPathName())
+        mit.next()
+
+
+OpenMaya.MGlobal.setActiveSelectionList(sel_lst)</code></pre></div>
+
+<h2 id="L25-Maya-API-中的多边形处理MFnMesh-MItMesh"><a href="#L25-Maya-API-中的多边形处理MFnMesh-MItMesh" class="headerlink" title="L25 Maya API 中的多边形处理MFnMesh MItMesh"></a>L25 Maya API 中的多边形处理MFnMesh MItMesh</h2><h3 id="MFnMesh"><a href="#MFnMesh" class="headerlink" title="MFnMesh"></a>MFnMesh</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L25_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+mfn = OpenMaya.MFnMesh(pm.PyNode(<span class="hljs-string">&#x27;pSphere1&#x27;</span>).__apiobject__())
+<span class="hljs-keyword">print</span> mfn.numPolygons()
+<span class="hljs-comment"># 400</span>
+<span class="hljs-keyword">print</span> mfn.numVertices()
+<span class="hljs-comment"># 382</span>
+
+point = OpenMaya.MPoint()
+mfn.getPoint(<span class="hljs-number">0</span>, point)
+<span class="hljs-keyword">print</span> point.x,point.y,point.z
+<span class="hljs-comment"># 0.148778125644 -0.987688362598 -0.0483409427106</span>
+mfn.getPoint(<span class="hljs-number">381</span>, point)
+<span class="hljs-keyword">print</span> point.x,point.y,point.z
+<span class="hljs-comment"># 0.0 1.0 0.0</span>
+
+<span class="hljs-comment"># 设置点位置</span>
+point = OpenMaya.MPoint(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>)
+mfn.setPoint(<span class="hljs-number">381</span>, point)
+
+iterator = OpenMaya.MItMeshVertex(pm.PyNode(<span class="hljs-string">&#x27;pSphereShape1&#x27;</span>).__apiobject__())
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> iterator.isDone():
+        <span class="hljs-comment"># 查询点位置</span>
+        point = iterator.position()
+        <span class="hljs-keyword">print</span> iterator.index(), point.x, point.y, point.z
+        
+        <span class="hljs-comment"># 设置点位置</span>
+        point = OpenMaya.MPoint(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>)
+        iterator.setPosition(point)
+        iterator.next()</code></pre></div>
+
+<p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L25_2.png" srcset="/img/loading.gif"></p>
+<h3 id="练习-8"><a href="#练习-8" class="headerlink" title="练习"></a>练习</h3><p>使用MFnMesh和MItMesh里的迭代器，寻找两个物体穿插的部分。</p>
+<h2 id="L26-Maya-API-中的指针-MScriptUtil"><a href="#L26-Maya-API-中的指针-MScriptUtil" class="headerlink" title="L26 Maya API 中的指针 - MScriptUtil"></a>L26 Maya API 中的指针 - MScriptUtil</h2><h3 id="MScriptUtil"><a href="#MScriptUtil" class="headerlink" title="MScriptUtil"></a>MScriptUtil</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L26_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+iterator = OpenMaya.MItMeshVertex(pm.PyNode(<span class="hljs-string">&#x27;pSphereShape1&#x27;</span>).__apimobject__())
+<span class="hljs-comment"># 定义float2类型指针</span>
+s_util = OpenMaya.MScriptUtil()
+uv_ptr = s_util.asFloat2Ptr()
+
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> iterator.isDone():
+        <span class="hljs-comment"># 打印出每个点的uv值</span>
+        <span class="hljs-keyword">print</span> iterator.index(),
+        iterator.getUV(uv_ptr)
+        <span class="hljs-keyword">print</span> s_util.getFloat2ArrayItem(uv_ptr, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>),
+        <span class="hljs-keyword">print</span> s_util.getFloat2ArrayItem(uv_ptr, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+        iterator.next()</code></pre></div>
+
+<h3 id="练习-9"><a href="#练习-9" class="headerlink" title="练习"></a>练习</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L26_2.png" srcset="/img/loading.gif"></p>
+<h2 id="L27-Maya-API-中的事件捕获-MMessage"><a href="#L27-Maya-API-中的事件捕获-MMessage" class="headerlink" title="L27 Maya API 中的事件捕获 - MMessage"></a>L27 Maya API 中的事件捕获 - MMessage</h2><h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p><img src="/2020/11/02/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%BA%8C%EF%BC%89/L27_1.png" srcset="/img/loading.gif"></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> maya.OpenMaya <span class="hljs-keyword">as</span> OpenMaya
+<span class="hljs-keyword">import</span> pymel.core <span class="hljs-keyword">as</span> pm
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func</span>(<span class="hljs-params">*args</span>):</span>
+        <span class="hljs-keyword">print</span> <span class="hljs-number">1</span>
+
+<span class="hljs-comment"># 添加时间触发事件    </span>
+callback_id = OpenMaya.MTimerMessage.addTimerCallback(<span class="hljs-number">2</span>, func)
+
+<span class="hljs-comment"># 移除时间触发事件</span>
+OpenMaya.MTimerMessage.removeCallback(callback_id)
+
+<span class="hljs-comment"># 获取可以调用的事件种类</span>
+event_names = list()
+OpenMaya.MEventMessage.getEventNames(event_names)
+<span class="hljs-keyword">print</span> event_names()
+
+<span class="hljs-comment"># 创建时间轴变化事件</span>
+callback_id = OpenMaya.MEventMessage.addEventCallback(<span class="hljs-string">&#x27;timeChanged&#x27;</span>,func)
+<span class="hljs-comment"># 移除时间轴变化事件</span>
+OpenMaya.MTimerMessage.removeCallback()</code></pre></div>
+
+<h3 id="Message使用方法"><a href="#Message使用方法" class="headerlink" title="Message使用方法"></a>Message使用方法</h3><ol>
+<li>定义函数</li>
+<li>addCallback</li>
+<li>removeCallback</li>
+</ol>
+<h3 id="练习-10"><a href="#练习-10" class="headerlink" title="练习"></a>练习</h3><p>使用MSceneMessage创建一个事件，当文件reference创建完成之后，修改它的namespace。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Maya/">Maya</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/">Maya开发实践课</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SCRIPT/">SCRIPT</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/26/unreal/UnrealPython%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UnrealPython基础学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/30/maya/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE/Maya%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E8%AF%BE%EF%BC%88%E4%B8%80%EF%BC%89/">
+                        <span class="hidden-mobile">Maya开发实践课（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Maya开发实践课（二）&nbsp;",
+      ],
+      cursorChar: "🧀",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

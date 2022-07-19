@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>基于Cgtw的打包工具 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-04-13 16:53" pubdate>
+      2021年4月13日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">基于Cgtw的打包工具</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;因为公司制作资产项目时，经常需要把文件发送给外包或者客户，但是一个个文件整理发送，特别是 Maya 文件位置移动后，里面使用的路径也需要更新，如果逐个文件更改路径显然非常麻烦。因此打包工具的作用就是再打包后实现打开即可用，简化打包方和接收方的操作。</p>
+<p>&emsp;&emsp;其实早在之前就已经开发过打包工具，但是由于当时对 Qt 还不是很熟悉，没有掌握 MVC 框架的知识，而且刚接触 Cgtw，对它的接口以及使用方法都没有深入研究过，因此开发出来的工具十分拙劣，基本都是参考 Cgtw 原有的打包工具而修改开发出来的。</p>
+<h2 id="一、打包工具的更迭"><a href="#一、打包工具的更迭" class="headerlink" title="一、打包工具的更迭"></a>一、打包工具的更迭</h2><ol>
+<li><p>🙄 Cgtw 的打包工具<br>&emsp;&emsp;这是 Cgtw 的自带的打包工具，只有单纯的复制文件功能。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/1.png" srcset="/img/loading.gif">  </p>
+</li>
+<li><p>😲 打包工具 2<br>&emsp;&emsp;这是模仿 Cgtw 开发出来的打包工具，添加了对 Maya 场景的处理。在 Cgtw 的界面基础上，还添加了资产/镜头、打包路径、项目、当前选择文件夹路径、文件夹显示文件列表的显示。<br>&emsp;&emsp;由于没有使用 MVC 框架，像视图使用的都是 QListWidget、 QTreeWidget，而不是 QListView、QTreeView等，因此如果有修改需求，则代码改动会很大，以至于后面已经不想再维护这个工具，而是去开发新一代的打包工具。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/2.png" srcset="/img/loading.gif">  </p>
+</li>
+</ol>
+<ol>
+<li>😇 打包工具 3<br>&emsp;&emsp;基本上打包工具 3 已经是整个界面、内置方法全都重写了，由于是自己整理编写的，因此对里面的方法和原理都比较熟悉，下面就重点讲一下这个工具吧！<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/3.png" srcset="/img/loading.gif">  </li>
+</ol>
+<hr>
+<h2 id="二、功能演示说明"><a href="#二、功能演示说明" class="headerlink" title="二、功能演示说明"></a>二、功能演示说明</h2><h3 id="🥕-启动工具"><a href="#🥕-启动工具" class="headerlink" title="🥕 启动工具"></a>🥕 启动工具</h3><ol>
+<li><p>Cgtw 中选中需要打包的 资产/镜头，启动 “打包工具 3.0”。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/g1.gif" srcset="/img/loading.gif"></p>
+</li>
+<li><p>等待读取打包信息、界面加载。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/g2.gif" srcset="/img/loading.gif"></p>
+</li>
+</ol>
+<h3 id="🥕-设置打包信息"><a href="#🥕-设置打包信息" class="headerlink" title="🥕 设置打包信息"></a>🥕 设置打包信息</h3><ol>
+<li><p>修改打包路径<br>&emsp;&emsp;默认为项目设定的打包路径，如果想打包到其他文件夹也可以自行设定。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/g3.gif" srcset="/img/loading.gif"></p>
+</li>
+<li><p>资产整合<br>&emsp;&emsp;对于资产打包阶段，勾选“资产整合”会对资产列表中的所有资产分别整合，对绑定、贴图、毛发阶段资产整合到一个文件里，并且输出整合信息。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/5.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>使用打包模版<br>&emsp;&emsp;可以通过选择预设的打包模版快速选择需要打包的文件夹。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/g4.gif" srcset="/img/loading.gif"></p>
+</li>
+<li><p>项目路径更改<br>&emsp;&emsp;假如项目经过移动，而maya场景文件没有修改对应引用路径，则需要通过勾选“项目路径更改”，填写新旧项目路径进行打包。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/7.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>批量选择<br>&emsp;&emsp;在资产中选择 ALL，之后在文件框中勾选文件夹会对所有资产的文件夹进行统一勾选。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/8.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>勾选文件夹<br>&emsp;&emsp;在选好资产后，点击文件夹，会在右边显示文件夹路径，勾选文件夹则表示该文件夹的内容会被打包。勾选阶段会把阶段以下的文件夹全部勾选。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/g5.gif" srcset="/img/loading.gif"></p>
+</li>
+<li><p>编辑文件夹内打包的文件<br>&emsp;&emsp;在默认情况下，该工具仅会打包 Cgtw 文件框内符合显示规则的文件和文件夹，如果需要打包文件框的其他文件，则可以在选择资产、文件框后，勾选“编辑文件夹打包内容”，再勾选需要打包的文件和文件夹。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/9.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>生成打包资产表<br>&emsp;&emsp;勾选“生成打包资产表”，在打包结束后会在打包路径下生成一个“项目打包记录表.xlsx”的文件，描述本次资产整合的情况。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/10.png" srcset="/img/loading.gif"><br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/11.png" srcset="/img/loading.gif"></p>
+</li>
+</ol>
+<h3 id="🥕-打包方式"><a href="#🥕-打包方式" class="headerlink" title="🥕 打包方式"></a>🥕 打包方式</h3><p>&emsp;&emsp;打包方式有三种：前台打包、后台打包和提交Deadline。  </p>
+<ol>
+<li>前台打包：打包 maya 文件时前台打开文件进行打包。</li>
+<li>后台打包：打包 maya 文件时后台打开文件进行打包。</li>
+<li>提交Deadline：把打包任务提交到 Deadline，由渲染农场分配机器进行打包。</li>
+</ol>
+<h3 id="🥕-打包进度"><a href="#🥕-打包进度" class="headerlink" title="🥕 打包进度"></a>🥕 打包进度</h3><p>&emsp;&emsp;如果使用前台打包或后台打包，开始打包后会弹出进度条以及打包信息窗口。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/12.png" srcset="/img/loading.gif"></p>
+<h3 id="🥕-打包文件存放"><a href="#🥕-打包文件存放" class="headerlink" title="🥕 打包文件存放"></a>🥕 打包文件存放</h3><p>&emsp;&emsp;所有勾选需要打包的文件都会打包到打包路径下，而且会继承原路径（整合资产除外，具体规则在“项目打包记录表”中）。<br>&emsp;&emsp;Maya 文件内引用的文件会放在 s: 盘符下，当外包和客户映射一个 s: 盘并把打包文件放在该盘下，打开 maya 文件后能够读取到对应的引用文件。<br><img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/13.png" srcset="/img/loading.gif"></p>
+<hr>
+<h2 id="三、Cgtw-接口"><a href="#三、Cgtw-接口" class="headerlink" title="三、Cgtw 接口"></a>三、Cgtw 接口</h2><p>&emsp;&emsp;由于是在 Cgtw 中进行工具的调用，那么在调用时肯定要通过 Cgtw 获取打包内容信息的，因此需要这些信息获取的接口。当在 Cgtw 中执行操作时（如选择制作阶段打开工具、打开文件等），Cgtw 会记录你上一个操作，可以通过接口获取对应信息。</p>
+<h3 id="获取基本数据"><a href="#获取基本数据" class="headerlink" title="获取基本数据"></a>获取基本数据</h3><p>&emsp;&emsp;一般数据库、模块、模块类型等基本信息，都是通过 <code>cgtw2.tw().client</code> 获取。</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> cgtw2
+self.m_tw          = cgtw2.tw()
+self.m_database    = self.m_tw.client.get_database()
+self.m_module      = self.m_tw.client.get_module()
+self.m_module_type = self.m_tw.client.get_module_type()
+self.m_id_list     = self.m_tw.client.get_id()</code></pre></div>
+
+<p>&emsp;&emsp;其中：  </p>
+<ol>
+<li>m_database 为数据库</li>
+<li>m_module 为模块（asset/shot）</li>
+<li>m_module_type 为模块类型</li>
+<li>m_id_list 为当前选中的项id列表，如选中两项则该列表数有两个。<br> <img src="/2021/04/13/cgtw/%E5%9F%BA%E4%BA%8ECgtw%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/4.png" srcset="/img/loading.gif"></li>
+</ol>
+<h3 id="获取具体信息"><a href="#获取具体信息" class="headerlink" title="获取具体信息"></a>获取具体信息</h3><p>&emsp;&emsp;通过基本数据，我们可以获取更多信息。</p>
+<div class="hljs"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_proj_name</span>(<span class="hljs-params">self</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取项目名</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        proj_name[str]: 项目名</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    proj_name = self.m_tw.task.get(self.m_database,self.m_module,self.m_id_list,[<span class="hljs-string">&#x27;eps.project_code&#x27;</span>])[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;eps.project_code&#x27;</span>]
+    <span class="hljs-keyword">return</span> proj_name
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_module_type_id</span>(<span class="hljs-params">self, m_id</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取task id</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        task_id[str]: task id</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    task_id = self.m_tw.task.get(self.m_database,self.m_module,[m_id],[self.m_module_type+<span class="hljs-string">&#x27;.id&#x27;</span>])[<span class="hljs-number">0</span>][self.m_module_type+<span class="hljs-string">&#x27;.id&#x27;</span>]
+    <span class="hljs-keyword">return</span> task_id
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_module_id</span>(<span class="hljs-params">self, m_id</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取module id</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        module_id[str]: module id</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    module_id = self.m_tw.task.get(self.m_database,self.m_module,[m_id],[self.m_module+<span class="hljs-string">&#x27;.id&#x27;</span>])[<span class="hljs-number">0</span>][self.m_module+<span class="hljs-string">&#x27;.id&#x27;</span>]
+    <span class="hljs-keyword">return</span> module_id
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_module_entity</span>(<span class="hljs-params">self, m_id</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取当前资产名/镜头号</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        module_entity[str]: module_entity</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    module_entity = self.m_tw.task.get(self.m_database,self.m_module,[m_id],[self.m_module+<span class="hljs-string">&#x27;.entity&#x27;</span>])[<span class="hljs-number">0</span>][self.m_module+<span class="hljs-string">&#x27;.entity&#x27;</span>]
+    <span class="hljs-keyword">return</span> module_entity
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_module_cn_name</span>(<span class="hljs-params">self, m_id</span>):</span> 
+    <span class="hljs-string">&quot;&quot;&quot;获取资产中文名</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        module_cn_name[str]: module_cn_name</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> self.m_module == <span class="hljs-string">&#x27;asset&#x27;</span>:
+        module_cn_name = self.m_tw.task.get(self.m_database,self.m_module,[m_id],[self.m_module+<span class="hljs-string">&#x27;.cn_name&#x27;</span>])[<span class="hljs-number">0</span>][self.m_module+<span class="hljs-string">&#x27;.cn_name&#x27;</span>]
+    <span class="hljs-keyword">else</span>:
+        module_cn_name = <span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">return</span> module_cn_name
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_module_link_eps</span>(<span class="hljs-params">self, m_id</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取镜头的关联集数</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        module_link_eps[str]: module_link_eps</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> self.m_module == <span class="hljs-string">&#x27;shot&#x27;</span>:
+        module_link_eps = self.m_tw.task.get(self.m_database,self.m_module,[m_id],[self.m_module+<span class="hljs-string">&#x27;.link_eps&#x27;</span>])[<span class="hljs-number">0</span>][self.m_module+<span class="hljs-string">&#x27;.link_eps&#x27;</span>]
+    <span class="hljs-keyword">else</span>:
+        module_link_eps = <span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">return</span> module_link_eps
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_module_beizhu</span>(<span class="hljs-params">self, m_id</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取镜头的备注</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        module_beizhu[str]: module_beizhu</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> self.m_module == <span class="hljs-string">&#x27;shot&#x27;</span>:
+        module_beizhu = self.m_tw.task.get(self.m_database,self.m_module,[m_id],[self.m_module+<span class="hljs-string">&#x27;.beizhu&#x27;</span>])[<span class="hljs-number">0</span>][self.m_module+<span class="hljs-string">&#x27;.beizhu&#x27;</span>]
+    <span class="hljs-keyword">else</span>:
+        module_beizhu = <span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">return</span> module_beizhu
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_module_image</span>(<span class="hljs-params">self, m_id</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取资产/镜头的缩略图</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        img_path[str]: img_path</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    module_image = self.m_tw.task.get(self.m_database,self.m_module,[m_id],[self.m_module+<span class="hljs-string">&#x27;.image&#x27;</span>])[<span class="hljs-number">0</span>][self.m_module+<span class="hljs-string">&#x27;.image&#x27;</span>]
+    img_path = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> module_image:
+        img_path = eval(module_image)[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;min&#x27;</span>]
+        img_path = os.path.join(CGTW_DISK, img_path.lstrip(<span class="hljs-string">&#x27;/&#x27;</span>)).replace(<span class="hljs-string">&#x27;\\&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>)
+    <span class="hljs-keyword">return</span> img_path</code></pre></div>
+
+
+<p>&emsp;&emsp;通过 m_tw.task 获取 asset task id。选择的项中含有多少个资产则 asset_task_ids 列表就有多少个。  </p>
+<div class="hljs"><pre><code class="hljs python">asset_task_ids = self.m_tw.task.get_id(self.m_database, self.m_module, [[self.m_module+<span class="hljs-string">&#x27;.id&#x27;</span>,<span class="hljs-string">&#x27;=&#x27;</span>,asset_id]])</code></pre></div>
+
+<p>&emsp;&emsp;通过 asset task id 获取 pipeline 信息。  </p>
+<div class="hljs"><pre><code class="hljs python">pipeline_id_info = self.m_tw.task.get(self.m_database,self.m_module,[asset_task_id],[<span class="hljs-string">&#x27;pipeline.id&#x27;</span>,self.m_module_type+<span class="hljs-string">&#x27;.pipeline&#x27;</span>])</code></pre></div>
+
+<p>&emsp;&emsp;通过 pipeline 信息获取该阶段创建的文件框信息。  </p>
+<div class="hljs"><pre><code class="hljs python">pipeline_id = info[<span class="hljs-string">&#x27;pipeline.id&#x27;</span>]
+filebox_info = self.m_tw.filebox.get(db=self.m_database, module=self.m_module, module_type=self.m_module_type, field_list=[<span class="hljs-string">&#x27;sign&#x27;</span>,<span class="hljs-string">&#x27;#id&#x27;</span>], pipeline_id_list=[pipeline_id])</code></pre></div>
+
+<p>&emsp;&emsp;通过 filebox 获取文件夹的名称、路径、显示类型、显示规则等信息。</p>
+<div class="hljs"><pre><code class="hljs python">filebox_id = info[<span class="hljs-string">&#x27;#id&#x27;</span>]
+self.m_tw.info.get_filebox(self.m_database,self.m_module,id=module_id,filebox_id=filebox_id)</code></pre></div>
+
+<hr>
+<h2 id="二、数据结构"><a href="#二、数据结构" class="headerlink" title="二、数据结构"></a>二、数据结构</h2><p>&emsp;&emsp;当我们获取了 cgtw 的信息之后，需要将其储存起来，在需要时进行获取。在该工具中，使用了类和对象来存储数据。</p>
+<p>&emsp;&emsp;首先，我们要清楚要实现什么样的功能：我们先在 cgtw 的某个项目中的 资产任务/镜头任务 中，选择需要打包的 资产阶段/镜头号 。工具根据选中的任务进行分析，在设定的规则上让用户选择需要打包的文件夹，最后对用户选择的内容进行打包。</p>
+<p>&emsp;&emsp;我们梳理了工具工作流程后，可以开始分析哪些信息是需要的、关联的。当模块为资产时，关联数据为“资产 - 阶段 - 文件夹 - 文件夹内容”；当模块为镜头时，关联数据为“镜头 - 阶段 - 文件夹 - 文件夹内容”。由于关联的信息是层层递进的关系，因此利用了类的继承来保存这些信息。</p>
+<h3 id="资产-镜头节点"><a href="#资产-镜头节点" class="headerlink" title="资产/镜头节点"></a>资产/镜头节点</h3><p>&emsp;&emsp;这个节点基本定义了大部分的信息，比如节点名称、子节点、父节点、文件夹节点、勾选状态、节点中文名、节点缩略图、节点备注的信息。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>(<span class="hljs-params">object</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;资产节点/镜头节点</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Args:</span>
+<span class="hljs-string">        object (class): 继承object类</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, m_data, parent=None</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;初始化节点</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">        Args:</span>
+<span class="hljs-string">            m_data (str): 节点名称</span>
+<span class="hljs-string">            parent : Defaults to None.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        self.__name = m_data
+        self.__children = []
+        self.__parent = parent
+        self.__folder_node_list = []
+        self.__checkState = <span class="hljs-literal">False</span>
+        self.__cn_name = <span class="hljs-string">&quot;&quot;</span>
+        self.__image = <span class="hljs-string">&quot;&quot;</span>
+        self.__beizhu = <span class="hljs-string">&quot;&quot;</span></code></pre></div>
+
+<h3 id="阶段节点"><a href="#阶段节点" class="headerlink" title="阶段节点"></a>阶段节点</h3><p>&emsp;&emsp;这个节点比基础节点多了一个属性：展开折叠。该属性记录阶段是否展开。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PipeNode</span>(<span class="hljs-params">Node</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;阶段节点</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Args:</span>
+<span class="hljs-string">        Node (class): 继承 Node 节点</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, m_data, parent=None</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;初始化节点</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">        Args:</span>
+<span class="hljs-string">            m_data (str): 节点名称</span>
+<span class="hljs-string">            parent : Defaults to None.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        super(PipeNode, self).__init__(m_data, parent)
+        self.__expand = <span class="hljs-literal">True</span></code></pre></div>
+
+<h3 id="文件夹节点"><a href="#文件夹节点" class="headerlink" title="文件夹节点"></a>文件夹节点</h3><p>&emsp;&emsp;文件夹节点继承阶段节点，同时新增了一些属性：文件夹标识、路径、符合显示规则的文件列表、文件夹所属资产名、是否编辑打包文件以及编辑的文件列表。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FolderNode</span>(<span class="hljs-params">PipeNode</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;文件夹节点</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Args:</span>
+<span class="hljs-string">        PipeNode (class): 继承阶段节点</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, m_data, m_info, asset, parent=None</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;初始化节点</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">        Args:</span>
+<span class="hljs-string">            m_data (str): 节点名称</span>
+<span class="hljs-string">            m_info (dict): 节点路径、标识、符合显示规则的文件</span>
+<span class="hljs-string">            asset (asset): 节点关联的资产</span>
+<span class="hljs-string">            parent : Defaults to None.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        super(FolderNode, self).__init__(m_data, parent)
+        self.__sign = m_info[<span class="hljs-string">&#x27;sign&#x27;</span>]
+        self.__path = m_info[<span class="hljs-string">&#x27;path&#x27;</span>]
+        self.__rule_paths = m_info[<span class="hljs-string">&#x27;rule_paths&#x27;</span>]
+        self.__asset = asset
+        self.__edit_children = <span class="hljs-number">0</span>
+        self.__files_children = []</code></pre></div>
+
+<h2 id="四、Maya-打包流程"><a href="#四、Maya-打包流程" class="headerlink" title="四、Maya 打包流程"></a>四、Maya 打包流程</h2><p>&emsp;&emsp;当处理 Maya 文件打包时，我们会新开一个进程，用于启动 Maya 以及运行脚本。</p>
+<h3 id="创建进程"><a href="#创建进程" class="headerlink" title="创建进程"></a>创建进程</h3><p>&emsp;&emsp;Qt 中的 QProcess 类可用于完成启动外部程序，并与之交互通信。</p>
+<div class="hljs"><pre><code class="hljs python">process = QtCore.QProcess()</code></pre></div>
+
+<h3 id="启动进程"><a href="#启动进程" class="headerlink" title="启动进程"></a>启动进程</h3><p>&emsp;&emsp;启动 QProcess 进程有两种方式：</p>
+<ol>
+<li>传递程序以及命令行参数给 start()  <div class="hljs"><pre><code class="hljs python">process.start(<span class="hljs-string">&quot;programm.exe&quot;</span>, <span class="hljs-string">&quot;echo&gt;test.txt&quot;</span>)</code></pre></div>
+
+</li>
+</ol>
+<!--  -->
+
+
+<hr>
+<h2 id="获取最大版本号的文件"><a href="#获取最大版本号的文件" class="headerlink" title="获取最大版本号的文件"></a>获取最大版本号的文件</h2><p>&emsp;&emsp;由于制作文件的过程一般会更新很多个版本，因此需要一个方法来获取最大版本的文件。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_newset_files</span>(<span class="hljs-params">fd_files</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;获取最大版本文件 </span>
+<span class="hljs-string">    文件格式：&quot;v&quot; + &quot;版本数字&quot; + &quot;.&quot; + &quot;后缀&quot;</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Args:</span>
+<span class="hljs-string">        fd_files (list): 需要筛选的文件列表</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        max_ver_files[list]: 最大版本文件列表</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    max_ver_files = []
+    file_ver_dict = &#123;&#125;
+    <span class="hljs-keyword">for</span> fd_file <span class="hljs-keyword">in</span> fd_files:
+        split_info = re.split(<span class="hljs-string">&quot;v(?=\d)|\.&quot;</span>, fd_file)
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> len(split_info) == <span class="hljs-number">3</span>:
+            <span class="hljs-keyword">continue</span>
+        file_start, file_ver, file_ext = split_info
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> file_start <span class="hljs-keyword">in</span> file_ver_dict.keys():
+            file_ver_dict[file_start] = &#123;<span class="hljs-string">&#x27;ver&#x27;</span>: file_ver, <span class="hljs-string">&#x27;ext&#x27;</span>: file_ext&#125;
+        <span class="hljs-keyword">elif</span> file_ver &gt; file_ver_dict[file_start][<span class="hljs-string">&#x27;ver&#x27;</span>]:
+            file_ver_dict[file_start][<span class="hljs-string">&#x27;ver&#x27;</span>] = file_ver
+    <span class="hljs-keyword">for</span> start, info <span class="hljs-keyword">in</span> file_ver_dict.items():
+        file_path = start + <span class="hljs-string">&#x27;v&#x27;</span> + info[<span class="hljs-string">&#x27;ver&#x27;</span>] + <span class="hljs-string">&#x27;.&#x27;</span> + info[<span class="hljs-string">&#x27;ext&#x27;</span>]
+        max_ver_files.append(file_path)
+    <span class="hljs-keyword">return</span> max_ver_files</code></pre></div>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/cgtw/">cgtw</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CgTeamwork/">CgTeamwork</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/15/unreal/UE4%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/1_%E8%99%9A%E5%B9%BB4%E5%BC%95%E6%93%8E%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UE4高级程序开发系列教程 - 1_虚幻4引擎关卡设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/13/maya/mel%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">Mel的使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "基于Cgtw的打包工具&nbsp;",
+      ],
+      cursorChar: "🍕",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,716 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>按下“ESC”中断运行中的for循环 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-10-09 17:53" pubdate>
+      2020年10月9日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      690 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">按下“ESC”中断运行中的for循环</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;假设有一个程序，运行过程中每隔一秒打印一次数字，当键盘按下“ESC”时，使该循环终止。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">a_func</span>():</span>
+    <span class="hljs-comment"># ! 循环程序</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+        time.sleep(<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">print</span> i</code></pre></div>
+
+<h3 id="🐾-pynput"><a href="#🐾-pynput" class="headerlink" title="🐾 pynput"></a>🐾 pynput</h3><p>&emsp;&emsp;pynput.keyboard：包含控制和监控键盘的类。</p>
+<p>&emsp;&emsp;调用pynput.mouse.Listener.stop，发起StopException异常，或者回调函数中返回False都会停止事件的监听。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> pynput <span class="hljs-keyword">import</span> keyboard
+<span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">thread</span>(<span class="hljs-params">Thread</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        Thread.__init__( self )
+        self.shut_down_signal = <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-comment"># ! 循环程序</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+            <span class="hljs-keyword">if</span> self.shut_down_signal:
+                time.sleep(<span class="hljs-number">1</span>)
+                <span class="hljs-keyword">print</span> i
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">return</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">on_press</span>(<span class="hljs-params">key</span>):</span>
+    <span class="hljs-comment"># ! 重写on_press</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">on_release</span>(<span class="hljs-params">key</span>):</span>
+    <span class="hljs-comment"># ! 重写on_release</span>
+    <span class="hljs-keyword">if</span> key ==  keyboard.Key.esc:
+        <span class="hljs-keyword">print</span> <span class="hljs-string">&quot;Esc&quot;</span>
+        <span class="hljs-comment"># ! 修改线程中的shut_down_signal</span>
+        run_thread.shut_down_signal = <span class="hljs-literal">False</span>
+        <span class="hljs-comment"># ! 退出监听器</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+<span class="hljs-comment"># ! 启动线程</span>
+run_thread = thread()
+run_thread.start()
+<span class="hljs-comment"># ! 启动监听器</span>
+<span class="hljs-keyword">with</span> keyboard.Listener(on_press=on_press,on_release=on_release) <span class="hljs-keyword">as</span> listener:
+    listener.join()</code></pre></div>
+
+<h3 id="🚀-QWidget-的-keyPressEvent-和-keyReleaseEvent"><a href="#🚀-QWidget-的-keyPressEvent-和-keyReleaseEvent" class="headerlink" title="🚀 QWidget 的 keyPressEvent 和 keyReleaseEvent"></a>🚀 QWidget 的 keyPressEvent 和 keyReleaseEvent</h3><p>&emsp;&emsp;在Qt窗口中，可以通过重写 keyPressEvent() 和 keyReleaseEvent() 这两个方法实现。keyPressEvent 是 QWidget 里面的函数，所以凡是继承自 QWidget 的类都可以通过实现这个函数来完成对按键事件的响应。</p>
+<p>&emsp;&emsp;点击“Click to run”按钮开始for循环，按“Esc”退出。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
+
+<span class="hljs-keyword">from</span> PySide2.QtCore <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">from</span> PySide2.QtGui <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">from</span> PySide2.QtWidgets <span class="hljs-keyword">import</span> *
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">thread</span>(<span class="hljs-params">Thread</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        Thread.__init__( self )
+        self.shut_down_signal = <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-comment"># ! 循环程序</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+            <span class="hljs-keyword">if</span> self.shut_down_signal:
+                time.sleep(<span class="hljs-number">1</span>)
+                <span class="hljs-keyword">print</span> i
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">return</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">m_window</span>(<span class="hljs-params">QMainWindow</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        super(m_window, self).__init__()
+        self.centralwidget = QWidget(self)
+        <span class="hljs-comment"># ! StrongFocus：可以通过单击来接受焦点，只要在窗口下，就能接收键盘事件</span>
+        self.setFocusPolicy(Qt.StrongFocus)
+        self.lay = QHBoxLayout(self.centralwidget)
+        self.m_btn = QPushButton(<span class="hljs-string">&#x27;Click to run&#x27;</span>)
+        self.lay.addWidget(self.m_btn)
+        <span class="hljs-comment"># ! 点击按钮启动线程</span>
+        self.m_btn.clicked.connect(self.start_thread)
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start_thread</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-comment"># ! 启动线程</span>
+        self.thread = thread()
+        self.thread.start()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">keyPressEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        <span class="hljs-comment"># ! 重写keyPressEvent</span>
+        <span class="hljs-keyword">pass</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">keyReleaseEvent</span>(<span class="hljs-params">self, event</span>):</span>
+        <span class="hljs-comment"># ! 重写keyReleaseEvent</span>
+        <span class="hljs-comment"># ! 当按下“esc”时，退出for循环</span>
+        <span class="hljs-keyword">if</span> event.key() == Qt.Key_Escape:
+            <span class="hljs-keyword">print</span> <span class="hljs-string">&quot;esc&quot;</span>
+            self.thread.shut_down_signal = <span class="hljs-literal">False</span>
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    mainWin = m_window()
+    mainWin.show()</code></pre></div>
+
+<h3 id="🎉-QProgressDialog"><a href="#🎉-QProgressDialog" class="headerlink" title="🎉 QProgressDialog"></a>🎉 QProgressDialog</h3><p>&emsp;&emsp;进度对话框用于向用户指示操作将花费多长时间，并表明应用程序正在运行。它还可以使用户有机会中止该操作。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> time
+
+<span class="hljs-keyword">from</span> PySide2.QtCore <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">from</span> PySide2.QtGui <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">from</span> PySide2.QtWidgets <span class="hljs-keyword">import</span> *
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">m_window</span>(<span class="hljs-params">QMainWindow</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        super(m_window, self).__init__()
+        self.centralwidget = QWidget(self)
+        self.lay = QHBoxLayout(self.centralwidget)
+        self.m_btn = QPushButton(<span class="hljs-string">&#x27;Click to run&#x27;</span>)
+        self.lay.addWidget(self.m_btn)
+        <span class="hljs-comment"># ! 点击按钮启动线程</span>
+        self.m_btn.clicked.connect(self.start_thread)
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start_thread</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-comment"># ! 创建进度条</span>
+        progress = QProgressDialog(<span class="hljs-string">&quot;Running...&quot;</span>, <span class="hljs-string">&quot;Abort&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>, self);
+        <span class="hljs-comment"># ! 设置进度条模式</span>
+        progress.setWindowModality(Qt.WindowModal);
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+            progress.setValue(i);
+            <span class="hljs-keyword">if</span> progress.wasCanceled():
+                <span class="hljs-keyword">break</span>
+            time.sleep(<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">print</span> i
+        <span class="hljs-keyword">return</span>
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    mainWin = m_window()
+    mainWin.show()</code></pre></div>
+
+<p>&emsp;&emsp;我们可以通过QProgressDialog进度条随时打断正在运行的程序，而不用自己创建线程。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SCRIPT/">SCRIPT</a>
+                    
+                      <a class="hover-with-bg" href="/categories/SCRIPT/Common/">Common</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MAYA/">MAYA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SCRIPT/">SCRIPT</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PYTHON/">PYTHON</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/09/script/Git%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AASSH-key/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git配置多个SSH-key</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/27/own/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">
+                        <span class="hidden-mobile">我的第一篇博客</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "按下“ESC”中断运行中的for循环&nbsp;",
+      ],
+      cursorChar: "🍒",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
