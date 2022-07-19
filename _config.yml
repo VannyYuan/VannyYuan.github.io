@@ -111,3 +111,6 @@ githubEmojis:
   inject: true
   styles:
   customEmojis:
+
+http:
+  postBuffer: 524288000
