@@ -266,9 +266,11 @@ myLocalProc;</code></pre></div>
     <span class="hljs-keyword">setAttr</span> mySphere.visibility on;
 &#125;</code></pre></div>
 
-
 </li>
 </ul>
+<hr>
+<h3 id="快速终止当前-Maya"><a href="#快速终止当前-Maya" class="headerlink" title="快速终止当前 Maya"></a>快速终止当前 Maya</h3><div class="hljs"><pre><code class="hljs MEL"><span class="hljs-keyword">evalDeferred</span> -lp <span class="hljs-string">&quot;$i = `getpid`&quot;</span>;
+<span class="hljs-keyword">evalDeferred</span> -lp <span class="hljs-string">&quot;system(\&quot;taskkill /PID \&quot;  + $i +\&quot; /f\&quot;)&quot;</span>;</code></pre></div>
 
             </div>
             <hr>
@@ -479,7 +481,7 @@ myLocalProc;</code></pre></div>
         '  ',
         "Mel的使用&nbsp;",
       ],
-      cursorChar: "⚡",
+      cursorChar: "🍦",
       typeSpeed: 70,
       loop: false,
     });
