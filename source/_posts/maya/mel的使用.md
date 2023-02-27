@@ -95,4 +95,10 @@ myLocalProc;
     }
     ```
 
+---
+### 快速终止当前 Maya
 
+```MEL
+evalDeferred -lp "$i = `getpid`";
+evalDeferred -lp "system(\"taskkill /PID \"  + $i +\" /f\")";
+```
