@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>Deadline开发总结 - 仓库篇 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2023-02-17 15:10" pubdate>
+      2023年2月17日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Deadline开发总结 - 仓库篇</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;Deadline 是 AWS Thinkbox 旗下的产品。从接触TD这个工作以来，除了Maya外一直在和这个软件打交道，对于实现批量自动化来说是非常重要的工具。</p>
+<p>&emsp;&emsp;记录一下我了解的方面。</p>
+<h2 id="📒仓库篇"><a href="#📒仓库篇" class="headerlink" title="📒仓库篇"></a>📒仓库篇</h2><hr>
+<h3 id="一、连接仓库"><a href="#一、连接仓库" class="headerlink" title="一、连接仓库"></a>一、连接仓库</h3><p>&emsp;&emsp;像软件安装之类的就不详细阐述了，因为都是一搜一大把。</p>
+<p>&emsp;&emsp;从仓库开始说，每个仓库相当于服务器，每台加入仓库的机器相当于客户端，需要有仓库（服务器）地址和证书才能访问仓库。</p>
+<p><img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>&emsp;&emsp;当然了，服务器和客户端可以在同一台机子上的。</p>
+<p>&emsp;&emsp;❓️仓库连接失败？</p>
+<p>&emsp;&emsp;首先检查仓库地址以及证书的访问权限，再者就是检查机器时间是不是实时，因为遇到过某些软件锁时间导致连不上 Deadline 仓库的问题。</p>
+<p>&emsp;&emsp;📄帮助文档</p>
+<p>&emsp;&emsp;非常建议去官方帮助文档找想实现或者修改的功能，比较详细能解决大部分的问题。虽然是全英文，但是开个翻译理解上基本是没问题的。</p>
+<p>&emsp;&emsp;<a target="_blank" rel="noopener" href="http://docs.thinkboxsoftware.com/">AWS Thinkbox 综合指南</a></p>
+<p>&emsp;&emsp;<a target="_blank" rel="noopener" href="http://docs.thinkboxsoftware.com/">Deadline 指南</a></p>
+<hr>
+<h3 id="二、仓库基本设置"><a href="#二、仓库基本设置" class="headerlink" title="二、仓库基本设置"></a>二、仓库基本设置</h3><p>&emsp;&emsp;作为一个仓库管理员，除了搭建仓库外，肯定少不了对仓库进行配置。</p>
+<p>&emsp;&emsp;💡通过下图可以进入仓库设置页面。</p>
+<p><img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>⭐️ <strong>说下常用设置</strong></p>
+<ol>
+<li>开启远程设置<br> 按如图设置就可以对机器发送远程命令啦。<br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/3.png" srcset="/img/loading.gif" alt="3"><br> 发送命令步骤：<br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/4.png" srcset="/img/loading.gif" alt="4"><br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/5.png" srcset="/img/loading.gif" alt="5"></li>
+<li>管理员密码<br> 默认创建仓库后是没有管理员密码的，可以在这里设置<br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/6.png" srcset="/img/loading.gif" alt="6"></li>
+<li>任务优先度调配<br> 默认是 Pool（池） -&gt; Priority（优先度） -&gt; First-In First-Out（队列）<br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/7.png" srcset="/img/loading.gif" alt="7"></li>
+<li>任务Failed设置<br> 当任务运行失败次数超过指定次数，会爆红标记为“Failed”状态<br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/8.png" srcset="/img/loading.gif" alt="8"></li>
+<li>自动清理任务<br> 一般过长时间的Complete任务可以通过设置该参数自动删除清理<br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/9.png" srcset="/img/loading.gif" alt="9"></li>
+</ol>
+<hr>
+<h3 id="三、仓库插件配置"><a href="#三、仓库插件配置" class="headerlink" title="三、仓库插件配置"></a>三、仓库插件配置</h3><p>&emsp;&emsp;通过这里进入插件配置。</p>
+<p><img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/10.png" srcset="/img/loading.gif" alt="10"></p>
+<p>&emsp;&emsp;😂但是呢，修改配置还是要到仓库的配置文件中修改的。</p>
+<h4 id="MayaBatch新增版本"><a href="#MayaBatch新增版本" class="headerlink" title="MayaBatch新增版本"></a>MayaBatch新增版本</h4><p>&emsp;&emsp;以新增MAYA2018为例。括号内容需要删掉并把前面的内容按需修改。</p>
+<ol>
+<li><p>配置文件夹路径：<code>xxx\DeadlineRepository10\plugins\MayaBatch</code></p>
+</li>
+<li><p>MayaBatch.param<br> 添加以下代码：  </p>
+ <div class="hljs"><pre><code class="hljs txt">[RenderExecutable2018_0]
+Type=multilinemultifilename
+Category=Render Executables
+CategoryOrder=0
+Index=15（这个根据文件实际数量修改）
+Label=Maya 2018 Render Executable
+Default=C:\Program Files\Autodesk\Maya2018\bin\MayaBatch.exe（MayaBatch路径）;/usr/autodesk/maya2018/bin/maya;/Applications/Autodesk/maya2018/Maya.app/Contents/bin/maya;/usr/autodesk/mayaIO2018/bin/maya
+Description=The path to the Maya 2018 executable file used for rendering. Enter alternative paths on separate lines.</code></pre></div>
+</li>
+<li><p>MayaBatch.py<br> 假如想调用，但是又不想传入Maya文件打开，只是单独执行一下mel的话，需要修改以下代码（总共有两处）。 因为默认的判断方式是，如果检测到文件名为空，就会直接让任务Failed掉。  </p>
+<ul>
+<li><p>源代码：</p>
+  <div class="hljs"><pre><code class="hljs python">scriptBuilder.AppendLine( <span class="hljs-string">&#x27;string $checkScene = `file -q -sn`;&#x27;</span> )
+scriptBuilder.AppendLine( <span class="hljs-string">&#x27;if ($checkScene==&quot;&quot; &amp;&amp; $sceneName!=&quot;&quot;)&#x27;</span> )</code></pre></div>
+</li>
+<li><p>修改后的代码：</p>
+  <div class="hljs"><pre><code class="hljs python">scriptBuilder.AppendLine( <span class="hljs-string">&#x27;string $checkScene = `file -q -loc`;&#x27;</span> )
+scriptBuilder.AppendLine( <span class="hljs-string">&#x27;if ($checkScene==&quot;&quot; &amp;&amp; $sceneName!=&quot;&quot;)&#x27;</span> )</code></pre></div>
+
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Python新增版本"><a href="#Python新增版本" class="headerlink" title="Python新增版本"></a>Python新增版本</h4><p>&emsp;&emsp;以新增Python3.7为例。括号内容需要按需修改。</p>
+<ol>
+<li><p>配置文件夹路径：<code>xxx\DeadlineRepository10\plugins\Python</code></p>
+</li>
+<li><p>Python.param<br> 添加以下代码：  </p>
+ <div class="hljs"><pre><code class="hljs txt">[Python_Executable_3_7]
+Type=multilinemultifilename
+Label=Python 3.7 Executable
+Category=Python Executables
+CategoryOrder=0
+Index=12（这个根据文件实际数量修改）
+Default=xxx\SoftWare\Tools\Python37\python.exe（Python的路径）;/usr/bin/python
+Description=The path to the Python executable. Enter alternative paths on separate lines.</code></pre></div>
+</li>
+<li><p>Python.options<br> 找到这里的位置，添加3.7</p>
+ <div class="hljs"><pre><code class="hljs txt">[Version]
+Type=enum
+Values=2.3;2.4;2.5;2.6;2.7;3.0;3.1;3.2;3.3;3.4;3.5;3.6;3.7（添加3.7）
+Label=Version
+Category=Python Options
+CategoryOrder=0
+Index=2
+Description=The version of Python to use.
+Required=false
+DisableIfBlank=true</code></pre></div>
+</li>
+<li><p>最后，请在Python插件页面勾选加载！<br> <img src="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/11.png" srcset="/img/loading.gif" alt="11"></p>
+</li>
+</ol>
+<hr>
+<p>&emsp;&emsp;仓库篇就先讲这么多，后篇就开始讲任务提交相关的吧。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Deadline/">Deadline</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Deadline/">Deadline</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Deadline开发总结 - 提交篇</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/19/unreal/UE4%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/2_%E8%99%9A%E5%B9%BB4%E5%BC%95%E6%93%8E%E5%85%B3%E5%8D%A1%E8%93%9D%E5%9B%BE%E8%AE%BE%E8%AE%A1/">
+                        <span class="hidden-mobile">UE4高级程序开发系列教程 - 2_虚幻4引擎关卡蓝图设计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Deadline开发总结 - 仓库篇&nbsp;",
+      ],
+      cursorChar: "🌻",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

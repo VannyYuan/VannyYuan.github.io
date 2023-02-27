@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Vanny Yuan">
+  <meta name="keywords" content="">
+  <title>Deadline开发总结 - 提交篇 - Vanny Yuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Vanny Yuan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2023-02-21 20:30" pubdate>
+      2023年2月21日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Deadline开发总结 - 提交篇</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>&emsp;&emsp;讲完仓库配置，要开始进行代码提交任务到 Deadline 去跑了！🚙🚙🚙</p>
+<h2 id="📒提交篇"><a href="#📒提交篇" class="headerlink" title="📒提交篇"></a>📒提交篇</h2><hr>
+<h3 id="一、JobInfo-和-PluginInfo-文件"><a href="#一、JobInfo-和-PluginInfo-文件" class="headerlink" title="一、JobInfo 和 PluginInfo 文件"></a>一、JobInfo 和 PluginInfo 文件</h3><p>&emsp;&emsp;Deadline的任务提交，简单总结就是提交一个“JobInfo.job”文件和一个“PluginInfo.job”文件。</p>
+<p>&emsp;&emsp;JobInfo.job 文件，任务具体的配置。</p>
+<p>&emsp;&emsp;PluginInfo.job 文件，插件（执行载体）具体的配置。</p>
+<p>&emsp;&emsp;其实在每个 Deadline 任务的属性页面中，都可以看到有这一页，这些信息内容就来自JobInfo 和 PluginInfo 文件。  </p>
+<p><img src="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>&emsp;&emsp;以该任务为示例，这俩文件大概长这样 👀：</p>
+<h4 id="JobInfo-job"><a href="#JobInfo-job" class="headerlink" title="JobInfo.job"></a>JobInfo.job</h4><div class="hljs"><pre><code class="hljs txt">OverrideTaskExtraInfoNames=false
+BatchName=XNF01_EP099_SC099_C0001_CFX_Publish
+ChunkSize=5
+Name=XNF01_EP099_SC099_C0001_CFX_Cgtw_Status
+MachineName=yuanwanyi
+Priority=0
+Frames=0
+Group=none
+Plugin=MayaBatch
+Pool=abc
+JobDependencies=63f4c022e23aec4c28e4e2ee
+EnableTimeoutsForScriptTasks=true
+TaskTimeoutMinutes=5
+FailureDetectionJobErrors=5
+FailureDetectionTaskErrors=3
+OverrideJobFailureDetection=true
+OverrideTaskFailureDetection=true
+EnvironmentKeyValue0=cgtw_task_file_name=XNF01_EP099_SC099_C0001_CFX
+EnvironmentKeyValue1=cgtw_task_status=FinishAbc
+EnvironmentKeyValue2=cgtw_note_str=
+EnvironmentKeyValue3=MAYA_UI_LANGUAGE=en_US
+EnvironmentKeyValue4=MAYA_DEBUG_ENABLE_CRASH_REPORTING=0
+EnvironmentKeyValue5=MAYA_ENABLE_LEGACY_VIEWPORT=1</code></pre></div>
+
+<p>&emsp;&emsp;♪ 这个文件记录了任务提交到 Deadline 上的基本参数设置。挑几个常用参数来说：</p>
+<ul>
+<li>BatchName：任务打组的组名</li>
+<li>Name：任务名</li>
+<li>MachineName：提交任务的机器名</li>
+<li>Priority：任务优先度</li>
+<li>Frames：渲染帧范围</li>
+<li>Plugin：任务使用的插件</li>
+<li>Group：分配执行的组</li>
+<li>Pool：分配执行的池</li>
+<li>JobDependencies：任务依赖，通过传入 JobID ，等待指定任务完成后才开始执行</li>
+<li>EnableTimeoutsForScriptTasks：设置超时任务，默认为 false</li>
+<li>TaskTimeoutMinutes：设置超时时间，超过后任务自动 Failed，需要配合 EnableTimeoutsForScriptTasks 为 true 使用</li>
+<li>EnvironmentKeyValue0：环境变量名和值，后面的数字根据设置的变量数量递增</li>
+</ul>
+<p>&emsp;&emsp;♩ 仔细对比你会发现，有一些参数在文件里有，但是在 Deadline 任务的 Submission Params 页面是找不到的，这是因为任务成功提交后，一些参数记录到别的页面中去了。  </p>
+<p><img src="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p><img src="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p><img src="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p><img src="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p><img src="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/6.png" srcset="/img/loading.gif" alt="6"></p>
+<ul>
+<li>PluginInfo.job</li>
+</ul>
+<div class="hljs"><pre><code class="hljs txt">Version=2018
+StrictErrorChecking=False
+ScriptFilename=***/***.mel
+ScriptJob=True</code></pre></div>
+
+<p>&emsp;&emsp;♪ 这个文件就简单很多了。</p>
+<ul>
+<li>Version：插件的版本（这里指Maya2018）</li>
+<li>ScriptFilename：Mel脚本</li>
+</ul>
+<h4 id="2-提交任务"><a href="#2-提交任务" class="headerlink" title="2. 提交任务"></a>2. 提交任务</h4><p>&emsp;&emsp;🔺这两个文件准备好之后，运行一下这段 Python 代码，啪的一下，提交！</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">submit_single_job</span>(<span class="hljs-params">job_info_path, plugin_info_path</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;通过jobInfo, pluginInfo两个文件，提交单个Deadline任务</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Args:</span>
+<span class="hljs-string">        job_info_path (str): JobInfo文件路径</span>
+<span class="hljs-string">        plugin_info_path (str): PluginInfo文件路径</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    Returns:</span>
+<span class="hljs-string">        jobID: 返回提交的任务id</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-comment"># 这里的deadline_path是 &#x27;deadlinecommand.exe&#x27; 位置完整路径</span>
+    deadline_path = os.path.join(<span class="hljs-string">&#x27;【Deadline安装目录】&#x27;</span>, <span class="hljs-string">&#x27;deadlinecommand.exe&#x27;</span>)
+    submit_cmd = <span class="hljs-string">&#x27;&quot;%s&quot; %s %s&#x27;</span> % (deadline_path, job_info_path, plugin_info_path)
+    res = subprocess.Popen(submit_cmd, shell=<span class="hljs-literal">True</span>, stdout=subprocess.PIPE)
+    <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> res.stdout.readlines():
+        <span class="hljs-keyword">if</span> str(l).startswith(<span class="hljs-string">&#x27;JobID&#x27;</span>):
+            jobID = str(l).lstrip(<span class="hljs-string">&#x27;JobID=&#x27;</span>).rstrip(<span class="hljs-string">r&#x27;\r\n&#x27;</span>).strip()
+            <span class="hljs-keyword">return</span> jobID</code></pre></div>
+
+<h3 id="二、提交-MayaBatch-MEL-脚本任务"><a href="#二、提交-MayaBatch-MEL-脚本任务" class="headerlink" title="二、提交 MayaBatch MEL 脚本任务"></a>二、提交 MayaBatch MEL 脚本任务</h3><p>&emsp;&emsp;MayaBatch 的提交原理很简单，就是传入一个 MEL 文件，让 MayaBatch 后台去执行这个 MEL文件就可以了。</p>
+<p>&emsp;&emsp;上面的示例就是该任务类型。</p>
+<hr>
+<h3 id="三、提交-MayaBatch-渲染任务"><a href="#三、提交-MayaBatch-渲染任务" class="headerlink" title="三、提交 MayaBatch 渲染任务"></a>三、提交 MayaBatch 渲染任务</h3><p>&emsp;&emsp;与提交 MayaBatch MEL 脚本任务不同的是，两个 Job 文件的提交参数要丰富一点。比如 JobInfo 里的 ChunkSize、Frames ；PluginInfo 里的 SceneFile、ProjectPath、UseLegacyRenderLayers、RenderSetupIncludeLights、Build、Camera、Renderer、LocalRendering、OutputFilePath。</p>
+<p><img src="/2023/02/21/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%90%E4%BA%A4%E7%AF%87/8.png" srcset="/img/loading.gif" alt="10"></p>
+<hr>
+<h3 id="四、提交-Python-任务"><a href="#四、提交-Python-任务" class="headerlink" title="四、提交 Python 任务"></a>四、提交 Python 任务</h3><p>&emsp;&emsp;Python 的话，自由度就很高了，只要你加载了 Python 插件，传进去一个 py 文件让它执行就好了。</p>
+<p>&emsp;&emsp;讲述一种用 Python 前台打开 Maya 并执行脚本的提交方法。本质上和 MayaBatch 执行 Mel 脚本是一样的，只是在调用 Maya.exe 执行 Mel 脚本的时候，用了一层 Python 包装。</p>
+<p><code>python.exe run_maya.py</code></p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># run_maya.py</span>
+os.system(<span class="hljs-string">&#x27;xxx/maya.exe xxx/xxx.mel&#x27;</span>)</code></pre></div>
+
+<p>&emsp;&emsp;值得一提的是，怎么把前台 Maya 的脚本编辑器信息输出到 Deadline 任务 log 里呢？在 Maya 中有一个环境变量叫 MAYA_CMD_FILE_OUTPUT，把该变量指定一个临时 log 文件，就会把日志信息内容记录在 log 文件中。</p>
+<p>🎺 以下是详细的提交代码示例。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Maya.exe 路径</span>
+maya_exe_path = sys.argv[<span class="hljs-number">1</span>]
+<span class="hljs-comment"># xxx.mel 路径</span>
+mel_path = sys.argv[<span class="hljs-number">2</span>]
+
+<span class="hljs-comment"># 通过注册表查找 Maya.exe 路径</span>
+string = <span class="hljs-string">r&#x27;SOFTWARE\Autodesk\Maya\&#123;&#125;\Setup\InstallPath&#x27;</span>.format(<span class="hljs-number">2018</span>)
+handle = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, string)
+location, __type = winreg.QueryValueEx(handle, <span class="hljs-string">&#x27;MAYA_INSTALL_LOCATION&#x27;</span>)
+maya_exe_path = location + <span class="hljs-string">r&#x27;bin\maya.exe&#x27;</span>
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> maya_exe_path:
+    <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&#x27;No Found Maya !&#x27;</span>)
+
+<span class="hljs-comment"># 用 QProcess 提交进程</span>
+process = QProcess()
+<span class="hljs-comment"># 创建一个收集 Maya 输出信息的临时文件</span>
+temp = tempfile.NamedTemporaryFile(mode=<span class="hljs-string">&#x27;w+t&#x27;</span>,delete=<span class="hljs-literal">False</span>)
+temp_file_name = temp.name
+
+arg = [<span class="hljs-string">&#x27;-script&#x27;</span>, mel_path, <span class="hljs-string">&#x27;-noAutoloadPlugins&#x27;</span>]
+_env = QProcessEnvironment.systemEnvironment()
+<span class="hljs-comment"># 指定 Maya 输出信息记录文件</span>
+_env.insert(<span class="hljs-string">&#x27;MAYA_CMD_FILE_OUTPUT&#x27;</span>, temp_file_name)
+<span class="hljs-comment"># 设置 Maya 启动语言</span>
+_env.insert(<span class="hljs-string">&#x27;MAYA_UI_LANGUAGE&#x27;</span>, <span class="hljs-string">&#x27;en_US&#x27;</span>)
+<span class="hljs-comment"># 关闭 Maya 崩溃报错功能</span>
+_env.insert(<span class="hljs-string">&#x27;MAYA_DEBUG_ENABLE_CRASH_REPORTING&#x27;</span>, <span class="hljs-string">&#x27;0&#x27;</span>)
+
+<span class="hljs-comment"># 设置进程环境变量</span>
+process.setProcessEnvironment(_env)
+<span class="hljs-comment"># 启动进程</span>
+process.start(maya_exe_path, arg)
+<span class="hljs-comment"># 等待进程结束</span>
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> process.waitForFinished():
+    <span class="hljs-keyword">if</span> process.state() == QProcess.NotRunning:
+        <span class="hljs-keyword">break</span>
+    pid = process.processId()
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> psutil.pid_exists(pid):
+        <span class="hljs-keyword">break</span>
+
+<span class="hljs-comment"># 读取日志信息并打印</span>
+<span class="hljs-keyword">with</span> open(temp_file_name, <span class="hljs-string">&#x27;r+&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    info = f.readlines()
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> info:
+    print(i)
+
+temp.close()
+os.remove(temp_file_name)</code></pre></div>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Deadline/">Deadline</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Deadline/">Deadline</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/17/deadline/Deadline%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E4%BB%93%E5%BA%93%E7%AF%87/">
+                        <span class="hidden-mobile">Deadline开发总结 - 仓库篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Deadline开发总结 - 提交篇&nbsp;",
+      ],
+      cursorChar: "🔥",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
