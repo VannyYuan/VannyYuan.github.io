@@ -1,5 +1,5 @@
 ---
-title: Deadline开发总结 - 仓库篇
+title: Deadline开发总结 - 提交篇
 tags: [Deadline]
 category: [Deadline]
 date: 2023-02-21 20:30:46
